@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>فتح حساب - JACK</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #080b12;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 450px;
+            background: #111722;
+            border: 1px solid #2b3342;
+            border-radius: 22px;
+            padding: 28px;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 5px;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            text-align: center;
+            color: #8f98a8;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #d9dde5;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 17px;
+
+            border: 1px solid #303949;
+            border-radius: 12px;
+
+            background: #080c13;
+            color: white;
+
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #ffffff;
+        }
+
+        .plans-title {
+            margin-bottom: 10px;
+            color: #d9dde5;
+        }
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .plan {
+            padding: 14px 8px;
+
+            border: 1px solid #303949;
+            border-radius: 12px;
+
+            background: #080c13;
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+        .plan:hover {
+            border-color: #ffffff;
+        }
+
+        .plan.selected {
+            background: #ffffff;
+            color: #080b12;
+            border-color: #ffffff;
+        }
+
+        .create {
+            width: 100%;
+            padding: 16px;
+
+            border: none;
+            border-radius: 13px;
+
+            background: #ffffff;
+            color: #080b12;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .create:active {
+            transform: scale(.98);
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #929baa;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        .message {
+            display: none;
+
+            margin-top: 18px;
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background: #18202c;
+
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        @media (max-width: 400px) {
+
+            .card {
+                padding: 22px;
+            }
+
+            .logo {
+                font-size: 36px;
+            }
+
+            .plans {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="card">
+
+        <div class="logo">
+            JACK
+        </div>
+
+        <h1 class="title">
+            فتح حساب
+        </h1>
+
+        <p class="description">
+            أنشئ حسابك واختر مدة الاشتراك
+        </p>
+
+
+        <form id="accountForm">
+
+            <label>
+                الاسم الكامل
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="أدخل الاسم الكامل"
+                required
+            >
+
+
+            <label>
+                كلمة المرور
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="أدخل كلمة المرور"
+                required
+            >
+
+
+            <label>
+                تأكيد كلمة المرور
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="أعد كتابة كلمة المرور"
+                required
+            >
+
+
+            <div class="plans-title">
+                اختر مدة الاشتراك
+            </div>
+
+            <div class="plans">
+
+                <button type="button" class="plan" data-days="1">
+                    يوم
+                </button>
+
+                <button type="button" class="plan" data-days="3">
+                    3 أيام
+                </button>
+
+                <button type="button" class="plan" data-days="7">
+                    أسبوع
+                </button>
+
+                <button type="button" class="plan" data-days="30">
+                    شهر
+                </button>
+
+                <button type="button" class="plan" data-days="90">
+                    3 أشهر
+                </button>
+
+                <button type="button" class="plan" data-days="180">
+                    6 أشهر
+                </button>
+
+                <button type="button" class="plan" data-days="365">
+                    12 شهر
+                </button>
+
+            </div>
+
+
+            <button type="submit" class="create">
+                فتح الحساب
+            </button>
+
+        </form>
+
+
+        <div id="message" class="message"></div>
+
+
+        <a href="index.html" class="back">
+            ← العودة للرئيسية
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let selectedDays = 0;
+
+
+document.querySelectorAll(".plan").forEach(function(plan) {
+
+    plan.addEventListener("click", function() {
+
+        document.querySelectorAll(".plan").forEach(function(item) {
+            item.classList.remove("selected");
+        });
+
+        this.classList.add("selected");
+
+        selectedDays = Number(this.dataset.days);
+
+    });
+
+});
+
+
+document.getElementById("accountForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const message =
+        document.getElementById("message");
+
+
+    if (selectedDays === 0) {
+
+        message.style.display = "block";
+
+        message.innerHTML =
+            "⚠️ اختر مدة الاشتراك أولاً.";
+
+        return;
+    }
+
+
+    if (password !== confirmPassword) {
+
+        message.style.display = "block";
+
+        message.innerHTML =
+            "⚠️ كلمتا المرور غير متطابقتين.";
+
+        return;
+    }
+
+
+    message.style.display = "block";
+
+    message.innerHTML =
+        "✅ تم تجهيز طلب فتح الحساب.<br><br>" +
+        "الاسم: " + name + "<br>" +
+        "مدة الاشتراك: " + selectedDays + " يوم";
+
+});
+
+</script>
+
+</body>
+</html>
