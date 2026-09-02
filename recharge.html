@@ -1,720 +1,371 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>شحن الرصيد - JACK</title>
-
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-        body {
-
-            min-height: 100vh;
-
-            background: #080b12;
-
-            color: white;
-
-            font-family: Arial, sans-serif;
-
-        }
-
-
-        .page {
-
-            min-height: 100vh;
-
-            padding: 30px 20px;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-        }
-
-
-        .card {
-
-            width: 100%;
-
-            max-width: 450px;
-
-            background: #111722;
-
-            border: 1px solid #2b3342;
-
-            border-radius: 22px;
-
-            padding: 30px;
-
-        }
-
-
-        .logo {
-
-            text-align: center;
-
-            font-size: 42px;
-
-            font-weight: 900;
-
-            letter-spacing: 5px;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .title {
-
-            text-align: center;
-
-            font-size: 24px;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .description {
-
-            text-align: center;
-
-            color: #8f98a8;
-
-            margin-bottom: 30px;
-
-        }
-
-
-        label {
-
-            display: block;
-
-            color: #d9dde5;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        input {
-
-            width: 100%;
-
-            padding: 16px;
-
-            margin-bottom: 20px;
-
-            background: #080c13;
-
-            color: white;
-
-            border: 1px solid #303949;
-
-            border-radius: 12px;
-
-            outline: none;
-
-            font-size: 16px;
-
-        }
-
-
-        input:focus {
-
-            border-color: white;
-
-        }
-
-
-        .amount-box {
-
-            position: relative;
-
-        }
-
-
-        .currency {
-
-            position: absolute;
-
-            left: 15px;
-
-            top: 16px;
-
-            color: #8f98a8;
-
-            pointer-events: none;
-
-        }
-
-
-        #amount {
-
-            padding-left: 55px;
-
-        }
-
-
-        .submit {
-
-            width: 100%;
-
-            padding: 17px;
-
-            border: none;
-
-            border-radius: 13px;
-
-            background: white;
-
-            color: #080b12;
-
-            font-size: 17px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-        }
-
-
-        .submit:disabled {
-
-            opacity: .5;
-
-            cursor: not-allowed;
-
-        }
-
-
-        .message {
-
-            display: none;
-
-            margin-top: 20px;
-
-            padding: 16px;
-
-            border-radius: 12px;
-
-            background: #18202c;
-
-            border: 1px solid #303949;
-
-            text-align: center;
-
-            line-height: 1.8;
-
-        }
-
-
-        .balance {
-
-            display: none;
-
-            margin-bottom: 20px;
-
-            padding: 15px;
-
-            border-radius: 12px;
-
-            background: #080c13;
-
-            border: 1px solid #303949;
-
-            text-align: center;
-
-        }
-
-
-        .back {
-
-            display: block;
-
-            text-align: center;
-
-            margin-top: 22px;
-
-            color: #929baa;
-
-            text-decoration: none;
-
-        }
-
-
-        @media (max-width: 400px) {
-
-            .card {
-
-                padding: 22px;
-
-            }
-
-
-            .logo {
-
-                font-size: 36px;
-
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شحن الرصيد - BOK JACK</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#0d1117;
+    color:white;
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.box{
+    width:92%;
+    max-width:400px;
+    background:#151b23;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 35px rgba(0,0,0,.4);
+}
+
+.logo{
+    text-align:center;
+    font-size:34px;
+    font-weight:bold;
+}
+
+.sub{
+    text-align:center;
+    color:#aaa;
+    margin:8px 0 25px;
+}
+
+input,button{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border-radius:12px;
+    font-size:16px;
+}
+
+input{
+    background:#0d1117;
+    border:1px solid #30363d;
+    color:white;
+}
+
+button{
+    background:#b00020;
+    color:white;
+    border:0;
+    font-weight:bold;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+.message{
+    text-align:center;
+    margin-top:15px;
+    line-height:1.8;
+}
+
+.success{
+    color:#35d07f;
+}
+
+.error{
+    color:#ff5c5c;
+}
+
+.balance{
+    font-size:24px;
+    font-weight:bold;
+}
+</style>
 
 </head>
 
-
 <body>
 
+<div class="box">
 
-<div class="page">
+    <div class="logo">JACK</div>
 
-
-    <div class="card">
-
-
-        <div class="logo">
-            JACK
-        </div>
-
-
-        <h1 class="title">
-            شحن الرصيد
-        </h1>
-
-
-        <p class="description">
-            أدخل رقم الحساب وكلمة المرور
-        </p>
-
-
-        <form id="rechargeForm">
-
-
-            <label>
-                رقم الحساب
-            </label>
-
-
-            <input
-                type="text"
-                id="accountNumber"
-                placeholder="أدخل رقم الحساب"
-                inputmode="numeric"
-                maxlength="7"
-                required
-            >
-
-
-            <label>
-                كلمة المرور
-            </label>
-
-
-            <input
-                type="password"
-                id="password"
-                placeholder="أدخل كلمة المرور"
-                required
-            >
-
-
-            <label>
-                مبلغ الشحن
-            </label>
-
-
-            <div class="amount-box">
-
-
-                <input
-                    type="number"
-                    id="amount"
-                    placeholder="أدخل المبلغ"
-                    min="1"
-                    step="1"
-                    required
-                >
-
-
-                <span class="currency">
-                    SDG
-                </span>
-
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="submit"
-                id="submitButton"
-            >
-                شحن الرصيد
-            </button>
-
-
-        </form>
-
-
-        <div
-            id="balance"
-            class="balance"
-        ></div>
-
-
-        <div
-            id="message"
-            class="message"
-        ></div>
-
-
-        <a
-            href="index.html"
-            class="back"
-        >
-            ← العودة للرئيسية
-        </a>
-
-
+    <div class="sub">
+        شحن الرصيد
     </div>
+
+    <input
+        id="accountNumber"
+        type="text"
+        inputmode="numeric"
+        maxlength="7"
+        placeholder="رقم الحساب">
+
+    <input
+        id="password"
+        type="password"
+        placeholder="كلمة المرور">
+
+    <input
+        id="amount"
+        type="number"
+        min="1"
+        step="1"
+        placeholder="المبلغ">
+
+    <button id="rechargeBtn">
+        شحن الرصيد
+    </button>
+
+    <div id="message" class="message"></div>
 
 </div>
 
 
-
 <script type="module">
 
-
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
     getAuth,
     signInWithEmailAndPassword,
     signOut
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
     getDatabase,
     ref,
     get,
-    update
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-
+    runTransaction
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
-
-    authDomain:
-        "bok-jack.firebaseapp.com",
-
-    databaseURL:
-        "https://bok-jack-default-rtdb.firebaseio.com",
-
-    projectId:
-        "bok-jack",
-
-    storageBucket:
-        "bok-jack.firebasestorage.app",
-
-    messagingSenderId:
-        "96539205463",
-
-    appId:
-        "1:96539205463:web:a2cb846d657aa873182812",
-
-    measurementId:
-        "G-069BL15X9J"
-
+    apiKey: "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+    authDomain: "bok-jack.firebaseapp.com",
+    databaseURL: "https://bok-jack-default-rtdb.firebaseio.com",
+    projectId: "bok-jack",
+    storageBucket: "bok-jack.firebasestorage.app",
+    messagingSenderId: "96539205463",
+    appId: "1:96539205463:web:a2cb846d657aa873182812",
+    measurementId: "G-069BL15X9J"
 };
 
 
+const app = initializeApp(firebaseConfig);
 
-const app =
-    initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-
-const auth =
-    getAuth(app);
+const db = getDatabase(app);
 
 
-const db =
-    getDatabase(app);
-
-
-
-const form =
-    document.getElementById(
-        "rechargeForm"
-    );
-
-
-const message =
-    document.getElementById(
-        "message"
-    );
-
-
-const balanceBox =
-    document.getElementById(
-        "balance"
-    );
-
-
-const submitButton =
-    document.getElementById(
-        "submitButton"
-    );
-
-
-
-function showMessage(text) {
-
-    message.style.display =
-        "block";
-
-    message.innerHTML =
-        text;
-
-}
-
-
-
-form.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
+document.getElementById("rechargeBtn").addEventListener(
+    "click",
+    async () => {
 
         const accountNumber =
-            document
-            .getElementById(
-                "accountNumber"
-            )
-            .value
-            .trim();
-
+            document.getElementById("accountNumber")
+            .value.trim();
 
         const password =
-            document
-            .getElementById(
-                "password"
-            )
+            document.getElementById("password")
             .value;
-
 
         const amount =
             Number(
-                document
-                .getElementById(
-                    "amount"
-                )
-                .value
+                document.getElementById("amount").value
             );
 
+        const message =
+            document.getElementById("message");
+
+        const button =
+            document.getElementById("rechargeBtn");
 
 
-        if (!/^[0-9]{7}$/.test(accountNumber)) {
+        message.innerHTML = "";
 
-            showMessage(
-                "⚠️ رقم الحساب يجب أن يكون 7 أرقام."
-            );
+
+        if(!/^[0-9]{7}$/.test(accountNumber)){
+
+            message.innerHTML =
+                '<span class="error">' +
+                'رقم الحساب يجب أن يكون 7 أرقام' +
+                '</span>';
 
             return;
-
         }
 
 
+        if(!password){
 
-        if (!password) {
-
-            showMessage(
-                "⚠️ أدخل كلمة المرور."
-            );
+            message.innerHTML =
+                '<span class="error">' +
+                'اكتب كلمة المرور' +
+                '</span>';
 
             return;
-
         }
 
 
+        if(!Number.isFinite(amount) || amount <= 0){
 
-        if (!Number.isSafeInteger(amount) || amount <= 0) {
-
-            showMessage(
-                "⚠️ أدخل مبلغ شحن صحيح."
-            );
+            message.innerHTML =
+                '<span class="error">' +
+                'أدخل مبلغاً صحيحاً' +
+                '</span>';
 
             return;
-
         }
 
 
-
-        submitButton.disabled =
-            true;
-
-        submitButton.textContent =
-            "جاري الشحن...";
-
+        button.disabled = true;
+        button.innerText = "جاري الشحن...";
 
 
         try {
 
-
             /*
-             * نبحث عن صاحب رقم الحساب.
+             * تسجيل الدخول بالحساب نفسه
              */
 
-            const accountNumberRef =
-                ref(
-                    db,
-                    "accountNumbers/" +
-                    accountNumber
+            const internalEmail =
+                accountNumber + "@bokjack.local";
+
+
+            const credential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    internalEmail,
+                    password
                 );
-
-
-            const accountNumberSnapshot =
-                await get(
-                    accountNumberRef
-                );
-
-
-
-            if (
-                !accountNumberSnapshot.exists()
-            ) {
-
-                throw new Error(
-                    "ACCOUNT_NOT_FOUND"
-                );
-
-            }
-
-
-
-            const accountData =
-                accountNumberSnapshot.val();
 
 
             const uid =
-                accountData.uid;
-
-
-
-            if (!uid) {
-
-                throw new Error(
-                    "ACCOUNT_UID_MISSING"
-                );
-
-            }
-
+                credential.user.uid;
 
 
             /*
-             * Firebase Authentication
-             *
-             * الحسابات التي أنشأها account.html
-             * تستخدم إيميلًا داخليًا.
-             *
-             * لذلك نحتاج معرفة الإيميل الداخلي
-             * المرتبط بالحساب قبل تسجيل الدخول.
-             *
-             * هذه النسخة لا تستطيع استخراج
-             * الإيميل الداخلي من Realtime Database.
-             *
-             * لذلك نتوقف هنا بدل محاولة تجاوز
-             * Firebase Authentication.
+             * جلب بيانات المستخدم
              */
 
-            throw new Error(
-                "LOGIN_FLOW_REQUIRED"
+            const userRef =
+                ref(db, "users/" + uid);
+
+
+            const snapshot =
+                await get(userRef);
+
+
+            if(!snapshot.exists()){
+
+                throw new Error(
+                    "بيانات الحساب غير موجودة"
+                );
+
+            }
+
+
+            const userData =
+                snapshot.val();
+
+
+            /*
+             * التأكد أن رقم الحساب يطابق
+             * الحساب الذي تم تسجيل الدخول إليه
+             */
+
+            if(
+                userData.accountNumber !==
+                accountNumber
+            ){
+
+                throw new Error(
+                    "الحساب غير متطابق"
+                );
+
+            }
+
+
+            /*
+             * إضافة المبلغ إلى الرصيد
+             */
+
+            await runTransaction(
+                ref(db, "users/" + uid + "/balance"),
+                currentBalance => {
+
+                    const oldBalance =
+                        Number(currentBalance) || 0;
+
+                    return oldBalance + amount;
+
+                }
             );
 
 
-        } catch (error) {
+            /*
+             * قراءة الرصيد الجديد
+             */
+
+            const newSnapshot =
+                await get(userRef);
+
+
+            const newData =
+                newSnapshot.val();
+
+
+            const newBalance =
+                Number(newData.balance) || 0;
+
+
+            message.innerHTML =
+                '<span class="success">' +
+                '✅ تم شحن الرصيد بنجاح<br><br>' +
+                'المبلغ المضاف: ' +
+                amount.toLocaleString() +
+                '<br><br>' +
+                'الرصيد الجديد:<br>' +
+                '<span class="balance">' +
+                newBalance.toLocaleString() +
+                '</span>' +
+                '</span>';
+
+
+            button.innerText = "تم الشحن";
+
+
+            /*
+             * تسجيل الخروج بعد العملية
+             */
+
+            await signOut(auth);
+
+
+        } catch(error){
 
             console.error(error);
 
+            message.innerHTML =
+                '<span class="error">' +
+                '❌ تعذر تنفيذ عملية الشحن<br>' +
+                'تأكد من رقم الحساب وكلمة المرور' +
+                '</span>';
 
-            if (
-                error.message ===
-                "ACCOUNT_NOT_FOUND"
-            ) {
-
-                showMessage(
-                    "❌ رقم الحساب غير موجود."
-                );
-
-            }
-
-            else if (
-                error.message ===
-                "LOGIN_FLOW_REQUIRED"
-            ) {
-
-                showMessage(
-                    "⚠️ نحتاج صفحة تسجيل الدخول أولًا لربط رقم الحساب بحساب Firebase."
-                );
-
-            }
-
-            else {
-
-                showMessage(
-                    "❌ حدث خطأ أثناء العملية."
-                );
-
-            }
+            button.disabled = false;
+            button.innerText = "شحن الرصيد";
 
         }
-
-
-        submitButton.disabled =
-            false;
-
-        submitButton.textContent =
-            "شحن الرصيد";
 
     }
 );
 
 </script>
 
-
 </body>
-
 </html>
