@@ -1,52 +1,34 @@
 <!DOCTYPE html><html lang="ar" dir="rtl"><head>
-  <meta charset="UTF-8"><meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
-«»
-
-<meta
-name="theme-color"
-content="#050505"
-
-«»
-
-  <title>BOK JACK - Admin</title>  <!-- CSS -->  <link rel="stylesheet" href="style.css">
-</head><body>  <!-- الخلفية -->  <div class="background"><div class="glow one"></div>
-<div class="glow two"></div>
-
-  </div>  <!-- تسجيل دخول الأدمن -->  <main class="login-box"><!-- الشعار -->
-<div class="logo">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">  <title>BOK JACK - Admin</title>  <link rel="stylesheet" href="style.css">
+</head><body>  <div class="background">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+  </div>  <main class="login-box"><div class="logo">
   BOK
 </div>
 
-
-<!-- العنوان -->
-<h1>
-  BOK JACK
-</h1>
+<h1>BOK JACK</h1>
 
 <p class="subtitle">
   لوحة تحكم الإدارة
 </p>
 
-
-<!-- نموذج تسجيل الدخول -->
 <form id="loginForm">
 
-  <!-- اسم المستخدم -->
   <div class="field">
 
     <label for="adminUsername">
-      اسم المستخدم
+      البريد الإلكتروني للأدمن
     </label>
 
     <div class="input-box">
 
       <input
-        type="text"
+        type="email"
         id="adminUsername"
-        placeholder="أدخل اسم المستخدم"
+        placeholder="أدخل البريد الإلكتروني"
         autocomplete="username"
         required
       >
@@ -55,8 +37,6 @@ content="#050505"
 
   </div>
 
-
-  <!-- كلمة المرور -->
   <div class="field">
 
     <label for="adminPassword">
@@ -86,36 +66,39 @@ content="#050505"
 
   </div>
 
-
-  <!-- تسجيل الدخول -->
   <button
     type="submit"
     class="login-btn"
+    id="loginButton"
   >
     تسجيل الدخول
   </button>
 
-
-  <!-- رسالة الخطأ -->
   <div
     class="error"
     id="loginError"
-  >
-    أدخل بيانات تسجيل الدخول.
-  </div>
+  ></div>
 
 </form>
 
-
-<!-- أسفل الصفحة -->
 <div class="footer">
-
   BOK JACK
-
-  <span>
-    • Admin Panel
-  </span>
-
+  <span>• Admin Panel</span>
 </div>
 
-  </main>  <!-- JavaScript -->  <script src="app.js"></script></body></html>
+  </main>  <!-- Firebase -->  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>  <script>
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+      authDomain: "bok-jack.firebaseapp.com",
+      databaseURL: "https://bok-jack-default-rtdb.firebaseio.com",
+      projectId: "bok-jack",
+      storageBucket: "bok-jack.firebasestorage.app",
+      messagingSenderId: "96539205463",
+      appId: "1:96539205463:web:a2cb846d657aa873182812",
+      measurementId: "G-069BL15X9J"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+  </script>  <script src="app.js"></script></body></html>
