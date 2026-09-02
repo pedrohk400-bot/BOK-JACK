@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>BOK JACK - زيادة الرصيد</title>
 
@@ -107,6 +107,1067 @@ input::placeholder{
 
 .search-btn{
     width:100%;
+    height:50px;
+    border:1px solid #303030;
+    background:#fff;
+    color:#000;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.search-btn:active{
+    transform:scale(.98);
+}
+
+.account-info{
+    display:none;
+    margin-top:20px;
+    padding:17px;
+    background:#181818;
+    border:1px solid #303030;
+    border-radius:16px;
+}
+
+.account-name{
+    font-size:19px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #252525;
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-label{
+    color:#888;
+    font-size:14px;
+}
+
+.info-value{
+    font-size:15px;
+    font-weight:600;
+}
+
+.current-balance{
+    font-size:21px;
+    font-weight:800;
+}
+
+.recharge-area{
+    display:none;
+    margin-top:20px;
+}
+
+.recharge-area label{
+    margin-bottom:8px;
+}
+
+.recharge-btn{
+    width:100%;
+    height:54px;
+    border:0;
+    border-radius:15px;
+    background:#fff;
+    color:#000;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+.recharge-btn:active{
+    transform:scale(.98);
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:18px;
+    padding:14px;
+    border-radius:13px;
+    text-align:center;
+    font-size:14px;
+}
+
+.success{
+    display:block;
+    background:#102315;
+    color:#5cff82;
+    border:1px solid #1e5c30;
+}
+
+.error{
+    display:block;
+    background:#261010;
+    color:#ff6868;
+    border:1px solid #5c2222;
+}
+
+.loading{
+    display:none;
+    text-align:center;
+    color:#888;
+    margin-top:18px;
+}
+
+/* =========================
+   AUTH STATUS
+========================= */
+
+.auth-status{
+    margin-bottom:20px;
+    padding:13px;
+    border-radius:14px;
+    background:#181818;
+    border:1px solid #303030;
+    font-size:12px;
+    line-height:1.8;
+    display:none;
+}
+
+.auth-status .label{
+    color:#888;
+}
+
+.auth-status .value{
+    color:#fff;
+    word-break:break-all;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="logo">
+            BOK
+        </div>
+
+        <div class="subtitle">
+            لوحة إدارة الحسابات
+        </div>
+
+    </div>
+
+
+    <a href="dashboard.html" class="back">
+        ← العودة إلى لوحة الإدارة
+    </a>
+
+
+    <!-- =========================
+         AUTH STATUS
+    ========================== -->
+
+    <div id="authStatus" class="auth-status">
+
+        <div>
+            <span class="label">البريد الحالي:</span>
+            <span id="authEmail" class="value">—</span>
+        </div>
+
+        <div>
+            <span class="label">UID الحالي:</span>
+            <span id="authUid" class="value">—</span>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="title">
+            زيادة الرصيد
+        </div>
+
+
+        <div class="input-group">
+
+            <label>
+                رقم الحساب
+            </label>
+
+            <input
+                type="text"
+                id="accountNumber"
+                placeholder="أدخل رقم الحساب"
+                inputmode="numeric"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <button
+            id="searchBtn"
+            class="search-btn"
+            disabled>
+
+            جاري التحقق...
+
+        </button>
+
+
+        <div id="loading" class="loading">
+            جاري البحث...
+        </div>
+
+
+        <div id="accountInfo" class="account-info">
+
+            <div id="accountName" class="account-name">
+                —
+            </div>
+
+
+            <div class="info-row">
+
+                <div class="info-label">
+                    رقم الحساب
+                </div>
+
+                <div id="showAccount" class="info-value">
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <div class="info-label">
+                    الرصيد الحالي
+                </div>
+
+                <div
+                    id="currentBalance"
+                    class="info-value current-balance">
+
+                    0
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="rechargeArea" class="recharge-area">
+
+            <label>
+                مبلغ الزيادة
+            </label>
+
+
+            <input
+                type="number"
+                id="amount"
+                placeholder="أدخل المبلغ"
+                min="0.01"
+                step="0.01"
+                inputmode="decimal"
+            >
+
+
+            <button
+                id="rechargeBtn"
+                class="recharge-btn">
+
+                زيادة الرصيد
+
+            </button>
+
+        </div>
+
+
+        <div id="message" class="message"></div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+
+/* =========================
+   FIREBASE IMPORTS
+========================= */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getDatabase,
+    ref,
+    get,
+    update
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+
+    authDomain:
+    "bok-jack.firebaseapp.com",
+
+    databaseURL:
+    "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId:
+    "bok-jack",
+
+    storageBucket:
+    "bok-jack.firebasestorage.app",
+
+    messagingSenderId:
+    "96539205463",
+
+    appId:
+    "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId:
+    "G-069BL15X9J"
+
+};
+
+
+/* =========================
+   INITIALIZE FIREBASE
+========================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getDatabase(app);
+
+const auth =
+    getAuth(app);
+
+
+/* =========================
+   ADMIN UID
+========================= */
+
+const ADMIN_UID =
+    "rneRJQbNLNWUGyRbDs2ocI37R392";
+
+
+let adminReady = false;
+
+let selectedAccount = null;
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const authStatus =
+    document.getElementById("authStatus");
+
+const authEmail =
+    document.getElementById("authEmail");
+
+const authUid =
+    document.getElementById("authUid");
+
+const searchBtn =
+    document.getElementById("searchBtn");
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        console.log(
+            "========== FIREBASE AUTH =========="
+        );
+
+
+        if(!user){
+
+            console.log(
+                "NO USER"
+            );
+
+
+            adminReady = false;
+
+
+            authStatus.style.display =
+                "block";
+
+
+            authEmail.textContent =
+                "لا يوجد مستخدم مسجل";
+
+
+            authUid.textContent =
+                "لا يوجد UID";
+
+
+            searchBtn.disabled =
+                true;
+
+
+            searchBtn.textContent =
+                "غير مسجل الدخول";
+
+
+            showError(
+                "لا يوجد حساب مسجل الدخول في Firebase"
+            );
+
+
+            console.log(
+                "==================================="
+            );
+
+
+            return;
+        }
+
+
+        console.log(
+            "Email:",
+            user.email
+        );
+
+
+        console.log(
+            "UID:",
+            user.uid
+        );
+
+
+        console.log(
+            "Required UID:",
+            ADMIN_UID
+        );
+
+
+        console.log(
+            "==================================="
+        );
+
+
+        /* =========================
+           SHOW CURRENT USER
+        ========================= */
+
+        authStatus.style.display =
+            "block";
+
+
+        authEmail.textContent =
+            user.email || "بدون بريد";
+
+
+        authUid.textContent =
+            user.uid;
+
+
+        /* =========================
+           CHECK UID
+        ========================= */
+
+        if(
+            user.uid === ADMIN_UID
+        ){
+
+            adminReady = true;
+
+
+            searchBtn.disabled =
+                false;
+
+
+            searchBtn.textContent =
+                "البحث عن الحساب";
+
+
+            hideMessage();
+
+
+            console.log(
+                "ADMIN AUTHORIZED ✓"
+            );
+
+
+        }else{
+
+            adminReady = false;
+
+
+            searchBtn.disabled =
+                true;
+
+
+            searchBtn.textContent =
+                "غير مصرح";
+
+
+            showError(
+                "هذا الحساب غير مصرح له بإدارة النظام"
+            );
+
+
+            console.log(
+                "ADMIN NOT AUTHORIZED ✗"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   ACCOUNT INPUT
+========================= */
+
+document
+.getElementById("accountNumber")
+.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value.replace(
+                /[^0-9]/g,
+                ""
+            );
+
+
+        selectedAccount = null;
+
+
+        document
+        .getElementById("accountInfo")
+        .style.display =
+            "none";
+
+
+        document
+        .getElementById("rechargeArea")
+        .style.display =
+            "none";
+
+
+        hideMessage();
+
+    }
+);
+
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+searchBtn.addEventListener(
+    "click",
+    searchAccount
+);
+
+
+/* =========================
+   RECHARGE BUTTON
+========================= */
+
+document
+.getElementById("rechargeBtn")
+.addEventListener(
+    "click",
+    rechargeBalance
+);
+
+
+/* =========================
+   SEARCH ACCOUNT
+========================= */
+
+async function searchAccount(){
+
+    if(!adminReady){
+
+        showError(
+            "الأدمن غير مصرح له"
+        );
+
+        return;
+    }
+
+
+    const accountNumber =
+        document
+        .getElementById("accountNumber")
+        .value
+        .trim();
+
+
+    if(accountNumber === ""){
+
+        showError(
+            "أدخل رقم الحساب"
+        );
+
+        return;
+    }
+
+
+    const loading =
+        document.getElementById("loading");
+
+
+    const accountInfo =
+        document.getElementById("accountInfo");
+
+
+    const rechargeArea =
+        document.getElementById("rechargeArea");
+
+
+    selectedAccount = null;
+
+
+    hideMessage();
+
+
+    accountInfo.style.display =
+        "none";
+
+
+    rechargeArea.style.display =
+        "none";
+
+
+    loading.style.display =
+        "block";
+
+
+    searchBtn.disabled =
+        true;
+
+
+    searchBtn.textContent =
+        "جاري البحث...";
+
+
+    try{
+
+        const accountRef =
+            ref(
+                db,
+                "accounts/" +
+                accountNumber
+            );
+
+
+        const snapshot =
+            await get(accountRef);
+
+
+        if(!snapshot.exists()){
+
+            showError(
+                "الحساب غير موجود"
+            );
+
+            return;
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+        let balance =
+            Number(
+                data.balance
+            );
+
+
+        if(!Number.isFinite(balance)){
+
+            balance = 0;
+
+        }
+
+
+        selectedAccount = {
+
+            accountNumber:
+                accountNumber,
+
+            name:
+                data.name ||
+                "بدون اسم",
+
+            balance:
+                balance
+
+        };
+
+
+        document
+        .getElementById("accountName")
+        .textContent =
+            selectedAccount.name;
+
+
+        document
+        .getElementById("showAccount")
+        .textContent =
+            selectedAccount.accountNumber;
+
+
+        document
+        .getElementById("currentBalance")
+        .textContent =
+            formatNumber(
+                selectedAccount.balance
+            );
+
+
+        accountInfo.style.display =
+            "block";
+
+
+        rechargeArea.style.display =
+            "block";
+
+
+    }
+    catch(error){
+
+        console.error(
+            "SEARCH ERROR:",
+            error
+        );
+
+
+        showError(
+            "حدث خطأ أثناء البحث: " +
+            error.message
+        );
+
+    }
+    finally{
+
+        loading.style.display =
+            "none";
+
+
+        searchBtn.disabled =
+            !adminReady;
+
+
+        searchBtn.textContent =
+            adminReady
+            ? "البحث عن الحساب"
+            : "غير مصرح";
+
+    }
+
+}
+
+
+/* =========================
+   RECHARGE
+========================= */
+
+async function rechargeBalance(){
+
+    if(!adminReady){
+
+        showError(
+            "الأدمن غير مصرح له"
+        );
+
+        return;
+    }
+
+
+    if(!selectedAccount){
+
+        showError(
+            "ابحث عن الحساب أولاً"
+        );
+
+        return;
+    }
+
+
+    const amountInput =
+        document.getElementById("amount");
+
+
+    const amountText =
+        amountInput.value.trim();
+
+
+    const amount =
+        Number(amountText);
+
+
+    if(
+        amountText === "" ||
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ){
+
+        showError(
+            "أدخل مبلغاً صحيحاً أكبر من صفر"
+        );
+
+        return;
+    }
+
+
+    const btn =
+        document.getElementById("rechargeBtn");
+
+
+    btn.disabled =
+        true;
+
+
+    btn.textContent =
+        "جاري إضافة الرصيد...";
+
+
+    hideMessage();
+
+
+    try{
+
+        const accountRef =
+            ref(
+                db,
+                "accounts/" +
+                selectedAccount.accountNumber
+            );
+
+
+        const snapshot =
+            await get(accountRef);
+
+
+        if(!snapshot.exists()){
+
+            throw new Error(
+                "الحساب غير موجود"
+            );
+
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+        let oldBalance =
+            Number(
+                data.balance
+            );
+
+
+        if(!Number.isFinite(oldBalance)){
+
+            oldBalance = 0;
+
+        }
+
+
+        const newBalance =
+            oldBalance + amount;
+
+
+        await update(
+            accountRef,
+            {
+                balance:
+                    newBalance
+            }
+        );
+
+
+        selectedAccount.balance =
+            newBalance;
+
+
+        document
+        .getElementById("currentBalance")
+        .textContent =
+            formatNumber(
+                newBalance
+            );
+
+
+        amountInput.value =
+            "";
+
+
+        showSuccess(
+            "تمت زيادة الرصيد بنجاح ✓"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "RECHARGE ERROR:",
+            error
+        );
+
+
+        showError(
+            "حدث خطأ أثناء زيادة الرصيد: " +
+            error.message
+        );
+
+    }
+    finally{
+
+        btn.disabled =
+            false;
+
+
+        btn.textContent =
+            "زيادة الرصيد";
+
+    }
+
+}
+
+
+/* =========================
+   FORMAT
+========================= */
+
+function formatNumber(number){
+
+    return Number(number)
+    .toLocaleString(
+        "en-US",
+        {
+            maximumFractionDigits:2
+        }
+    );
+
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+function showSuccess(text){
+
+    const message =
+        document.getElementById("message");
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message success";
+
+
+    message.style.display =
+        "block";
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showError(text){
+
+    const message =
+        document.getElementById("message");
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message error";
+
+
+    message.style.display =
+        "block";
+
+}
+
+
+/* =========================
+   HIDE MESSAGE
+========================= */
+
+function hideMessage(){
+
+    const message =
+        document.getElementById("message");
+
+
+    message.style.display =
+        "none";
+
+}
+
+</script>
+
+</body>
+</html>    width:100%;
     height:50px;
     border:1px solid #303030;
     background:#fff;
