@@ -1,112 +1,646 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>BOK JACK - زيادة الرصيد</title>
+<title>BOK - زيادة الرصيد</title>
 
 <style>
-
 *{
     box-sizing:border-box;
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "Segoe UI",
-        Arial,
-        sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",
+    "Segoe UI",Arial,sans-serif;
 }
 
 body{
     margin:0;
     min-height:100vh;
-    background:#000;
-    color:#fff;
+    background:#0d1117;
+    color:white;
 }
-
-.container{
-    width:100%;
-    max-width:520px;
-    margin:auto;
-    padding:25px 16px 40px;
-}
-
-/* HEADER */
 
 .header{
+    padding:25px 20px 15px;
     text-align:center;
-    margin-bottom:25px;
 }
 
 .logo{
     font-size:30px;
     font-weight:800;
-    letter-spacing:1px;
+    letter-spacing:2px;
 }
 
 .subtitle{
-    color:#888;
-    margin-top:6px;
+    color:#9ca3af;
+    margin-top:5px;
     font-size:14px;
 }
 
-/* BACK */
+.container{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    padding:20px;
+}
 
 .back{
     display:block;
     color:#aaa;
     text-decoration:none;
-    font-size:14px;
     margin-bottom:20px;
+    font-size:15px;
 }
-
-.back:hover{
-    color:#fff;
-}
-
-/* CARD */
 
 .card{
-    background:#111;
-    border:1px solid #292929;
+    background:#151a21;
+    border:1px solid #252c36;
     border-radius:22px;
     padding:22px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
 .title{
-    font-size:22px;
+    font-size:23px;
     font-weight:700;
-    margin-bottom:22px;
-}
-
-/* INPUT */
-
-.input-group{
-    margin-bottom:17px;
+    margin-bottom:20px;
 }
 
 label{
     display:block;
     color:#aaa;
-    font-size:13px;
     margin-bottom:8px;
+    font-size:14px;
 }
 
 input{
     width:100%;
     height:52px;
-    border-radius:14px;
-    border:1px solid #303030;
-    background:#181818;
-    color:#fff;
-    padding:0 15px;
-    font-size:16px;
+    border:none;
     outline:none;
+    border-radius:14px;
+    padding:0 16px;
+    background:#0d1117;
+    border:1px solid #303744;
+    color:white;
+    font-size:17px;
+    margin-bottom:14px;
+}
+
+input:focus{
+    border-color:#007aff;
+}
+
+button{
+    width:100%;
+    height:52px;
+    border:0;
+    border-radius:14px;
+    background:#007aff;
+    color:white;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+.account-card{
+    display:none;
+    margin-top:20px;
+    background:#0d1117;
+    border:1px solid #303744;
+    border-radius:18px;
+    padding:18px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:11px 0;
+    border-bottom:1px solid #242a33;
+}
+
+.row:last-child{
+    border-bottom:0;
+}
+
+.label{
+    color:#999;
+}
+
+.value{
+    font-weight:700;
+}
+
+.balance{
+    font-size:28px;
+    color:#fff;
+}
+
+.recharge-box{
+    display:none;
+    margin-top:20px;
+}
+
+.success{
+    display:none;
+    margin-top:15px;
+    padding:14px;
+    border-radius:13px;
+    background:#12351f;
+    color:#55e27d;
+    text-align:center;
+}
+
+.error{
+    display:none;
+    margin-top:15px;
+    padding:14px;
+    border-radius:13px;
+    background:#351313;
+    color:#ff6969;
+    text-align:center;
+}
+
+.loading{
+    display:none;
+    text-align:center;
+    color:#aaa;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">BOK</div>
+    <div class="subtitle">لوحة إدارة الحسابات</div>
+</div>
+
+<div class="container">
+
+    <a href="dashboard.html" class="back">
+        ← العودة إلى لوحة الإدارة
+    </a>
+
+    <div class="card">
+
+        <div class="title">
+            زيادة الرصيد
+        </div>
+
+        <label>
+            رقم الحساب
+        </label>
+
+        <input
+            id="accountInput"
+            type="text"
+            inputmode="numeric"
+            placeholder="أدخل رقم الحساب"
+            maxlength="7"
+        >
+
+        <button id="searchButton">
+            البحث عن الحساب
+        </button>
+
+        <div id="loading" class="loading">
+            جاري البحث...
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div id="accountCard" class="account-card">
+
+            <div class="row">
+                <span class="label">الاسم</span>
+                <span class="value" id="accountName">-</span>
+            </div>
+
+            <div class="row">
+                <span class="label">رقم الحساب</span>
+                <span class="value" id="accountNumber">-</span>
+            </div>
+
+            <div class="row">
+                <span class="label">الرصيد الحالي</span>
+                <span class="value balance" id="currentBalance">
+                    0
+                </span>
+            </div>
+
+        </div>
+
+        <div id="rechargeBox" class="recharge-box">
+
+            <label>
+                مبلغ الزيادة
+            </label>
+
+            <input
+                id="amountInput"
+                type="number"
+                min="1"
+                step="1"
+                placeholder="أدخل المبلغ"
+            >
+
+            <button id="rechargeButton">
+                زيادة الرصيد
+            </button>
+
+            <div id="success" class="success"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    get,
+    update
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* Firebase */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+
+    authDomain: "bok-jack.firebaseapp.com",
+
+    databaseURL: "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId: "bok-jack",
+
+    storageBucket: "bok-jack.firebasestorage.app",
+
+    messagingSenderId: "96539205463",
+
+    appId: "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId: "G-069BL15X9J"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+const auth = getAuth(app);
+
+
+/* Admin UID */
+
+const ADMIN_UID =
+"qlaCFjAGCPPrg53Z7nCl5NDbAw62";
+
+
+/* Elements */
+
+const accountInput =
+document.getElementById("accountInput");
+
+const searchButton =
+document.getElementById("searchButton");
+
+const accountCard =
+document.getElementById("accountCard");
+
+const rechargeBox =
+document.getElementById("rechargeBox");
+
+const accountName =
+document.getElementById("accountName");
+
+const accountNumber =
+document.getElementById("accountNumber");
+
+const currentBalance =
+document.getElementById("currentBalance");
+
+const amountInput =
+document.getElementById("amountInput");
+
+const rechargeButton =
+document.getElementById("rechargeButton");
+
+const errorBox =
+document.getElementById("error");
+
+const successBox =
+document.getElementById("success");
+
+const loading =
+document.getElementById("loading");
+
+
+let selectedAccount = null;
+
+
+/* إظهار الخطأ */
+
+function showError(message){
+
+    errorBox.textContent = message;
+
+    errorBox.style.display = "block";
+
+}
+
+
+/* إخفاء الخطأ */
+
+function hideError(){
+
+    errorBox.style.display = "none";
+
+}
+
+
+/* التحقق من الأدمن */
+
+onAuthStateChanged(auth, function(user){
+
+    if(!user){
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+    if(user.uid !== ADMIN_UID){
+
+        alert("غير مصرح لك بالدخول");
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+});
+
+
+/* البحث عن الحساب */
+
+searchButton.addEventListener("click", async function(){
+
+    hideError();
+
+    successBox.style.display = "none";
+
+    const account =
+    accountInput.value.trim();
+
+
+    if(!/^[0-9]{7}$/.test(account)){
+
+        showError("أدخل رقم حساب صحيح مكون من 7 أرقام");
+
+        return;
+    }
+
+
+    searchButton.disabled = true;
+
+    loading.style.display = "block";
+
+    accountCard.style.display = "none";
+
+    rechargeBox.style.display = "none";
+
+
+    try{
+
+        const accountRef =
+        ref(db, "accounts/" + account);
+
+        const snapshot =
+        await get(accountRef);
+
+
+        if(!snapshot.exists()){
+
+            showError("الحساب غير موجود");
+
+            return;
+        }
+
+
+        const data =
+        snapshot.val();
+
+
+        selectedAccount = {
+
+            account: account,
+
+            name: data.name || "",
+
+            balance: Number(data.balance || 0)
+
+        };
+
+
+        accountName.textContent =
+        selectedAccount.name;
+
+        accountNumber.textContent =
+        selectedAccount.account;
+
+        currentBalance.textContent =
+        selectedAccount.balance.toLocaleString();
+
+
+        accountCard.style.display = "block";
+
+        rechargeBox.style.display = "block";
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showError(
+            "حدث خطأ أثناء البحث: " +
+            error.message
+        );
+
+    }
+
+    finally{
+
+        searchButton.disabled = false;
+
+        loading.style.display = "none";
+
+    }
+
+});
+
+
+/* زيادة الرصيد */
+
+rechargeButton.addEventListener("click", async function(){
+
+    hideError();
+
+    successBox.style.display = "none";
+
+
+    if(!selectedAccount){
+
+        showError("ابحث عن الحساب أولاً");
+
+        return;
+    }
+
+
+    const amount =
+    Number(amountInput.value);
+
+
+    if(!Number.isFinite(amount) || amount <= 0){
+
+        showError("أدخل مبلغاً صحيحاً أكبر من صفر");
+
+        return;
+    }
+
+
+    rechargeButton.disabled = true;
+
+
+    try{
+
+        /*
+         * نقرأ الحساب مرة أخرى
+         * قبل التحديث
+         */
+
+        const accountRef =
+        ref(
+            db,
+            "accounts/" +
+            selectedAccount.account
+        );
+
+
+        const snapshot =
+        await get(accountRef);
+
+
+        if(!snapshot.exists()){
+
+            throw new Error("الحساب غير موجود");
+
+        }
+
+
+        const data =
+        snapshot.val();
+
+
+        const oldBalance =
+        Number(data.balance || 0);
+
+
+        const newBalance =
+        oldBalance + amount;
+
+
+        /*
+         * تحديث الرصيد فقط
+         */
+
+        await update(
+
+            accountRef,
+
+            {
+                balance: newBalance
+            }
+
+        );
+
+
+        /*
+         * تحديث الشاشة
+         */
+
+        selectedAccount.balance =
+        newBalance;
+
+
+        currentBalance.textContent =
+        newBalance.toLocaleString();
+
+
+        amountInput.value = "";
+
+
+        successBox.textContent =
+        "تمت زيادة الرصيد بنجاح ✓";
+
+
+        successBox.style.display = "block";
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Recharge error:",
+            error
+        );
+
+
+        showError(
+            "حدث خطأ أثناء زيادة الرصيد: " +
+            error.message
+        );
+
+    }
+
+    finally{
+
+        rechargeButton.disabled = false;
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>    outline:none;
 }
 
 input:focus{
