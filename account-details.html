@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>BOK JACK - تفاصيل الحساب</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#000;
+    color:#fff;
+}
+
+.container{
+    width:100%;
+    max-width:520px;
+    margin:auto;
+    padding:25px 16px 40px;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:800;
+}
+
+.subtitle{
+    color:#888;
+    margin-top:6px;
+    font-size:14px;
+}
+
+.back{
+    display:block;
+    color:#aaa;
+    text-decoration:none;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.back:hover{
+    color:#fff;
+}
+
+.card{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:22px;
+    padding:22px;
+}
+
+.title{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:22px;
+}
+
+.profile{
+    text-align:center;
+    padding:10px 0 22px;
+    border-bottom:1px solid #292929;
+    margin-bottom:10px;
+}
+
+.name{
+    font-size:24px;
+    font-weight:800;
+    margin-bottom:9px;
+}
+
+.account-number{
+    color:#888;
+    font-size:15px;
+}
+
+.status{
+    display:inline-block;
+    margin-top:12px;
+    padding:7px 13px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.active{
+    background:#102315;
+    color:#5cff82;
+    border:1px solid #1e5c30;
+}
+
+.inactive{
+    background:#261010;
+    color:#ff6868;
+    border:1px solid #5c2222;
+}
+
+.info{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 0;
+    border-bottom:1px solid #222;
+}
+
+.info:last-child{
+    border-bottom:0;
+}
+
+.label{
+    color:#888;
+    font-size:14px;
+}
+
+.value{
+    font-size:15px;
+    font-weight:600;
+}
+
+.balance{
+    font-size:24px;
+    font-weight:800;
+}
+
+.loading{
+    text-align:center;
+    color:#888;
+    padding:40px 10px;
+}
+
+.error{
+    display:none;
+    background:#261010;
+    border:1px solid #5c2222;
+    color:#ff6868;
+    padding:15px;
+    border-radius:14px;
+    text-align:center;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <div class="logo">
+            BOK
+        </div>
+
+        <div class="subtitle">
+            لوحة إدارة الحسابات
+        </div>
+
+    </div>
+
+
+    <a
+        href="accounts.html"
+        class="back"
+    >
+        ← العودة إلى الحسابات
+    </a>
+
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        جاري تحميل بيانات الحساب...
+    </div>
+
+
+    <div
+        id="error"
+        class="error"
+    ></div>
+
+
+    <div
+        id="card"
+        class="card"
+        style="display:none;"
+    >
+
+
+        <div class="title">
+            تفاصيل الحساب
+        </div>
+
+
+        <div class="profile">
+
+            <div
+                id="name"
+                class="name"
+            >
+                —
+            </div>
+
+
+            <div
+                id="accountNumber"
+                class="account-number"
+            >
+                —
+            </div>
+
+
+            <div
+                id="status"
+                class="status"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                رقم الحساب
+            </div>
+
+            <div
+                id="account"
+                class="value"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                الرصيد
+            </div>
+
+            <div
+                id="balance"
+                class="value balance"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                تاريخ الإنشاء
+            </div>
+
+            <div
+                id="createdAt"
+                class="value"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                حالة الحساب
+            </div>
+
+            <div
+                id="active"
+                class="value"
+            >
+                —
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script type="module">
+
+
+/* =========================
+   FIREBASE APP
+========================= */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+/* =========================
+   FIREBASE DATABASE
+========================= */
+
+import {
+    getDatabase,
+    ref,
+    get
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+/* =========================
+   FIREBASE AUTH
+========================= */
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+
+    authDomain:
+    "bok-jack.firebaseapp.com",
+
+    databaseURL:
+    "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId:
+    "bok-jack",
+
+    storageBucket:
+    "bok-jack.firebasestorage.app",
+
+    messagingSenderId:
+    "96539205463",
+
+    appId:
+    "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId:
+    "G-069BL15X9J"
+
+};
+
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const db =
+    getDatabase(app);
+
+
+const auth =
+    getAuth(app);
+
+
+
+/* =========================
+   ADMIN UID
+========================= */
+
+const ADMIN_UID =
+    "qlaCFjAGCPPrg53Z7nCl5NDbAw62";
+
+
+
+/* =========================
+   GET ACCOUNT NUMBER
+========================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const accountNumber =
+    params.get("account");
+
+
+
+/* =========================
+   CHECK ACCOUNT NUMBER
+========================= */
+
+if(!accountNumber){
+
+    showError(
+        "رقم الحساب غير موجود"
+    );
+
+}
+else{
+
+    onAuthStateChanged(
+        auth,
+        function(user){
+
+            if(!user){
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+
+            if(
+                user.uid !==
+                ADMIN_UID
+            ){
+
+                showError(
+                    "هذا الحساب غير مصرح له"
+                );
+
+                return;
+
+            }
+
+
+            loadAccount();
+
+        }
+    );
+
+}
+
+
+
+/* =========================
+   LOAD ACCOUNT
+========================= */
+
+async function loadAccount(){
+
+    try{
+
+
+        const accountRef =
+            ref(
+                db,
+                "accounts/" +
+                accountNumber
+            );
+
+
+        const snapshot =
+            await get(
+                accountRef
+            );
+
+
+        if(!snapshot.exists()){
+
+            showError(
+                "الحساب غير موجود"
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+
+        /* NAME */
+
+        document
+        .getElementById("name")
+        .textContent =
+            data.name ||
+            "بدون اسم";
+
+
+
+        /* ACCOUNT */
+
+        document
+        .getElementById("accountNumber")
+        .textContent =
+            "رقم الحساب: " +
+            (
+                data.account ||
+                accountNumber
+            );
+
+
+        document
+        .getElementById("account")
+        .textContent =
+            data.account ||
+            accountNumber;
+
+
+
+        /* BALANCE */
+
+        const balance =
+            Number(
+                data.balance ||
+                0
+            );
+
+
+        document
+        .getElementById("balance")
+        .textContent =
+            balance.toLocaleString(
+                "en-US"
+            );
+
+
+
+        /* STATUS */
+
+        const active =
+            data.active !== false;
+
+
+        const status =
+            document.getElementById(
+                "status"
+            );
+
+
+        status.textContent =
+            active
+            ? "نشط"
+            : "متوقف";
+
+
+        status.className =
+            "status " +
+            (
+                active
+                ? "active"
+                : "inactive"
+            );
+
+
+        document
+        .getElementById("active")
+        .textContent =
+            active
+            ? "الحساب نشط"
+            : "الحساب متوقف";
+
+
+
+        /* CREATED DATE */
+
+        if(data.createdAt){
+
+            const date =
+                new Date(
+                    data.createdAt
+                );
+
+
+            document
+            .getElementById("createdAt")
+            .textContent =
+                date.toLocaleString(
+                    "ar"
+                );
+
+        }
+        else{
+
+            document
+            .getElementById("createdAt")
+            .textContent =
+                "غير معروف";
+
+        }
+
+
+
+        /* SHOW */
+
+        document
+        .getElementById("loading")
+        .style.display =
+            "none";
+
+
+        document
+        .getElementById("card")
+        .style.display =
+            "block";
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showError(
+            "حدث خطأ أثناء تحميل الحساب: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showError(text){
+
+    document
+    .getElementById("loading")
+    .style.display =
+        "none";
+
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    error.textContent =
+        text;
+
+
+    error.style.display =
+        "block";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
