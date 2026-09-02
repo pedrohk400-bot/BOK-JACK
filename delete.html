@@ -1,0 +1,1110 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>BOK JACK - حذف الحساب</title><style>
+
+*{
+    box-sizing:border-box;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#000;
+    color:#fff;
+}
+
+.container{
+    width:100%;
+    max-width:520px;
+    margin:auto;
+    padding:25px 16px 40px;
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.subtitle{
+    color:#888;
+    margin-top:6px;
+    font-size:14px;
+}
+
+/* BACK */
+
+.back{
+    display:block;
+    color:#aaa;
+    text-decoration:none;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.back:hover{
+    color:#fff;
+}
+
+/* CARD */
+
+.card{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:22px;
+    padding:22px;
+}
+
+.title{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:22px;
+}
+
+/* WARNING */
+
+.warning{
+    background:#261010;
+    border:1px solid #5c2222;
+    color:#ff7777;
+    border-radius:14px;
+    padding:13px;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+/* INPUT */
+
+.input-group{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    height:52px;
+    border-radius:14px;
+    border:1px solid #303030;
+    background:#181818;
+    color:#fff;
+    padding:0 15px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#777;
+}
+
+input::placeholder{
+    color:#666;
+}
+
+/* SEARCH BUTTON */
+
+.search-btn{
+    width:100%;
+    height:50px;
+    border:1px solid #303030;
+    background:#fff;
+    color:#000;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.search-btn:active{
+    transform:scale(.98);
+}
+
+/* LOADING */
+
+.loading{
+    display:none;
+    text-align:center;
+    color:#888;
+    margin-top:18px;
+}
+
+/* ACCOUNT INFO */
+
+.account-info{
+    display:none;
+    margin-top:20px;
+    padding:17px;
+    background:#181818;
+    border:1px solid #303030;
+    border-radius:16px;
+}
+
+.account-name{
+    font-size:19px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #252525;
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-label{
+    color:#888;
+    font-size:14px;
+}
+
+.info-value{
+    font-size:15px;
+    font-weight:600;
+}
+
+.current-balance{
+    font-size:21px;
+    font-weight:800;
+}
+
+/* DELETE AREA */
+
+.delete-area{
+    display:none;
+    margin-top:20px;
+}
+
+.delete-btn{
+    width:100%;
+    height:54px;
+    border:0;
+    border-radius:15px;
+    background:#d50000;
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.delete-btn:active{
+    transform:scale(.98);
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+/* MESSAGE */
+
+.message{
+    display:none;
+    margin-top:18px;
+    padding:14px;
+    border-radius:13px;
+    text-align:center;
+    font-size:14px;
+}
+
+.success{
+    display:block;
+    background:#102315;
+    color:#5cff82;
+    border:1px solid #1e5c30;
+}
+
+.error{
+    display:block;
+    background:#261010;
+    color:#ff6868;
+    border:1px solid #5c2222;
+}
+
+</style></head><body><div class="container"><!-- HEADER -->
+
+<div class="header">
+
+    <div class="logo">
+        BOK
+    </div>
+
+    <div class="subtitle">
+        لوحة إدارة الحسابات
+    </div>
+
+</div>
+
+
+<!-- BACK -->
+
+<a
+    href="dashboard.html"
+    class="back"
+>
+    ← العودة إلى لوحة الإدارة
+</a>
+
+
+<!-- CARD -->
+
+<div class="card">
+
+
+    <div class="title">
+        حذف الحساب
+    </div>
+
+
+    <!-- WARNING -->
+
+    <div class="warning">
+
+        ⚠️ تحذير: حذف الحساب إجراء نهائي.
+        سيتم حذف بيانات الحساب من قاعدة البيانات.
+
+    </div>
+
+
+    <!-- ACCOUNT NUMBER -->
+
+    <div class="input-group">
+
+        <label>
+            رقم الحساب
+        </label>
+
+        <input
+            type="text"
+            id="accountNumber"
+            placeholder="أدخل رقم الحساب"
+            inputmode="numeric"
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <button
+        id="searchBtn"
+        class="search-btn"
+    >
+        البحث عن الحساب
+    </button>
+
+
+    <!-- LOADING -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        جاري البحث...
+    </div>
+
+
+    <!-- ACCOUNT INFO -->
+
+    <div
+        id="accountInfo"
+        class="account-info"
+    >
+
+        <div
+            id="accountName"
+            class="account-name"
+        >
+            —
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                رقم الحساب
+            </div>
+
+            <div
+                id="showAccount"
+                class="info-value"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                الرصيد الحالي
+            </div>
+
+            <div
+                id="currentBalance"
+                class="info-value current-balance"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DELETE -->
+
+    <div
+        id="deleteArea"
+        class="delete-area"
+    >
+
+        <button
+            id="deleteBtn"
+            class="delete-btn"
+        >
+            حذف الحساب نهائياً
+        </button>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+</div>
+
+</div><script type="module">
+
+
+/* =========================
+   FIREBASE APP
+========================= */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+/* =========================
+   FIREBASE DATABASE
+========================= */
+
+import {
+    getDatabase,
+    ref,
+    get,
+    remove
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+/* =========================
+   FIREBASE AUTH
+========================= */
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+
+    authDomain:
+    "bok-jack.firebaseapp.com",
+
+    databaseURL:
+    "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId:
+    "bok-jack",
+
+    storageBucket:
+    "bok-jack.firebasestorage.app",
+
+    messagingSenderId:
+    "96539205463",
+
+    appId:
+    "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId:
+    "G-069BL15X9J"
+
+};
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const db =
+    getDatabase(app);
+
+
+const auth =
+    getAuth(app);
+
+
+/* =========================
+   ADMIN UID
+========================= */
+
+const ADMIN_UID =
+    "qlaCFjAGCPPrg53Z7nCl5NDbAw62";
+
+
+let adminReady =
+    false;
+
+
+let selectedAccount =
+    null;
+
+
+/* =========================
+   CHECK ADMIN
+========================= */
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(!user){
+
+            window.location.href =
+                "index.html";
+
+            return;
+
+        }
+
+
+        if(user.uid !== ADMIN_UID){
+
+            adminReady =
+                false;
+
+            showError(
+                "هذا الحساب غير مصرح له بإدارة النظام"
+            );
+
+            return;
+
+        }
+
+
+        adminReady =
+            true;
+
+    }
+);
+
+
+/* =========================
+   ACCOUNT INPUT
+========================= */
+
+document
+.getElementById("accountNumber")
+.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value.replace(
+                /[^0-9]/g,
+                ""
+            );
+
+
+        selectedAccount =
+            null;
+
+
+        document
+        .getElementById(
+            "accountInfo"
+        )
+        .style.display =
+            "none";
+
+
+        document
+        .getElementById(
+            "deleteArea"
+        )
+        .style.display =
+            "none";
+
+
+        hideMessage();
+
+    }
+);
+
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+document
+.getElementById("searchBtn")
+.addEventListener(
+    "click",
+    searchAccount
+);
+
+
+/* =========================
+   DELETE BUTTON
+========================= */
+
+document
+.getElementById("deleteBtn")
+.addEventListener(
+    "click",
+    deleteAccount
+);
+
+
+/* =========================
+   SEARCH ACCOUNT
+========================= */
+
+async function searchAccount(){
+
+
+    if(!adminReady){
+
+        showError(
+            "يرجى تسجيل الدخول كأدمن أولاً"
+        );
+
+        return;
+
+    }
+
+
+    const accountNumber =
+        document
+        .getElementById(
+            "accountNumber"
+        )
+        .value
+        .trim();
+
+
+    if(accountNumber === ""){
+
+        showError(
+            "أدخل رقم الحساب"
+        );
+
+        return;
+
+    }
+
+
+    const searchBtn =
+        document.getElementById(
+            "searchBtn"
+        );
+
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const accountInfo =
+        document.getElementById(
+            "accountInfo"
+        );
+
+
+    const deleteArea =
+        document.getElementById(
+            "deleteArea"
+        );
+
+
+    selectedAccount =
+        null;
+
+
+    hideMessage();
+
+
+    accountInfo.style.display =
+        "none";
+
+
+    deleteArea.style.display =
+        "none";
+
+
+    loading.style.display =
+        "block";
+
+
+    searchBtn.disabled =
+        true;
+
+
+    try{
+
+
+        const accountRef =
+            ref(
+                db,
+                "accounts/" +
+                accountNumber
+            );
+
+
+        const snapshot =
+            await get(
+                accountRef
+            );
+
+
+        if(!snapshot.exists()){
+
+            showError(
+                "الحساب غير موجود"
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+        let balance =
+            Number(
+                data.balance
+            );
+
+
+        if(!Number.isFinite(balance)){
+
+            balance =
+                0;
+
+        }
+
+
+        selectedAccount = {
+
+            accountNumber:
+                accountNumber,
+
+            name:
+                data.name ||
+                "بدون اسم",
+
+            balance:
+                balance
+
+        };
+
+
+        document
+        .getElementById(
+            "accountName"
+        )
+        .textContent =
+            selectedAccount.name;
+
+
+        document
+        .getElementById(
+            "showAccount"
+        )
+        .textContent =
+            selectedAccount.accountNumber;
+
+
+        document
+        .getElementById(
+            "currentBalance"
+        )
+        .textContent =
+            formatNumber(
+                selectedAccount.balance
+            );
+
+
+        accountInfo.style.display =
+            "block";
+
+
+        deleteArea.style.display =
+            "block";
+
+
+    }
+    catch(error){
+
+        console.error(
+            "SEARCH ERROR:",
+            error
+        );
+
+        showError(
+            "حدث خطأ أثناء البحث: " +
+            error.message
+        );
+
+    }
+    finally{
+
+        loading.style.display =
+            "none";
+
+        searchBtn.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =========================
+   DELETE ACCOUNT
+========================= */
+
+async function deleteAccount(){
+
+
+    if(!adminReady){
+
+        showError(
+            "يرجى تسجيل الدخول كأدمن أولاً"
+        );
+
+        return;
+
+    }
+
+
+    if(!selectedAccount){
+
+        showError(
+            "ابحث عن الحساب أولاً"
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "هل أنت متأكد من حذف الحساب " +
+            selectedAccount.accountNumber +
+            "؟\n\n" +
+            "اسم الحساب: " +
+            selectedAccount.name +
+            "\n" +
+            "الرصيد الحالي: " +
+            formatNumber(
+                selectedAccount.balance
+            ) +
+            "\n\n" +
+            "لا يمكن التراجع عن هذا الإجراء."
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    const btn =
+        document.getElementById(
+            "deleteBtn"
+        );
+
+
+    btn.disabled =
+        true;
+
+
+    btn.textContent =
+        "جاري حذف الحساب...";
+
+
+    hideMessage();
+
+
+    try{
+
+
+        const accountRef =
+            ref(
+                db,
+                "accounts/" +
+                selectedAccount.accountNumber
+            );
+
+
+        /*
+         * نتأكد أن الحساب
+         * ما زال موجوداً
+         */
+
+        const snapshot =
+            await get(
+                accountRef
+            );
+
+
+        if(!snapshot.exists()){
+
+            throw new Error(
+                "الحساب غير موجود"
+            );
+
+        }
+
+
+        /*
+         * حذف الحساب بالكامل
+         */
+
+        await remove(
+            accountRef
+        );
+
+
+        /*
+         * التأكد من الحذف
+         */
+
+        const check =
+            await get(
+                accountRef
+            );
+
+
+        if(check.exists()){
+
+            throw new Error(
+                "لم يتم حذف الحساب"
+            );
+
+        }
+
+
+        showSuccess(
+            "تم حذف الحساب بنجاح ✓"
+        );
+
+
+        /*
+         * إخفاء بيانات الحساب
+         */
+
+        document
+        .getElementById(
+            "accountInfo"
+        )
+        .style.display =
+            "none";
+
+
+        document
+        .getElementById(
+            "deleteArea"
+        )
+        .style.display =
+            "none";
+
+
+        /*
+         * تفريغ رقم الحساب
+         */
+
+        document
+        .getElementById(
+            "accountNumber"
+        )
+        .value =
+            "";
+
+
+        selectedAccount =
+            null;
+
+
+    }
+    catch(error){
+
+        console.error(
+            "DELETE ERROR:",
+            error
+        );
+
+
+        showError(
+            "حدث خطأ أثناء حذف الحساب: " +
+            error.message
+        );
+
+    }
+    finally{
+
+        btn.disabled =
+            false;
+
+        btn.textContent =
+            "حذف الحساب نهائياً";
+
+    }
+
+}
+
+
+/* =========================
+   FORMAT NUMBER
+========================= */
+
+function formatNumber(number){
+
+    return Number(number)
+        .toLocaleString(
+            "en-US",
+            {
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+function showSuccess(text){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message success";
+
+
+    message.style.display =
+        "block";
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showError(text){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message error";
+
+
+    message.style.display =
+        "block";
+
+}
+
+
+/* =========================
+   HIDE MESSAGE
+========================= */
+
+function hideMessage(){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.style.display =
+        "none";
+
+}
+
+</script></body>
+      </html>
