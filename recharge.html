@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>شحن الرصيد - JACK</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #080b12;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 30px 20px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 450px;
+
+            background: #111722;
+
+            border: 1px solid #2b3342;
+            border-radius: 22px;
+
+            padding: 30px;
+        }
+
+        .logo {
+            text-align: center;
+
+            font-size: 42px;
+            font-weight: 900;
+
+            letter-spacing: 5px;
+
+            margin-bottom: 8px;
+        }
+
+        .title {
+            text-align: center;
+
+            font-size: 24px;
+
+            margin-bottom: 8px;
+        }
+
+        .description {
+            text-align: center;
+
+            color: #8f98a8;
+
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+
+            color: #d9dde5;
+
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 16px;
+
+            margin-bottom: 20px;
+
+            background: #080c13;
+
+            color: white;
+
+            border: 1px solid #303949;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: white;
+        }
+
+        .amount-box {
+            position: relative;
+        }
+
+        .currency {
+            position: absolute;
+
+            left: 15px;
+            top: 16px;
+
+            color: #8f98a8;
+
+            pointer-events: none;
+        }
+
+        #amount {
+            padding-left: 55px;
+        }
+
+        .submit {
+            width: 100%;
+
+            padding: 17px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background: white;
+
+            color: #080b12;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            opacity: .9;
+        }
+
+        .submit:active {
+            transform: scale(.98);
+        }
+
+        .message {
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 16px;
+
+            border-radius: 12px;
+
+            background: #18202c;
+
+            border: 1px solid #303949;
+
+            text-align: center;
+
+            line-height: 1.8;
+        }
+
+        .back {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #929baa;
+
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        @media (max-width: 400px) {
+
+            .card {
+                padding: 22px;
+            }
+
+            .logo {
+                font-size: 36px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <div class="card">
+
+
+        <div class="logo">
+            JACK
+        </div>
+
+
+        <h1 class="title">
+            شحن الرصيد
+        </h1>
+
+
+        <p class="description">
+            أدخل بيانات الحساب ومبلغ الشحن
+        </p>
+
+
+        <form id="rechargeForm">
+
+
+            <label>
+                رقم الحساب
+            </label>
+
+
+            <input
+                type="text"
+                id="accountNumber"
+                placeholder="أدخل رقم الحساب"
+                inputmode="numeric"
+                required
+            >
+
+
+            <label>
+                مبلغ الشحن
+            </label>
+
+
+            <div class="amount-box">
+
+                <input
+                    type="number"
+                    id="amount"
+                    placeholder="أدخل المبلغ"
+                    min="1"
+                    required
+                >
+
+                <span class="currency">
+                    SDG
+                </span>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit"
+            >
+                شحن الرصيد
+            </button>
+
+
+        </form>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <a
+            href="index.html"
+            class="back"
+        >
+            ← العودة للرئيسية
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+document
+.getElementById("rechargeForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const account =
+        document
+        .getElementById("accountNumber")
+        .value
+        .trim();
+
+
+    const amount =
+        Number(
+            document
+            .getElementById("amount")
+            .value
+        );
+
+
+    const message =
+        document
+        .getElementById("message");
+
+
+    if (!account) {
+
+        message.style.display = "block";
+
+        message.innerHTML =
+            "⚠️ أدخل رقم الحساب.";
+
+        return;
+
+    }
+
+
+    if (!amount || amount <= 0) {
+
+        message.style.display = "block";
+
+        message.innerHTML =
+            "⚠️ أدخل مبلغ شحن صحيح.";
+
+        return;
+
+    }
+
+
+    message.style.display = "block";
+
+
+    message.innerHTML =
+        "✅ تم تجهيز طلب الشحن تجريبياً.<br><br>" +
+
+        "رقم الحساب: <strong>" +
+        account +
+        "</strong><br>" +
+
+        "المبلغ: <strong>" +
+        amount.toLocaleString("en-US") +
+        " SDG</strong>";
+
+
+});
+
+</script>
+
+
+</body>
+
+</html>
