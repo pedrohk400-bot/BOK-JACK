@@ -120,13 +120,8 @@ button{
     margin-top:8px;
 }
 
-button:active{
-    transform:scale(.98);
-}
-
 button:disabled{
     opacity:.5;
-    cursor:not-allowed;
 }
 
 .message{
@@ -179,22 +174,13 @@ button:disabled{
     font-size:14px;
 }
 
-.back:hover{
-    color:#fff;
-}
-
 </style>
 
 </head>
 
-
 <body>
 
-
 <div class="container">
-
-
-    <!-- HEADER -->
 
     <div class="header">
 
@@ -209,17 +195,12 @@ button:disabled{
     </div>
 
 
-    <!-- CARD -->
-
     <div class="card">
-
 
         <div class="title">
             إنشاء حساب جديد
         </div>
 
-
-        <!-- NAME -->
 
         <div class="input-group">
 
@@ -237,8 +218,6 @@ button:disabled{
         </div>
 
 
-        <!-- ACCOUNT NUMBER -->
-
         <div class="input-group">
 
             <label>
@@ -255,8 +234,6 @@ button:disabled{
         </div>
 
 
-        <!-- PASSWORD -->
-
         <div class="input-group">
 
             <label>
@@ -266,15 +243,13 @@ button:disabled{
             <input
                 type="password"
                 id="password"
-                placeholder="4 أرقام أو أكثر"
+                placeholder="6 أرقام أو أكثر"
                 inputmode="numeric"
                 autocomplete="new-password"
             >
 
         </div>
 
-
-        <!-- BALANCE -->
 
         <div class="input-group">
 
@@ -293,8 +268,6 @@ button:disabled{
         </div>
 
 
-        <!-- BUTTON -->
-
         <button
             id="createBtn"
             onclick="createAccount()"
@@ -303,15 +276,11 @@ button:disabled{
         </button>
 
 
-        <!-- MESSAGE -->
-
         <div
             id="message"
             class="message"
         ></div>
 
-
-        <!-- RESULT -->
 
         <div
             id="accountBox"
@@ -319,47 +288,33 @@ button:disabled{
         >
 
             <div>
-
                 اسم المستخدم:
-
                 <span
                     id="showName"
                     class="account-value"
                 ></span>
-
             </div>
 
-
             <div>
-
                 رقم الحساب:
-
                 <span
                     id="showAccount"
                     class="account-value"
                 ></span>
-
             </div>
 
-
             <div>
-
                 الرصيد:
-
                 <span
                     id="showBalance"
                     class="account-value"
                 ></span>
-
             </div>
 
         </div>
 
-
     </div>
 
-
-    <!-- BACK -->
 
     <a
         href="dashboard.html"
@@ -368,40 +323,16 @@ button:disabled{
         ← العودة إلى لوحة الإدارة
     </a>
 
-
 </div>
 
 
-
 <script type="module">
-
-
-/* =========================
-   FIREBASE APP
-========================= */
 
 import {
     initializeApp
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-
-/* =========================
-   FIREBASE DATABASE
-========================= */
-
-import {
-    getDatabase,
-    ref,
-    get,
-    set
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-
-/* =========================
-   FIREBASE AUTH
-========================= */
 
 import {
     getAuth,
@@ -410,10 +341,9 @@ import {
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-
-/* =========================
-   FIREBASE CONFIG
-========================= */
+// ========================================
+// Firebase Config
+// ========================================
 
 const firebaseConfig = {
 
@@ -444,40 +374,40 @@ const firebaseConfig = {
 };
 
 
-
-/* =========================
-   INITIALIZE
-========================= */
+// ========================================
+// Firebase
+// ========================================
 
 const app =
     initializeApp(firebaseConfig);
-
-
-const db =
-    getDatabase(app);
-
 
 const auth =
     getAuth(app);
 
 
-
-/* =========================
-   ADMIN UID
-========================= */
+// ========================================
+// ADMIN UID
+// ========================================
 
 const ADMIN_UID =
     "rneRJQbNLNWUGyRbDs2ocI37R392";
+
+
+// ========================================
+// Backend URL
+// ========================================
+
+const API_URL =
+    "ضع_رابط_createAccount_هنا";
 
 
 let adminReady =
     false;
 
 
-
-/* =========================
-   CHECK ADMIN LOGIN
-========================= */
+// ========================================
+// Auth State
+// ========================================
 
 onAuthStateChanged(
     auth,
@@ -512,61 +442,12 @@ onAuthStateChanged(
 );
 
 
-
-/* =========================
-   GENERATE ACCOUNT NUMBER
-========================= */
-
-async function generateAccountNumber(){
-
-    let accountNumber;
-
-    let exists = true;
-
-
-    while(exists){
-
-        accountNumber =
-            Math.floor(
-                1000000 +
-                Math.random() * 9000000
-            ).toString();
-
-
-        const accountRef =
-            ref(
-                db,
-                "accounts/" + accountNumber
-            );
-
-
-        const snapshot =
-            await get(accountRef);
-
-
-        exists =
-            snapshot.exists();
-
-    }
-
-
-    return accountNumber;
-
-}
-
-
-
-/* =========================
-   CREATE ACCOUNT
-========================= */
+// ========================================
+// CREATE ACCOUNT
+// ========================================
 
 window.createAccount =
 async function(){
-
-
-    /* =========================
-       CHECK ADMIN
-    ========================= */
 
     if(!adminReady){
 
@@ -575,14 +456,8 @@ async function(){
         );
 
         return;
-
     }
 
-
-
-    /* =========================
-       GET VALUES
-    ========================= */
 
     const name =
         document
@@ -605,6 +480,11 @@ async function(){
         .trim();
 
 
+    const balance =
+        Number(
+            balanceValue || 0
+        );
+
 
     const btn =
         document
@@ -621,26 +501,15 @@ async function(){
         .getElementById("accountBox");
 
 
-
-    /* =========================
-       RESET MESSAGE
-    ========================= */
-
     message.className =
         "message";
 
     message.style.display =
         "none";
 
-
     accountBox.style.display =
         "none";
 
-
-
-    /* =========================
-       VALIDATE NAME
-    ========================= */
 
     if(name === ""){
 
@@ -649,46 +518,20 @@ async function(){
         );
 
         return;
-
     }
 
 
-
-    /* =========================
-       VALIDATE PASSWORD
-    ========================= */
-
-    if(password.length < 4){
+    if(
+        password.length < 6 ||
+        !/^[0-9]+$/.test(password)
+    ){
 
         showError(
-            "كلمة المرور يجب أن تكون 4 أرقام أو أكثر"
+            "كلمة المرور يجب أن تكون 6 أرقام أو أكثر"
         );
 
         return;
-
     }
-
-
-    if(!/^[0-9]+$/.test(password)){
-
-        showError(
-            "كلمة المرور يجب أن تحتوي على أرقام فقط"
-        );
-
-        return;
-
-    }
-
-
-
-    /* =========================
-       VALIDATE BALANCE
-    ========================= */
-
-    const balance =
-        Number(
-            balanceValue || 0
-        );
 
 
     if(
@@ -701,101 +544,115 @@ async function(){
         );
 
         return;
-
     }
 
 
+    if(
+        !API_URL ||
+        API_URL.includes("ضع_رابط")
+    ){
 
-    /* =========================
-       BUTTON LOADING
-    ========================= */
+        showError(
+            "لم يتم إعداد رابط الخادم بعد"
+        );
+
+        return;
+    }
+
 
     btn.disabled =
         true;
-
 
     btn.textContent =
         "جاري إنشاء الحساب...";
 
 
-
     try{
 
+        // ========================================
+        // Get Admin Token
+        // ========================================
 
-        /* =========================
-           GENERATE ACCOUNT
-        ========================= */
-
-        const account =
-            await generateAccountNumber();
-
+        const user =
+            auth.currentUser;
 
 
-        /* =========================
-           SHOW ACCOUNT NUMBER
-        ========================= */
+        if(!user){
+
+            throw new Error(
+                "جلسة الأدمن منتهية"
+            );
+
+        }
+
+
+        const idToken =
+            await user.getIdToken(true);
+
+
+        // ========================================
+        // Send To Backend
+        // ========================================
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " + idToken
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            name:
+                                name,
+
+                            password:
+                                password,
+
+                            balance:
+                                balance
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                result.message ||
+                "تعذر إنشاء الحساب"
+            );
+
+        }
+
+
+        // ========================================
+        // Show Account
+        // ========================================
 
         document
         .getElementById("account")
         .value =
-            account;
+            result.account;
 
-
-
-        /* =========================
-           ACCOUNT REF
-        ========================= */
-
-        const accountRef =
-            ref(
-                db,
-                "accounts/" + account
-            );
-
-
-
-        /* =========================
-           ACCOUNT DATA
-        ========================= */
-
-        const accountData = {
-
-            name:
-                name,
-
-            account:
-                account,
-
-            password:
-                password,
-
-            balance:
-                balance,
-
-            active:
-                true,
-
-            createdAt:
-                Date.now()
-
-        };
-
-
-
-        /* =========================
-           SAVE
-        ========================= */
-
-        await set(
-            accountRef,
-            accountData
-        );
-
-
-
-        /* =========================
-           SHOW RESULT
-        ========================= */
 
         document
         .getElementById("showName")
@@ -806,7 +663,7 @@ async function(){
         document
         .getElementById("showAccount")
         .textContent =
-            account;
+            result.account;
 
 
         document
@@ -817,10 +674,8 @@ async function(){
             );
 
 
-
         accountBox.style.display =
             "block";
-
 
 
         message.textContent =
@@ -834,11 +689,6 @@ async function(){
         message.style.display =
             "block";
 
-
-
-        /* =========================
-           CLEAR FIELDS
-        ========================= */
 
         document
         .getElementById("name")
@@ -857,39 +707,22 @@ async function(){
         .value =
             "0";
 
-
-
     }
+
     catch(error){
 
-
-        console.error(
-            "Firebase Error:",
-            error
-        );
-
-
-        console.error(
-            "Firebase Error Code:",
-            error.code
-        );
-
+        console.error(error);
 
         showError(
-            "حدث خطأ: " +
-            (
-                error.message ||
-                "تعذر إنشاء الحساب"
-            )
+            error.message ||
+            "حدث خطأ أثناء إنشاء الحساب"
         );
 
     }
-
 
 
     btn.disabled =
         false;
-
 
     btn.textContent =
         "إنشاء الحساب";
@@ -897,10 +730,9 @@ async function(){
 };
 
 
-
-/* =========================
-   ERROR MESSAGE
-========================= */
+// ========================================
+// ERROR
+// ========================================
 
 function showError(text){
 
@@ -923,10 +755,9 @@ function showError(text){
 }
 
 
-
-/* =========================
-   PASSWORD NUMBERS ONLY
-========================= */
+// ========================================
+// Numbers Only
+// ========================================
 
 document
 .getElementById("password")
@@ -943,9 +774,7 @@ document
     }
 );
 
-
 </script>
-
 
 </body>
 
