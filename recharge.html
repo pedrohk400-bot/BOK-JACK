@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>شحن الرصيد - BOK JACK</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -14,6 +19,7 @@ body{
     background:#0d1117;
     color:white;
     font-family:Arial,sans-serif;
+
     display:flex;
     justify-content:center;
     align-items:center;
@@ -22,175 +28,327 @@ body{
 .box{
     width:92%;
     max-width:400px;
+
     background:#151b23;
+
     padding:25px;
+
     border-radius:20px;
-    box-shadow:0 10px 35px rgba(0,0,0,.4);
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.4);
 }
 
 .logo{
     text-align:center;
+
     font-size:34px;
+
     font-weight:bold;
 }
 
 .sub{
     text-align:center;
+
     color:#aaa;
-    margin:8px 0 25px;
+
+    margin:
+        8px 0 25px;
 }
 
-input,button{
+input,
+button{
+
     width:100%;
+
     padding:14px;
+
     margin-top:12px;
+
     border-radius:12px;
+
     font-size:16px;
 }
 
 input{
+
     background:#0d1117;
+
     border:1px solid #30363d;
+
     color:white;
+
+    outline:none;
 }
 
 button{
+
     background:#b00020;
+
     color:white;
+
     border:0;
+
     font-weight:bold;
+
+    cursor:pointer;
 }
 
 button:disabled{
+
     opacity:.6;
+
+    cursor:not-allowed;
 }
 
 .message{
+
     text-align:center;
-    margin-top:15px;
+
+    margin-top:18px;
+
     line-height:1.8;
 }
 
 .success{
+
     color:#35d07f;
 }
 
 .error{
+
     color:#ff5c5c;
 }
 
 .balance{
-    font-size:24px;
+
+    font-size:26px;
+
     font-weight:bold;
 }
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="box">
 
-    <div class="logo">JACK</div>
+    <div class="logo">
+        JACK
+    </div>
 
     <div class="sub">
         شحن الرصيد
     </div>
+
 
     <input
         id="accountNumber"
         type="text"
         inputmode="numeric"
         maxlength="7"
-        placeholder="رقم الحساب">
+        autocomplete="off"
+        placeholder="رقم الحساب"
+    >
+
 
     <input
         id="password"
         type="password"
-        placeholder="كلمة المرور">
+        autocomplete="current-password"
+        placeholder="كلمة المرور"
+    >
+
 
     <input
         id="amount"
         type="number"
+        inputmode="numeric"
         min="1"
         step="1"
-        placeholder="المبلغ">
+        placeholder="المبلغ"
+    >
 
-    <button id="rechargeBtn">
+
+    <button
+        id="rechargeBtn"
+        type="button"
+    >
         شحن الرصيد
     </button>
 
-    <div id="message" class="message"></div>
+
+    <div
+        id="message"
+        class="message"
+    ></div>
 
 </div>
 
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
 import {
     getAuth,
     signInWithEmailAndPassword,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
 import {
     getDatabase,
     ref,
     get,
     runTransaction
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+/* =========================
+   Firebase
+========================= */
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
-    authDomain: "bok-jack.firebaseapp.com",
-    databaseURL: "https://bok-jack-default-rtdb.firebaseio.com",
-    projectId: "bok-jack",
-    storageBucket: "bok-jack.firebasestorage.app",
-    messagingSenderId: "96539205463",
-    appId: "1:96539205463:web:a2cb846d657aa873182812",
-    measurementId: "G-069BL15X9J"
+
+    apiKey:
+        "AIzaSyAuWY3OwK9EJnn8vBhz2-yittn7dDntZBw",
+
+    authDomain:
+        "bok-jack.firebaseapp.com",
+
+    databaseURL:
+        "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId:
+        "bok-jack",
+
+    storageBucket:
+        "bok-jack.firebasestorage.app",
+
+    messagingSenderId:
+        "96539205463",
+
+    appId:
+        "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId:
+        "G-069BL15X9J"
+
 };
 
 
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getDatabase(app);
+const app =
+    initializeApp(firebaseConfig);
 
 
-document.getElementById("rechargeBtn").addEventListener(
+const auth =
+    getAuth(app);
+
+
+const db =
+    getDatabase(app);
+
+
+/* =========================
+   العناصر
+========================= */
+
+
+const accountInput =
+    document.getElementById(
+        "accountNumber"
+    );
+
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+
+const amountInput =
+    document.getElementById(
+        "amount"
+    );
+
+
+const button =
+    document.getElementById(
+        "rechargeBtn"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+/* =========================
+   منع الضغط المكرر
+========================= */
+
+
+let processing = false;
+
+
+/* =========================
+   الشحن
+========================= */
+
+
+button.addEventListener(
     "click",
-    async () => {
+    async function(){
+
+        if(processing){
+
+            return;
+
+        }
+
 
         const accountNumber =
-            document.getElementById("accountNumber")
-            .value.trim();
+            accountInput.value.trim();
+
 
         const password =
-            document.getElementById("password")
-            .value;
+            passwordInput.value;
+
 
         const amount =
             Number(
-                document.getElementById("amount").value
+                amountInput.value
             );
 
-        const message =
-            document.getElementById("message");
 
-        const button =
-            document.getElementById("rechargeBtn");
+        message.innerHTML =
+            "";
 
 
-        message.innerHTML = "";
+        /* التحقق من رقم الحساب */
 
-
-        if(!/^[0-9]{7}$/.test(accountNumber)){
+        if(
+            !/^[0-9]{7}$/.test(
+                accountNumber
+            )
+        ){
 
             message.innerHTML =
                 '<span class="error">' +
@@ -198,8 +356,11 @@ document.getElementById("rechargeBtn").addEventListener(
                 '</span>';
 
             return;
+
         }
 
+
+        /* التحقق من كلمة المرور */
 
         if(!password){
 
@@ -209,10 +370,16 @@ document.getElementById("rechargeBtn").addEventListener(
                 '</span>';
 
             return;
+
         }
 
 
-        if(!Number.isFinite(amount) || amount <= 0){
+        /* التحقق من المبلغ */
+
+        if(
+            !Number.isFinite(amount) ||
+            amount <= 0
+        ){
 
             message.innerHTML =
                 '<span class="error">' +
@@ -220,21 +387,31 @@ document.getElementById("rechargeBtn").addEventListener(
                 '</span>';
 
             return;
+
         }
 
 
+        /* منع الضغط مرة ثانية */
+
+        processing = true;
+
         button.disabled = true;
-        button.innerText = "جاري الشحن...";
+
+        button.innerText =
+            "جاري الشحن...";
 
 
-        try {
+        try{
 
-            /*
-             * تسجيل الدخول بالحساب نفسه
-             */
+
+            /* =========================
+               تسجيل الدخول
+            ========================= */
+
 
             const internalEmail =
-                accountNumber + "@bokjack.local";
+                accountNumber +
+                "@bokjack.local";
 
 
             const credential =
@@ -249,22 +426,31 @@ document.getElementById("rechargeBtn").addEventListener(
                 credential.user.uid;
 
 
-            /*
-             * جلب بيانات المستخدم
-             */
+            /* =========================
+               بيانات الحساب
+            ========================= */
+
 
             const userRef =
-                ref(db, "users/" + uid);
+                ref(
+                    db,
+                    "users/" +
+                    uid
+                );
 
 
             const snapshot =
-                await get(userRef);
+                await get(
+                    userRef
+                );
 
 
-            if(!snapshot.exists()){
+            if(
+                !snapshot.exists()
+            ){
 
                 throw new Error(
-                    "بيانات الحساب غير موجودة"
+                    "ACCOUNT_DATA_NOT_FOUND"
                 );
 
             }
@@ -274,46 +460,93 @@ document.getElementById("rechargeBtn").addEventListener(
                 snapshot.val();
 
 
-            /*
-             * التأكد أن رقم الحساب يطابق
-             * الحساب الذي تم تسجيل الدخول إليه
-             */
+            /* التأكد من رقم الحساب */
 
             if(
-                userData.accountNumber !==
-                accountNumber
+                String(
+                    userData.accountNumber
+                ) !==
+                String(
+                    accountNumber
+                )
             ){
 
                 throw new Error(
-                    "الحساب غير متطابق"
+                    "ACCOUNT_MISMATCH"
                 );
 
             }
 
 
-            /*
-             * إضافة المبلغ إلى الرصيد
-             */
-
-            await runTransaction(
-                ref(db, "users/" + uid + "/balance"),
-                currentBalance => {
-
-                    const oldBalance =
-                        Number(currentBalance) || 0;
-
-                    return oldBalance + amount;
-
-                }
-            );
+            /* =========================
+               إضافة المبلغ مرة واحدة
+            ========================= */
 
 
-            /*
-             * قراءة الرصيد الجديد
-             */
+            const balanceRef =
+                ref(
+                    db,
+                    "users/" +
+                    uid +
+                    "/balance"
+                );
+
+
+            const transactionResult =
+                await runTransaction(
+                    balanceRef,
+                    currentBalance => {
+
+                        /*
+                         * إذا كان الرصيد غير محدود
+                         * فلا نغيره.
+                         */
+
+                        if(
+                            currentBalance ===
+                            "unlimited"
+                        ){
+
+                            return "unlimited";
+
+                        }
+
+
+                        const oldBalance =
+                            Number(
+                                currentBalance
+                            ) || 0;
+
+
+                        return (
+                            oldBalance +
+                            amount
+                        );
+
+                    }
+                );
+
+
+            if(
+                !transactionResult.committed
+            ){
+
+                throw new Error(
+                    "TRANSACTION_FAILED"
+                );
+
+            }
+
+
+            /* =========================
+               قراءة الرصيد الجديد
+            ========================= */
+
 
             const newSnapshot =
-                await get(userRef);
+                await get(
+                    userRef
+                );
 
 
             const newData =
@@ -321,44 +554,123 @@ document.getElementById("rechargeBtn").addEventListener(
 
 
             const newBalance =
-                Number(newData.balance) || 0;
+                newData.balance;
+
+
+            let balanceText;
+
+
+            if(
+                newBalance ===
+                "unlimited"
+            ){
+
+                balanceText =
+                    "♾️ غير محدود";
+
+            }else{
+
+                balanceText =
+                    Number(
+                        newBalance
+                    ).toLocaleString();
+
+            }
+
+
+            /* =========================
+               رسالة النجاح
+            ========================= */
 
 
             message.innerHTML =
+
                 '<span class="success">' +
-                '✅ تم شحن الرصيد بنجاح<br><br>' +
-                'المبلغ المضاف: ' +
-                amount.toLocaleString() +
+
+                '✅ تم شحن الرصيد بنجاح' +
+
                 '<br><br>' +
-                'الرصيد الجديد:<br>' +
+
+                'المبلغ المضاف: ' +
+
+                Number(
+                    amount
+                ).toLocaleString() +
+
+                '<br><br>' +
+
+                'الرصيد الجديد:' +
+
+                '<br>' +
+
                 '<span class="balance">' +
-                newBalance.toLocaleString() +
+
+                balanceText +
+
                 '</span>' +
+
                 '</span>';
 
 
-            button.innerText = "تم الشحن";
+            button.innerText =
+                "تم الشحن";
 
 
             /*
-             * تسجيل الخروج بعد العملية
+             * تنظيف الحقول
+             */
+
+            accountInput.value =
+                "";
+
+            passwordInput.value =
+                "";
+
+            amountInput.value =
+                "";
+
+
+            /*
+             * تسجيل الخروج
              */
 
             await signOut(auth);
 
 
-        } catch(error){
+        }catch(error){
 
-            console.error(error);
+
+            console.error(
+                "Recharge Error:",
+                error
+            );
+
 
             message.innerHTML =
+
                 '<span class="error">' +
-                '❌ تعذر تنفيذ عملية الشحن<br>' +
+
+                '❌ تعذر تنفيذ عملية الشحن' +
+
+                '<br><br>' +
+
                 'تأكد من رقم الحساب وكلمة المرور' +
+
                 '</span>';
 
-            button.disabled = false;
-            button.innerText = "شحن الرصيد";
+
+            button.disabled =
+                false;
+
+            button.innerText =
+                "شحن الرصيد";
+
+
+        }finally{
+
+
+            processing =
+                false;
 
         }
 
@@ -368,266 +680,5 @@ document.getElementById("rechargeBtn").addEventListener(
 </script>
 
 </body>
-</html>        type="password"
-        placeholder="كلمة المرور">
 
-    <input
-        id="amount"
-        type="number"
-        min="1"
-        step="1"
-        placeholder="المبلغ">
-
-    <button id="rechargeBtn">
-        شحن الرصيد
-    </button>
-
-    <div id="message" class="message"></div>
-
-</div>
-
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-import {
-    getDatabase,
-    ref,
-    get,
-    runTransaction
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
-    authDomain: "bok-jack.firebaseapp.com",
-    databaseURL: "https://bok-jack-default-rtdb.firebaseio.com",
-    projectId: "bok-jack",
-    storageBucket: "bok-jack.firebasestorage.app",
-    messagingSenderId: "96539205463",
-    appId: "1:96539205463:web:a2cb846d657aa873182812",
-    measurementId: "G-069BL15X9J"
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getDatabase(app);
-
-
-document.getElementById("rechargeBtn").addEventListener(
-    "click",
-    async () => {
-
-        const accountNumber =
-            document.getElementById("accountNumber")
-            .value.trim();
-
-        const password =
-            document.getElementById("password")
-            .value;
-
-        const amount =
-            Number(
-                document.getElementById("amount").value
-            );
-
-        const message =
-            document.getElementById("message");
-
-        const button =
-            document.getElementById("rechargeBtn");
-
-
-        message.innerHTML = "";
-
-
-        if(!/^[0-9]{7}$/.test(accountNumber)){
-
-            message.innerHTML =
-                '<span class="error">' +
-                'رقم الحساب يجب أن يكون 7 أرقام' +
-                '</span>';
-
-            return;
-        }
-
-
-        if(!password){
-
-            message.innerHTML =
-                '<span class="error">' +
-                'اكتب كلمة المرور' +
-                '</span>';
-
-            return;
-        }
-
-
-        if(!Number.isFinite(amount) || amount <= 0){
-
-            message.innerHTML =
-                '<span class="error">' +
-                'أدخل مبلغاً صحيحاً' +
-                '</span>';
-
-            return;
-        }
-
-
-        button.disabled = true;
-        button.innerText = "جاري الشحن...";
-
-
-        try {
-
-            /*
-             * تسجيل الدخول بالحساب نفسه
-             */
-
-            const internalEmail =
-                accountNumber + "@bokjack.local";
-
-
-            const credential =
-                await signInWithEmailAndPassword(
-                    auth,
-                    internalEmail,
-                    password
-                );
-
-
-            const uid =
-                credential.user.uid;
-
-
-            /*
-             * جلب بيانات المستخدم
-             */
-
-            const userRef =
-                ref(db, "users/" + uid);
-
-
-            const snapshot =
-                await get(userRef);
-
-
-            if(!snapshot.exists()){
-
-                throw new Error(
-                    "بيانات الحساب غير موجودة"
-                );
-
-            }
-
-
-            const userData =
-                snapshot.val();
-
-
-            /*
-             * التأكد أن رقم الحساب يطابق
-             * الحساب الذي تم تسجيل الدخول إليه
-             */
-
-            if(
-                userData.accountNumber !==
-                accountNumber
-            ){
-
-                throw new Error(
-                    "الحساب غير متطابق"
-                );
-
-            }
-
-
-            /*
-             * إضافة المبلغ إلى الرصيد
-             */
-
-            await runTransaction(
-                ref(db, "users/" + uid + "/balance"),
-                currentBalance => {
-
-                    const oldBalance =
-                        Number(currentBalance) || 0;
-
-                    return oldBalance + amount;
-
-                }
-            );
-
-
-            /*
-             * قراءة الرصيد الجديد
-             */
-
-            const newSnapshot =
-                await get(userRef);
-
-
-            const newData =
-                newSnapshot.val();
-
-
-            const newBalance =
-                Number(newData.balance) || 0;
-
-
-            message.innerHTML =
-                '<span class="success">' +
-                '✅ تم شحن الرصيد بنجاح<br><br>' +
-                'المبلغ المضاف: ' +
-                amount.toLocaleString() +
-                '<br><br>' +
-                'الرصيد الجديد:<br>' +
-                '<span class="balance">' +
-                newBalance.toLocaleString() +
-                '</span>' +
-                '</span>';
-
-
-            button.innerText = "تم الشحن";
-
-
-            /*
-             * تسجيل الخروج بعد العملية
-             */
-
-            await signOut(auth);
-
-
-        } catch(error){
-
-            console.error(error);
-
-            message.innerHTML =
-                '<span class="error">' +
-                '❌ تعذر تنفيذ عملية الشحن<br>' +
-                'تأكد من رقم الحساب وكلمة المرور' +
-                '</span>';
-
-            button.disabled = false;
-            button.innerText = "شحن الرصيد";
-
-        }
-
-    }
-);
-
-</script>
-
-</body>
 </html>
