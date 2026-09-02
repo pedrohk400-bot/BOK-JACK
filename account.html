@@ -1,663 +1,1166 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>فتح حساب - BOK JACK</title>
+  <meta charset="UTF-8">
 
-<style>
-*{
-    box-sizing:border-box;
-}
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
 
-body{
-    margin:0;
-    background:#0d1117;
-    color:white;
-    font-family:Arial,sans-serif;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+  <meta name="theme-color" content="#000000">
 
-.box{
-    width:92%;
-    max-width:420px;
-    background:#151b23;
-    padding:25px;
-    border-radius:20px;
-    box-shadow:0 10px 35px rgba(0,0,0,.4);
-}
+  <title>BOK JACK - فتح حساب</title>
 
-.logo{
-    text-align:center;
-    font-size:34px;
-    font-weight:bold;
-    margin-bottom:5px;
-}
+  <style>
 
-.sub{
-    text-align:center;
-    color:#aaa;
-    margin-bottom:25px;
-}
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system,
+                   BlinkMacSystemFont,
+                   "SF Pro Display",
+                   "SF Pro Text",
+                   Arial,
+                   sans-serif;
+    }
 
-input,
-button{
-    width:100%;
-    padding:14px;
-    border-radius:12px;
-    font-size:16px;
-    margin-top:12px;
-}
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: #000;
+    }
 
-input{
-    background:#0d1117;
-    border:1px solid #30363d;
-    color:white;
-    outline:none;
-}
+    body {
 
-button{
-    border:0;
-    background:#b00020;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
+      min-height: 100vh;
 
-button:disabled{
-    opacity:.6;
-}
+      display: flex;
+      justify-content: center;
 
-.plan{
-    border:1px solid #30363d;
-    padding:14px;
-    border-radius:12px;
-    margin-top:10px;
-    cursor:pointer;
-    transition:.2s;
-}
+      color: #fff;
 
-.plan.selected{
-    border-color:#b00020;
-    background:#251017;
-}
+      background:
+        radial-gradient(
+          circle at 50% 5%,
+          #252525 0%,
+          #0c0c0c 35%,
+          #000 75%
+        );
+    }
 
-.plan-title{
-    font-weight:bold;
-}
+    .page {
 
-.plan-balance{
-    color:#aaa;
-    margin-top:5px;
-    font-size:14px;
-}
+      width: 100%;
+      max-width: 430px;
 
-.message{
-    margin-top:15px;
-    text-align:center;
-    line-height:1.8;
-}
+      min-height: 100vh;
 
-.success{
-    color:#35d07f;
-}
+      padding: 35px 20px;
 
-.error{
-    color:#ff5c5c;
-}
-</style>
+    }
+
+    .top {
+
+      text-align: center;
+
+      margin-bottom: 25px;
+
+    }
+
+    .logo {
+
+      font-size: 42px;
+
+      font-weight: 800;
+
+      letter-spacing: 5px;
+
+    }
+
+    .subtitle {
+
+      color: #8e8e93;
+
+      font-size: 14px;
+
+      margin-top: 8px;
+
+    }
+
+    .card {
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.105),
+          rgba(255,255,255,.045)
+        );
+
+      border:
+        1px solid
+        rgba(255,255,255,.10);
+
+      border-radius: 28px;
+
+      padding: 22px;
+
+      box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.6),
+
+        inset 0 1px 0
+        rgba(255,255,255,.06);
+
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+
+    }
+
+    label {
+
+      display: block;
+
+      color: #8e8e93;
+
+      font-size: 13px;
+
+      margin-bottom: 8px;
+
+    }
+
+    input {
+
+      width: 100%;
+
+      height: 54px;
+
+      border: 1px solid
+        rgba(255,255,255,.10);
+
+      border-radius: 16px;
+
+      outline: none;
+
+      background:
+        rgba(255,255,255,.07);
+
+      color: #fff;
+
+      padding: 0 15px;
+
+      font-size: 16px;
+
+      margin-bottom: 18px;
+
+    }
+
+    input:focus {
+
+      border-color:
+        rgba(255,255,255,.35);
+
+    }
+
+    input::placeholder {
+
+      color: #666;
+
+    }
+
+    .section-title {
+
+      font-size: 17px;
+
+      font-weight: 700;
+
+      margin:
+        5px 0 14px;
+
+    }
+
+    .plans {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 10px;
+
+    }
+
+    .plan {
+
+      position: relative;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      padding: 15px;
+
+      border-radius: 18px;
+
+      background:
+        rgba(255,255,255,.055);
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      cursor: pointer;
+
+      transition: .15s;
+
+    }
+
+    .plan:active {
+
+      transform: scale(.98);
+
+    }
+
+    .plan.selected {
+
+      background:
+        rgba(255,255,255,.13);
+
+      border-color:
+        rgba(255,255,255,.40);
+
+    }
+
+    .plan-left {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+    }
+
+    .radio {
+
+      width: 20px;
+      height: 20px;
+
+      border-radius: 50%;
+
+      border: 2px solid #666;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+    }
+
+    .plan.selected .radio {
+
+      border-color: #fff;
+
+    }
+
+    .plan.selected .radio::after {
+
+      content: "";
+
+      width: 10px;
+      height: 10px;
+
+      background: #fff;
+
+      border-radius: 50%;
+
+    }
+
+    .plan-name {
+
+      font-size: 15px;
+
+      font-weight: 600;
+
+    }
+
+    .plan-balance {
+
+      color: #aaa;
+
+      font-size: 13px;
+
+      text-align: left;
+
+    }
+
+    .create {
+
+      width: 100%;
+
+      height: 56px;
+
+      border: none;
+
+      border-radius: 17px;
+
+      margin-top: 8px;
+
+      background: #fff;
+
+      color: #000;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .15s;
+
+    }
+
+    .create:active {
+
+      transform: scale(.97);
+
+      opacity: .8;
+
+    }
+
+    .create:disabled {
+
+      opacity: .45;
+
+      cursor: not-allowed;
+
+    }
+
+    .back {
+
+      width: 100%;
+
+      height: 50px;
+
+      margin-top: 12px;
+
+      border: 1px solid
+        rgba(255,255,255,.10);
+
+      border-radius: 16px;
+
+      background:
+        rgba(255,255,255,.06);
+
+      color: #fff;
+
+      font-size: 15px;
+
+    }
+
+    .message {
+
+      display: none;
+
+      margin-top: 15px;
+
+      padding: 14px;
+
+      border-radius: 15px;
+
+      text-align: center;
+
+      font-size: 14px;
+
+    }
+
+    .success {
+
+      display: block;
+
+      background: rgba(50,200,100,.12);
+
+      color: #70e090;
+
+      border: 1px solid
+        rgba(50,200,100,.2);
+
+    }
+
+    .error {
+
+      display: block;
+
+      background: rgba(255,50,50,.10);
+
+      color: #ff7070;
+
+      border: 1px solid
+        rgba(255,50,50,.2);
+
+    }
+
+    .result {
+
+      display: none;
+
+      margin-top: 18px;
+
+      padding: 18px;
+
+      border-radius: 18px;
+
+      background:
+        rgba(255,255,255,.07);
+
+      text-align: center;
+
+    }
+
+    .account-number {
+
+      font-size: 28px;
+
+      font-weight: 800;
+
+      letter-spacing: 4px;
+
+      direction: ltr;
+
+      margin: 10px 0;
+
+    }
+
+    .result small {
+
+      color: #8e8e93;
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-<div class="box">
+<div class="page">
 
-    <div class="logo">JACK</div>
+  <div class="top">
 
-    <div class="sub">
-        فتح حساب جديد
+    <div class="logo">
+      JACK
     </div>
+
+    <div class="subtitle">
+      فتح حساب جديد
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <label>
+      الاسم
+    </label>
 
     <input
-        id="name"
-        type="text"
-        placeholder="الاسم"
+      id="name"
+      type="text"
+      placeholder="اكتب اسمك"
+      autocomplete="name"
     >
+
+
+    <label>
+      كلمة المرور
+    </label>
 
     <input
-        id="password"
-        type="password"
-        placeholder="كلمة المرور"
+      id="password"
+      type="password"
+      inputmode="numeric"
+      placeholder="4 أرقام أو أكثر"
+      autocomplete="new-password"
     >
 
-    <input
-        id="confirmPassword"
-        type="password"
-        placeholder="تأكيد كلمة المرور"
+
+    <div class="section-title">
+      اختر الاشتراك
+    </div>
+
+
+    <div class="plans">
+
+      <div class="plan" data-days="1" data-balance="100000">
+        <div class="plan-left">
+          <div class="radio"></div>
+          <div class="plan-name">
+            يوم واحد
+          </div>
+        </div>
+
+        <div class="plan-balance">
+          100,000 SDG
+        </div>
+      </div>
+
+
+      <div class="plan" data-days="3" data-balance="300000">
+        <div class="plan-left">
+          <div class="radio"></div>
+          <div class="plan-name">
+            3 أيام
+          </div>
+        </div>
+
+        <div class="plan-balance">
+          300,000 SDG
+        </div>
+      </div>
+
+
+      <div class="plan" data-days="7" data-balance="700000">
+        <div class="plan-left">
+          <div class="radio"></div>
+          <div class="plan-name">
+            7 أيام
+          </div>
+        </div>
+
+        <div class="plan-balance">
+          700,000 SDG
+        </div>
+      </div>
+
+
+      <div class="plan" data-days="30" data-balance="2000000">
+        <div class="plan-left">
+          <div class="radio"></div>
+          <div class="plan-name">
+            30 يوم
+          </div>
+        </div>
+
+        <div class="plan-balance">
+          2,000,000 SDG
+        </div>
+      </div>
+
+
+      <div class="plan" data-days="90" data-balance="100000000">
+        <div class="plan-left">
+          <div class="radio"></div>
+          <div class="plan-name">
+            90 يوم
+          </div>
+        </div>
+
+        <div class="plan-balance">
+          100,000,000 SDG
+        </div>
+      </div>
+
+
+      <div class="plan" data-days="180" data-balance="500000000">
+        <div class="plan-left">
+          <div class="radio"></div>
+          <div class="plan-name">
+            180 يوم
+          </div>
+        </div>
+
+        <div class="plan-balance">
+          500,000,000 SDG
+        </div>
+      </div>
+
+
+      <div class="plan" data-days="365" data-balance="unlimited">
+
+        <div class="plan-left">
+
+          <div class="radio"></div>
+
+          <div class="plan-name">
+            سنة كاملة
+          </div>
+
+        </div>
+
+        <div class="plan-balance">
+          ∞ غير محدود
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      id="createBtn"
+      class="create"
     >
-
-    <div style="margin-top:20px;font-weight:bold;">
-        اختر مدة الاشتراك
-    </div>
-
-    <div class="plan selected" data-days="1" data-balance="100000">
-        <div class="plan-title">يوم واحد</div>
-        <div class="plan-balance">
-            الرصيد: 100,000
-        </div>
-    </div>
-
-    <div class="plan" data-days="3" data-balance="300000">
-        <div class="plan-title">3 أيام</div>
-        <div class="plan-balance">
-            الرصيد: 300,000
-        </div>
-    </div>
-
-    <div class="plan" data-days="7" data-balance="700000">
-        <div class="plan-title">أسبوع</div>
-        <div class="plan-balance">
-            الرصيد: 700,000
-        </div>
-    </div>
-
-    <div class="plan" data-days="30" data-balance="2000000">
-        <div class="plan-title">شهر</div>
-        <div class="plan-balance">
-            الرصيد: 2,000,000
-        </div>
-    </div>
-
-    <div class="plan" data-days="90" data-balance="100000000">
-        <div class="plan-title">3 شهور</div>
-        <div class="plan-balance">
-            الرصيد: 100,000,000
-        </div>
-    </div>
-
-    <div class="plan" data-days="180" data-balance="500000000">
-        <div class="plan-title">6 شهور</div>
-        <div class="plan-balance">
-            الرصيد: 500,000,000
-        </div>
-    </div>
-
-    <div class="plan" data-days="365" data-balance="unlimited">
-        <div class="plan-title">12 شهر</div>
-        <div class="plan-balance">
-            الرصيد: ♾️ غير محدود
-        </div>
-    </div>
-
-    <button id="createBtn">
-        فتح الحساب
+      فتح الحساب
     </button>
 
-    <div id="message" class="message"></div>
+
+    <button
+      class="back"
+      onclick="goBack()"
+    >
+      رجوع
+    </button>
+
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+
+    <div
+      id="result"
+      class="result"
+    >
+
+      <small>
+        تم إنشاء حسابك بنجاح
+      </small>
+
+      <div
+        id="newAccount"
+        class="account-number"
+      ></div>
+
+      <small>
+        احتفظ برقم الحساب للدخول
+      </small>
+
+    </div>
+
+  </div>
 
 </div>
 
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-import {
+  import {
     getAuth,
-    createUserWithEmailAndPassword,
-    deleteUser
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    createUserWithEmailAndPassword
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-import {
+  import {
     getDatabase,
     ref,
-    set,
-    runTransaction
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+    runTransaction,
+    set
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 
-/* Firebase */
+  // =========================
+  // Firebase
+  // =========================
 
-const firebaseConfig = {
+  const firebaseConfig = {
 
     apiKey:
-        "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+      "AIzaSyAuWY3OwK9EJnn8vBhz2-yittn7dDntZBw",
 
     authDomain:
-        "bok-jack.firebaseapp.com",
+      "bok-jack.firebaseapp.com",
 
     databaseURL:
-        "https://bok-jack-default-rtdb.firebaseio.com",
+      "https://bok-jack-default-rtdb.firebaseio.com",
 
     projectId:
-        "bok-jack",
+      "bok-jack",
 
     storageBucket:
-        "bok-jack.firebasestorage.app",
+      "bok-jack.firebasestorage.app",
 
     messagingSenderId:
-        "96539205463",
+      "96539205463",
 
     appId:
-        "1:96539205463:web:a2cb846d657aa873182812",
+      "1:96539205463:web:a2cb846d657aa873182812",
 
     measurementId:
-        "G-069BL15X9J"
-};
+      "G-069BL15X9J"
+  };
 
 
-const app =
+  const app =
     initializeApp(firebaseConfig);
 
-const auth =
+  const auth =
     getAuth(app);
 
-const db =
+  const db =
     getDatabase(app);
 
 
-/* القيم الافتراضية */
+  // =========================
+  // المتغيرات
+  // =========================
 
-let selectedDays = 1;
-let selectedBalance = 100000;
+  let selectedPlan = null;
 
 
-/* اختيار الاشتراك */
+  const plans =
+    document.querySelectorAll(".plan");
 
-document
-.querySelectorAll(".plan")
-.forEach(plan => {
+  const nameInput =
+    document.getElementById("name");
+
+  const passwordInput =
+    document.getElementById("password");
+
+  const createBtn =
+    document.getElementById("createBtn");
+
+  const message =
+    document.getElementById("message");
+
+  const result =
+    document.getElementById("result");
+
+  const newAccount =
+    document.getElementById("newAccount");
+
+
+  // =========================
+  // اختيار الاشتراك
+  // =========================
+
+  plans.forEach(plan => {
 
     plan.addEventListener("click", () => {
 
-        document
-        .querySelectorAll(".plan")
-        .forEach(p => {
+      plans.forEach(p => {
+        p.classList.remove("selected");
+      });
 
-            p.classList.remove("selected");
+      plan.classList.add("selected");
 
-        });
+      selectedPlan = {
 
+        days:
+          Number(
+            plan.dataset.days
+          ),
 
-        plan.classList.add("selected");
+        balance:
+          plan.dataset.balance
 
-
-        selectedDays =
-            Number(plan.dataset.days);
-
-
-        if(plan.dataset.balance === "unlimited"){
-
-            selectedBalance =
-                "unlimited";
-
-        }else{
-
-            selectedBalance =
-                Number(plan.dataset.balance);
-
-        }
+      };
 
     });
 
-});
+  });
 
 
-/* إنشاء رقم حساب 7 أرقام */
+  // =========================
+  // إنشاء رقم حساب 7 أرقام
+  // =========================
 
-function generateAccountNumber(){
+  function generateAccountNumber() {
 
     return String(
-        Math.floor(
-            1000000 +
-            Math.random() * 9000000
-        )
+      Math.floor(
+        1000000 +
+        Math.random() * 9000000
+      )
     );
 
-}
+  }
 
 
-/* إنشاء الحساب */
+  // =========================
+  // رسالة
+  // =========================
 
-document
-.getElementById("createBtn")
-.addEventListener("click", async () => {
+  function showMessage(
+    text,
+    type
+  ) {
 
+    message.textContent =
+      text;
 
-    const name =
-        document
-        .getElementById("name")
-        .value
-        .trim();
+    message.className =
+      "message " + type;
 
-
-    const password =
-        document
-        .getElementById("password")
-        .value;
+  }
 
 
-    const confirmPassword =
-        document
-        .getElementById("confirmPassword")
-        .value;
+  // =========================
+  // إنشاء الحساب
+  // =========================
+
+  createBtn.addEventListener(
+    "click",
+    async () => {
+
+      message.className =
+        "message";
+
+      result.style.display =
+        "none";
 
 
-    const message =
-        document
-        .getElementById("message");
+      const name =
+        nameInput.value.trim();
+
+      const password =
+        passwordInput.value.trim();
 
 
-    const button =
-        document
-        .getElementById("createBtn");
+      // التحقق من الاسم
 
+      if (!name) {
 
-    message.innerHTML = "";
-
-
-    /* التحقق */
-
-    if(!name){
-
-        message.innerHTML =
-            '<span class="error">' +
-            'اكتب الاسم' +
-            '</span>';
-
-        return;
-
-    }
-
-
-    if(password.length < 4){
-
-        message.innerHTML =
-            '<span class="error">' +
-            'كلمة المرور يجب أن تكون 4 أحرف/أرقام على الأقل' +
-            '</span>';
+        showMessage(
+          "اكتب الاسم أولاً",
+          "error"
+        );
 
         return;
 
-    }
+      }
 
 
-    if(password !== confirmPassword){
+      // التحقق من كلمة المرور
 
-        message.innerHTML =
-            '<span class="error">' +
-            'كلمتا المرور غير متطابقتين' +
-            '</span>';
+      if (!/^[0-9]{4,}$/.test(password)) {
+
+        showMessage(
+          "كلمة المرور يجب أن تكون 4 أرقام أو أكثر",
+          "error"
+        );
 
         return;
 
-    }
+      }
 
 
-    button.disabled = true;
+      // التحقق من الاشتراك
 
-    button.innerText =
+      if (!selectedPlan) {
+
+        showMessage(
+          "اختر الاشتراك أولاً",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      createBtn.disabled = true;
+
+      createBtn.textContent =
         "جاري إنشاء الحساب...";
 
 
-    let createdUser = null;
+      try {
+
+        let accountNumber;
+        let reserved = false;
 
 
-    try {
+        // =========================
+        // حجز رقم حساب غير مستخدم
+        // =========================
 
+        for (let i = 0; i < 10; i++) {
 
-        /* إنشاء رقم الحساب */
-
-        const accountNumber =
+          const candidate =
             generateAccountNumber();
 
 
-        /*
-         * إيميل داخلي مخفي
-         *
-         * المستخدم لن يراه.
-         */
+          const resultTransaction =
+            await runTransaction(
 
-        const internalEmail =
-            accountNumber +
-            "@bokjack.local";
+              ref(
+                db,
+                "accountNumbers/" +
+                candidate
+              ),
 
+              currentData => {
 
-        /* إنشاء Firebase Auth */
+                if (currentData !== null) {
+                  return;
+                }
 
-        const credential =
-            await createUserWithEmailAndPassword(
-                auth,
-                internalEmail,
-                password
+                return {
+                  uid: "RESERVING"
+                };
+
+              }
+
             );
 
 
-        createdUser =
-            credential.user;
+          if (
+            resultTransaction.committed &&
+            resultTransaction.snapshot.exists()
+          ) {
+
+            accountNumber =
+              candidate;
+
+            reserved = true;
+
+            break;
+
+          }
+
+        }
+
+
+        if (!reserved) {
+
+          throw new Error(
+            "تعذر إنشاء رقم حساب، حاول مرة أخرى"
+          );
+
+        }
+
+
+        // =========================
+        // Firebase Auth
+        // =========================
+
+        const internalEmail =
+          accountNumber +
+          "@bokjack.local";
+
+
+        let credential;
+
+
+        try {
+
+          credential =
+            await createUserWithEmailAndPassword(
+              auth,
+              internalEmail,
+              password
+            );
+
+        } catch (authError) {
+
+          // إزالة الحجز إذا فشل إنشاء المستخدم
+
+          await set(
+            ref(
+              db,
+              "accountNumbers/" +
+              accountNumber
+            ),
+            null
+          );
+
+          throw authError;
+
+        }
 
 
         const uid =
-            createdUser.uid;
+          credential.user.uid;
 
 
-        /*
-         * حجز رقم الحساب
-         */
-
-        const accountRef =
-            ref(
-                db,
-                "accountNumbers/" +
-                accountNumber
-            );
-
-
-        const result =
-            await runTransaction(
-                accountRef,
-                currentData => {
-
-                    if(currentData !== null){
-
-                        return;
-
-                    }
-
-                    return {
-                        uid: uid
-                    };
-
-                }
-            );
-
-
-        if(!result.committed){
-
-            throw new Error(
-                "ACCOUNT_EXISTS"
-            );
-
-        }
-
-
-        /* الوقت الحالي */
+        // =========================
+        // التواريخ
+        // =========================
 
         const now =
-            Date.now();
+          Date.now();
 
-
-        /* نهاية الاشتراك */
 
         const subscriptionEnd =
-            now +
-            selectedDays *
+          now +
+          (
+            selectedPlan.days *
             24 *
             60 *
             60 *
-            1000;
+            1000
+          );
 
 
-        /*
-         * بيانات المستخدم
-         */
+        const isUnlimited =
+          selectedPlan.balance ===
+          "unlimited";
+
+
+        const initialBalance =
+          isUnlimited
+            ? 0
+            : Number(selectedPlan.balance);
+
+
+        // =========================
+        // بيانات المستخدم
+        // =========================
 
         await set(
+          ref(
+            db,
+            "users/" + uid
+          ),
+          {
 
-            ref(
-                db,
-                "users/" + uid
-            ),
+            accountNumber:
+              accountNumber,
 
-            {
+            name:
+              name,
 
-                accountNumber:
-                    accountNumber,
+            balance:
+              initialBalance,
 
-                name:
-                    name,
+            balanceUnlimited:
+              isUnlimited,
 
-                /*
-                 * الرصيد يعتمد على الاشتراك
-                 */
+            subscriptionStart:
+              now,
 
-                balance:
-                    selectedBalance,
+            subscriptionEnd:
+              subscriptionEnd
 
-                subscriptionStart:
-                    now,
-
-                subscriptionEnd:
-                    subscriptionEnd
-
-            }
-
+          }
         );
 
 
-        /* رسالة النجاح */
+        // =========================
+        // تحديث UID الحقيقي
+        // =========================
 
-        let balanceText;
+        await set(
+          ref(
+            db,
+            "accountNumbers/" +
+            accountNumber
+          ),
+          {
 
+            uid:
+              uid
 
-        if(selectedBalance === "unlimited"){
-
-            balanceText =
-                "♾️ غير محدود";
-
-        }else{
-
-            balanceText =
-                Number(
-                    selectedBalance
-                ).toLocaleString();
-
-        }
-
-
-        message.innerHTML =
-
-            '<span class="success">' +
-
-            '✅ تم إنشاء الحساب بنجاح!' +
-
-            '<br><br>' +
-
-            'رقم الحساب:' +
-
-            '<br>' +
-
-            '<strong style="font-size:28px">' +
-
-            accountNumber +
-
-            '</strong>' +
-
-            '<br><br>' +
-
-            'مدة الاشتراك: ' +
-
-            selectedDays +
-
-            ' يوم' +
-
-            '<br><br>' +
-
-            'الرصيد:' +
-
-            '<br>' +
-
-            '<strong style="font-size:24px">' +
-
-            balanceText +
-
-            '</strong>' +
-
-            '</span>';
+          }
+        );
 
 
-        button.innerText =
-            "تم إنشاء الحساب";
+        // =========================
+        // النجاح
+        // =========================
+
+        newAccount.textContent =
+          accountNumber;
+
+        result.style.display =
+          "block";
 
 
-    }catch(error){
+        showMessage(
+          "تم إنشاء الحساب بنجاح",
+          "success"
+        );
 
+
+        createBtn.textContent =
+          "تم إنشاء الحساب";
+
+
+        // الانتقال لتسجيل الدخول
+
+        setTimeout(() => {
+
+          window.location.href =
+            "login.html";
+
+        }, 3000);
+
+
+      } catch (error) {
 
         console.error(error);
 
 
-        /*
-         * حذف حساب Auth إذا فشلت العملية
-         */
+        let text =
+          "تعذر إنشاء الحساب";
 
-        if(createdUser){
 
-            try{
+        if (
+          error.code ===
+          "auth/email-already-in-use"
+        ) {
 
-                await deleteUser(
-                    createdUser
-                );
-
-            }catch(e){
-
-                console.error(e);
-
-            }
+          text =
+            "تعذر إنشاء الحساب، حاول مرة أخرى";
 
         }
 
 
-        message.innerHTML =
+        if (
+          error.code ===
+          "auth/weak-password"
+        ) {
 
-            '<span class="error">' +
+          text =
+            "كلمة المرور ضعيفة";
 
-            '❌ حدث خطأ أثناء إنشاء الحساب' +
-
-            '<br>' +
-
-            error.message +
-
-            '</span>';
+        }
 
 
-        button.disabled =
-            false;
+        showMessage(
+          text,
+          "error"
+        );
 
-        button.innerText =
-            "فتح الحساب";
+
+        createBtn.disabled =
+          false;
+
+        createBtn.textContent =
+          "فتح الحساب";
+
+      }
 
     }
+  );
 
-});
+
+  // =========================
+  // رجوع
+  // =========================
+
+  window.goBack =
+    function() {
+
+      window.location.href =
+        "index.html";
+
+    };
+
 
 </script>
 
 </body>
+
 </html>
