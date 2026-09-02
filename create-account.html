@@ -89,6 +89,11 @@ input::placeholder{
     color:#666;
 }
 
+input[readonly]{
+    color:#aaa;
+    background:#141414;
+}
+
 button{
     width:100%;
     height:54px;
@@ -192,19 +197,15 @@ button:disabled{
                 autocomplete="off">
         </div>
 
-
         <div class="input-group">
             <label>رقم الحساب</label>
 
             <input
                 type="text"
                 id="account"
-                placeholder="أدخل 7 أرقام"
-                maxlength="7"
-                inputmode="numeric"
-                autocomplete="off">
+                value="سيتم إنشاء الرقم تلقائياً"
+                readonly>
         </div>
-
 
         <div class="input-group">
             <label>كلمة المرور</label>
@@ -217,7 +218,6 @@ button:disabled{
                 autocomplete="new-password">
         </div>
 
-
         <div class="input-group">
             <label>الرصيد الابتدائي</label>
 
@@ -229,14 +229,11 @@ button:disabled{
                 value="0">
         </div>
 
-
         <button id="createBtn" onclick="createAccount()">
             إنشاء الحساب
         </button>
 
-
         <div id="message" class="message"></div>
-
 
         <div id="accountBox" class="account-box">
 
@@ -258,7 +255,6 @@ button:disabled{
         </div>
 
     </div>
-
 
     <a href="admin.html" class="back">
         ← العودة إلى لوحة الإدارة
@@ -282,7 +278,7 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
 /* =========================
-   BOK JACK FIREBASE
+   FIREBASE
 ========================= */
 
 const firebaseConfig = {
@@ -312,12 +308,42 @@ const firebaseConfig = {
     "G-069BL15X9J"
 };
 
-
-/* تشغيل Firebase */
-
 const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
+
+
+/* =========================
+   توليد رقم حساب 7 أرقام
+========================= */
+
+async function generateAccountNumber(){
+
+    let accountNumber;
+    let exists = true;
+
+    while(exists){
+
+        accountNumber =
+            Math.floor(
+                1000000 +
+                Math.random() * 9000000
+            ).toString();
+
+        const accountRef =
+            ref(
+                db,
+                "accounts/" + accountNumber
+            );
+
+        const snapshot =
+            await get(accountRef);
+
+        exists = snapshot.exists();
+    }
+
+    return accountNumber;
+}
 
 
 /* =========================
@@ -330,35 +356,23 @@ window.createAccount = async function(){
         document.getElementById("name")
         .value.trim();
 
-
-    const account =
-        document.getElementById("account")
-        .value.trim();
-
-
     const password =
         document.getElementById("password")
         .value.trim();
-
 
     const balanceValue =
         document.getElementById("balance")
         .value.trim();
 
-
     const btn =
         document.getElementById("createBtn");
-
 
     const message =
         document.getElementById("message");
 
-
     const accountBox =
         document.getElementById("accountBox");
 
-
-    /* إخفاء الرسائل السابقة */
 
     message.className = "message";
     message.style.display = "none";
@@ -367,22 +381,12 @@ window.createAccount = async function(){
 
 
     /* =========================
-       التحقق من البيانات
+       التحقق
     ========================= */
 
     if(name === ""){
 
         showError("أدخل اسم المستخدم");
-
-        return;
-    }
-
-
-    if(!/^[0-9]{7}$/.test(account)){
-
-        showError(
-            "رقم الحساب يجب أن يكون 7 أرقام"
-        );
 
         return;
     }
@@ -408,21 +412,17 @@ window.createAccount = async function(){
     }
 
 
-    let balance =
+    const balance =
         Number(balanceValue || 0);
 
 
     if(!Number.isFinite(balance) || balance < 0){
 
-        showError(
-            "الرصيد غير صحيح"
-        );
+        showError("الرصيد غير صحيح");
 
         return;
     }
 
-
-    /* تعطيل الزر */
 
     btn.disabled = true;
 
@@ -433,7 +433,21 @@ window.createAccount = async function(){
     try{
 
         /* =========================
-           البحث عن الحساب
+           إنشاء رقم الحساب تلقائياً
+        ========================= */
+
+        const account =
+            await generateAccountNumber();
+
+
+        /* عرض الرقم */
+
+        document.getElementById("account")
+            .value = account;
+
+
+        /* =========================
+           مرجع الحساب
         ========================= */
 
         const accountRef =
@@ -441,27 +455,6 @@ window.createAccount = async function(){
                 db,
                 "accounts/" + account
             );
-
-
-        const snapshot =
-            await get(accountRef);
-
-
-        /* الحساب موجود */
-
-        if(snapshot.exists()){
-
-            showError(
-                "رقم الحساب مستخدم بالفعل"
-            );
-
-            btn.disabled = false;
-
-            btn.textContent =
-                "إنشاء الحساب";
-
-            return;
-        }
 
 
         /* =========================
@@ -486,7 +479,7 @@ window.createAccount = async function(){
 
 
         /* =========================
-           حفظ الحساب في Firebase
+           الحفظ
         ========================= */
 
         await set(
@@ -496,7 +489,7 @@ window.createAccount = async function(){
 
 
         /* =========================
-           إظهار النتيجة
+           النتيجة
         ========================= */
 
         document.getElementById(
@@ -531,15 +524,10 @@ window.createAccount = async function(){
             "block";
 
 
-        /* تنظيف الحقول */
+        /* تنظيف الاسم وكلمة المرور */
 
         document.getElementById(
             "name"
-        ).value = "";
-
-
-        document.getElementById(
-            "account"
         ).value = "";
 
 
@@ -560,9 +548,15 @@ window.createAccount = async function(){
             error
         );
 
+        console.error(
+            "Firebase Error Code:",
+            error.code
+        );
+
 
         showError(
-            "حدث خطأ أثناء إنشاء الحساب"
+            "حدث خطأ: " +
+            (error.message || "تعذر إنشاء الحساب")
         );
 
     }
@@ -583,18 +577,13 @@ window.createAccount = async function(){
 function showError(text){
 
     const message =
-        document.getElementById(
-            "message"
-        );
-
+        document.getElementById("message");
 
     message.textContent =
         text;
 
-
     message.className =
         "message error";
-
 
     message.style.display =
         "block";
@@ -602,20 +591,8 @@ function showError(text){
 
 
 /* =========================
-   السماح بالأرقام فقط
+   أرقام فقط لكلمة المرور
 ========================= */
-
-document.getElementById("account")
-.addEventListener("input", function(){
-
-    this.value =
-        this.value.replace(
-            /[^0-9]/g,
-            ""
-        );
-
-});
-
 
 document.getElementById("password")
 .addEventListener("input", function(){
