@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BOK JACK - إنشاء حساب</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,
+    "SF Pro Display","Segoe UI",Arial,sans-serif;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#000;
+    color:#fff;
+}
+
+.container{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    padding:25px 18px 40px;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.subtitle{
+    color:#888;
+    margin-top:7px;
+    font-size:14px;
+}
+
+.card{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0 10px 35px rgba(0,0,0,.45);
+}
+
+.title{
+    font-size:21px;
+    font-weight:700;
+    margin-bottom:22px;
+}
+
+.input-group{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    height:52px;
+    border-radius:14px;
+    border:1px solid #303030;
+    background:#181818;
+    color:#fff;
+    padding:0 15px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#777;
+}
+
+input::placeholder{
+    color:#666;
+}
+
+button{
+    width:100%;
+    height:54px;
+    border:0;
+    border-radius:15px;
+    background:#fff;
+    color:#000;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:18px;
+    padding:13px;
+    border-radius:12px;
+    text-align:center;
+    font-size:14px;
+}
+
+.success{
+    display:block;
+    background:#102315;
+    color:#5cff82;
+    border:1px solid #1e5c30;
+}
+
+.error{
+    display:block;
+    background:#261010;
+    color:#ff6868;
+    border:1px solid #5c2222;
+}
+
+.account-box{
+    display:none;
+    margin-top:18px;
+    padding:15px;
+    border-radius:14px;
+    background:#181818;
+    border:1px solid #303030;
+}
+
+.account-box div{
+    margin:8px 0;
+}
+
+.account-value{
+    color:#fff;
+    font-weight:700;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    color:#888;
+    text-decoration:none;
+    margin-top:22px;
+    font-size:14px;
+}
+
+.back:hover{
+    color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="logo">BOK JACK</div>
+        <div class="subtitle">لوحة إدارة الحسابات</div>
+    </div>
+
+    <div class="card">
+
+        <div class="title">
+            إنشاء حساب جديد
+        </div>
+
+        <div class="input-group">
+            <label>اسم المستخدم</label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="أدخل اسم المستخدم"
+                autocomplete="off">
+        </div>
+
+
+        <div class="input-group">
+            <label>رقم الحساب</label>
+
+            <input
+                type="text"
+                id="account"
+                placeholder="أدخل 7 أرقام"
+                maxlength="7"
+                inputmode="numeric"
+                autocomplete="off">
+        </div>
+
+
+        <div class="input-group">
+            <label>كلمة المرور</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="4 أرقام أو أكثر"
+                inputmode="numeric"
+                autocomplete="new-password">
+        </div>
+
+
+        <div class="input-group">
+            <label>الرصيد الابتدائي</label>
+
+            <input
+                type="number"
+                id="balance"
+                placeholder="0"
+                min="0"
+                value="0">
+        </div>
+
+
+        <button id="createBtn" onclick="createAccount()">
+            إنشاء الحساب
+        </button>
+
+
+        <div id="message" class="message"></div>
+
+
+        <div id="accountBox" class="account-box">
+
+            <div>
+                اسم المستخدم:
+                <span id="showName" class="account-value"></span>
+            </div>
+
+            <div>
+                رقم الحساب:
+                <span id="showAccount" class="account-value"></span>
+            </div>
+
+            <div>
+                الرصيد:
+                <span id="showBalance" class="account-value"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <a href="admin.html" class="back">
+        ← العودة إلى لوحة الإدارة
+    </a>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    get,
+    set
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+/* =========================
+   BOK JACK FIREBASE
+========================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+
+    authDomain:
+    "bok-jack.firebaseapp.com",
+
+    databaseURL:
+    "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId:
+    "bok-jack",
+
+    storageBucket:
+    "bok-jack.firebasestorage.app",
+
+    messagingSenderId:
+    "96539205463",
+
+    appId:
+    "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId:
+    "G-069BL15X9J"
+};
+
+
+/* تشغيل Firebase */
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+
+/* =========================
+   إنشاء الحساب
+========================= */
+
+window.createAccount = async function(){
+
+    const name =
+        document.getElementById("name")
+        .value.trim();
+
+
+    const account =
+        document.getElementById("account")
+        .value.trim();
+
+
+    const password =
+        document.getElementById("password")
+        .value.trim();
+
+
+    const balanceValue =
+        document.getElementById("balance")
+        .value.trim();
+
+
+    const btn =
+        document.getElementById("createBtn");
+
+
+    const message =
+        document.getElementById("message");
+
+
+    const accountBox =
+        document.getElementById("accountBox");
+
+
+    /* إخفاء الرسائل السابقة */
+
+    message.className = "message";
+    message.style.display = "none";
+
+    accountBox.style.display = "none";
+
+
+    /* =========================
+       التحقق من البيانات
+    ========================= */
+
+    if(name === ""){
+
+        showError("أدخل اسم المستخدم");
+
+        return;
+    }
+
+
+    if(!/^[0-9]{7}$/.test(account)){
+
+        showError(
+            "رقم الحساب يجب أن يكون 7 أرقام"
+        );
+
+        return;
+    }
+
+
+    if(password.length < 4){
+
+        showError(
+            "كلمة المرور يجب أن تكون 4 أرقام أو أكثر"
+        );
+
+        return;
+    }
+
+
+    if(!/^[0-9]+$/.test(password)){
+
+        showError(
+            "كلمة المرور يجب أن تحتوي على أرقام فقط"
+        );
+
+        return;
+    }
+
+
+    let balance =
+        Number(balanceValue || 0);
+
+
+    if(!Number.isFinite(balance) || balance < 0){
+
+        showError(
+            "الرصيد غير صحيح"
+        );
+
+        return;
+    }
+
+
+    /* تعطيل الزر */
+
+    btn.disabled = true;
+
+    btn.textContent =
+        "جاري إنشاء الحساب...";
+
+
+    try{
+
+        /* =========================
+           البحث عن الحساب
+        ========================= */
+
+        const accountRef =
+            ref(
+                db,
+                "accounts/" + account
+            );
+
+
+        const snapshot =
+            await get(accountRef);
+
+
+        /* الحساب موجود */
+
+        if(snapshot.exists()){
+
+            showError(
+                "رقم الحساب مستخدم بالفعل"
+            );
+
+            btn.disabled = false;
+
+            btn.textContent =
+                "إنشاء الحساب";
+
+            return;
+        }
+
+
+        /* =========================
+           بيانات الحساب
+        ========================= */
+
+        const accountData = {
+
+            name: name,
+
+            account: account,
+
+            password: password,
+
+            balance: balance,
+
+            active: true,
+
+            createdAt: Date.now()
+
+        };
+
+
+        /* =========================
+           حفظ الحساب في Firebase
+        ========================= */
+
+        await set(
+            accountRef,
+            accountData
+        );
+
+
+        /* =========================
+           إظهار النتيجة
+        ========================= */
+
+        document.getElementById(
+            "showName"
+        ).textContent = name;
+
+
+        document.getElementById(
+            "showAccount"
+        ).textContent = account;
+
+
+        document.getElementById(
+            "showBalance"
+        ).textContent =
+            balance.toLocaleString();
+
+
+        accountBox.style.display =
+            "block";
+
+
+        message.textContent =
+            "تم إنشاء الحساب بنجاح ✓";
+
+
+        message.className =
+            "message success";
+
+
+        message.style.display =
+            "block";
+
+
+        /* تنظيف الحقول */
+
+        document.getElementById(
+            "name"
+        ).value = "";
+
+
+        document.getElementById(
+            "account"
+        ).value = "";
+
+
+        document.getElementById(
+            "password"
+        ).value = "";
+
+
+        document.getElementById(
+            "balance"
+        ).value = "0";
+
+
+    }catch(error){
+
+        console.error(
+            "Firebase Error:",
+            error
+        );
+
+
+        showError(
+            "حدث خطأ أثناء إنشاء الحساب"
+        );
+
+    }
+
+
+    btn.disabled = false;
+
+    btn.textContent =
+        "إنشاء الحساب";
+
+};
+
+
+/* =========================
+   رسالة الخطأ
+========================= */
+
+function showError(text){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message error";
+
+
+    message.style.display =
+        "block";
+}
+
+
+/* =========================
+   السماح بالأرقام فقط
+========================= */
+
+document.getElementById("account")
+.addEventListener("input", function(){
+
+    this.value =
+        this.value.replace(
+            /[^0-9]/g,
+            ""
+        );
+
+});
+
+
+document.getElementById("password")
+.addEventListener("input", function(){
+
+    this.value =
+        this.value.replace(
+            /[^0-9]/g,
+            ""
+        );
+
+});
+
+</script>
+
+</body>
+</html>
