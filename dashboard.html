@@ -1,24 +1,43 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#050505"><title>BOK JACK - Dashboard</title><link rel="stylesheet" href="style.css"><style>
+<meta name="theme-color" content="#050505">
+
+<title>BOK JACK - لوحة الإدارة</title>
+
+<style>
 
 *{
     box-sizing:border-box;
 }
 
+html,
 body{
     margin:0;
-    min-height:100vh;
+    padding:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
     background:#050505;
     color:#fff;
+
     font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "SF Pro Text",
-        Arial,
-        sans-serif;
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    Arial,
+    sans-serif;
+}
+
+button,
+div{
+    -webkit-tap-highlight-color:transparent;
 }
 
 .dashboard{
@@ -28,23 +47,27 @@ body{
     padding:22px;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 .topbar{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
 
     padding:20px;
 
-    background:rgba(18,18,18,0.92);
+    background:#121212;
+
     border:1px solid rgba(255,255,255,0.07);
 
     border-radius:24px;
 
     box-shadow:
-        0 15px 50px rgba(0,0,0,0.45);
+    0 15px 50px rgba(0,0,0,0.45);
 
     margin-bottom:22px;
 }
@@ -67,28 +90,35 @@ body{
 
     background:#b00020;
 
+    color:#fff;
+
     font-size:18px;
     font-weight:900;
 
     box-shadow:
-        0 10px 30px rgba(176,0,32,0.25);
+    0 10px 30px rgba(176,0,32,0.25);
 }
 
 .brand-text h1{
     margin:0;
+
     font-size:21px;
     font-weight:800;
 }
 
 .brand-text p{
     margin:5px 0 0;
+
     color:#888;
+
     font-size:13px;
 }
 
 .logout-btn{
     border:1px solid rgba(255,255,255,0.08);
+
     background:#111;
+
     color:#fff;
 
     padding:12px 17px;
@@ -108,7 +138,13 @@ body{
     border-color:#b00020;
 }
 
-/* WELCOME */
+.logout-btn:active{
+    transform:scale(.97);
+}
+
+/* =========================
+   WELCOME
+========================= */
 
 .welcome{
     margin-bottom:22px;
@@ -116,22 +152,31 @@ body{
 
 .welcome h2{
     margin:0;
+
     font-size:27px;
     font-weight:850;
 }
 
 .welcome p{
     margin:7px 0 0;
+
     color:#777;
+
     font-size:14px;
 }
 
-/* STATISTICS */
+/* =========================
+   STATISTICS
+========================= */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+    repeat(3,1fr);
+
     gap:15px;
+
     margin-bottom:24px;
 }
 
@@ -140,45 +185,61 @@ body{
 
     background:#101010;
 
-    border:1px solid rgba(255,255,255,0.07);
+    border:
+    1px solid
+    rgba(255,255,255,0.07);
 
     border-radius:20px;
 
     min-height:130px;
 
     box-shadow:
-        0 10px 35px rgba(0,0,0,0.25);
+    0 10px 35px
+    rgba(0,0,0,0.25);
 }
 
 .stat-title{
     color:#888;
+
     font-size:13px;
+
     margin-bottom:15px;
 }
 
 .stat-value{
     font-size:28px;
+
     font-weight:850;
-    letter-spacing:0.3px;
+
+    letter-spacing:.3px;
 }
 
 .stat-small{
     margin-top:8px;
+
     color:#666;
+
     font-size:12px;
 }
 
-/* ACTIONS */
+/* =========================
+   ACTIONS
+========================= */
 
 .section-title{
     margin:0 0 15px;
+
     font-size:19px;
+
     font-weight:800;
 }
 
 .actions{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+
+    grid-template-columns:
+    repeat(2,1fr);
+
     gap:15px;
 }
 
@@ -191,16 +252,18 @@ body{
 
     background:#101010;
 
-    border:1px solid rgba(255,255,255,0.07);
+    border:
+    1px solid
+    rgba(255,255,255,0.07);
 
     border-radius:21px;
 
     cursor:pointer;
 
     transition:
-        transform 0.2s,
-        background 0.2s,
-        border-color 0.2s;
+    transform .2s,
+    background .2s,
+    border-color .2s;
 
     overflow:hidden;
 }
@@ -218,9 +281,12 @@ body{
 
     border-radius:50%;
 
-    background:rgba(176,0,32,0.10);
+    background:
+    rgba(176,0,32,0.10);
 
     filter:blur(20px);
+
+    pointer-events:none;
 }
 
 .action-card:hover{
@@ -229,7 +295,11 @@ body{
     background:#151515;
 
     border-color:
-        rgba(176,0,32,0.35);
+    rgba(176,0,32,0.35);
+}
+
+.action-card:active{
+    transform:scale(.98);
 }
 
 .action-icon{
@@ -242,7 +312,8 @@ body{
     align-items:center;
     justify-content:center;
 
-    background:rgba(176,0,32,0.14);
+    background:
+    rgba(176,0,32,0.14);
 
     color:#ff3152;
 
@@ -253,34 +324,52 @@ body{
 
 .action-card h3{
     margin:0 0 6px;
+
     font-size:16px;
+
     font-weight:800;
 }
 
 .action-card p{
     margin:0;
+
     color:#777;
+
     font-size:12px;
+
     line-height:1.6;
 }
 
-/* DELETE CARD */
+/* =========================
+   DELETE
+========================= */
+
+.delete-card{
+    border-color:
+    rgba(213,0,0,0.12);
+}
 
 .delete-card .action-icon{
-    background:rgba(213,0,0,0.15);
+    background:
+    rgba(213,0,0,0.15);
+
     color:#ff4d5f;
 }
 
 .delete-card:hover{
     border-color:
-        rgba(213,0,0,0.45);
+    rgba(213,0,0,0.45);
 }
 
-/* STATUS */
+/* =========================
+   FIREBASE STATUS
+========================= */
 
 .firebase-status{
     display:flex;
+
     align-items:center;
+
     gap:8px;
 
     margin-top:22px;
@@ -289,7 +378,9 @@ body{
 
     background:#0e0e0e;
 
-    border:1px solid rgba(255,255,255,0.06);
+    border:
+    1px solid
+    rgba(255,255,255,0.06);
 
     border-radius:15px;
 
@@ -307,10 +398,13 @@ body{
     background:#32d74b;
 
     box-shadow:
-        0 0 10px rgba(50,215,75,0.7);
+    0 0 10px
+    rgba(50,215,75,0.7);
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -320,6 +414,7 @@ body{
 
     .topbar{
         padding:16px;
+
         border-radius:20px;
     }
 
@@ -346,260 +441,484 @@ body{
 
 }
 
-</style></head><body><div class="dashboard"><!-- HEADER --><header class="topbar"><div class="brand"><div class="brand-logo">
-BOK
-</div><div class="brand-text"><h1>
-BOK JACK
-</h1><p>
-لوحة تحكم الإدارة
-</p></div></div><button
-class="logout-btn"
-id="logoutBtn"
+</style>
 
-«»
+</head>
 
-تسجيل الخروج
-</button>
 
-</header><!-- WELCOME --><section class="welcome"><h2>
-مرحباً بالأدمن 👋
-</h2><p>
-إدارة الحسابات والرصيد والعمليات من مكان واحد
-</p></section><!-- STATISTICS --><section class="stats"><div class="stat-card"><div class="stat-title">
-إجمالي الحسابات
-</div><div
-class="stat-value"
-id="accountsCount"
->
-0
-</div><div class="stat-small">
-حساب مسجل
-</div></div><div class="stat-card"><div class="stat-title">
-إجمالي الأرصدة
-</div><div
-class="stat-value"
-id="totalBalance"
->
-0
-</div><div class="stat-small">
-SDG
-</div></div><div class="stat-card"><div class="stat-title">
-العمليات
-</div><div
-class="stat-value"
-id="transactionsCount"
->
-0
-</div><div class="stat-small">
-عملية مسجلة
-</div></div></section><!-- ACTIONS --><h2 class="section-title">
-إدارة النظام
-</h2><section class="actions"><!-- إنشاء حساب --><div
-class="action-card"
-id="createAccount"
-><div class="action-icon">
-＋
-</div><h3>
-إنشاء حساب
-</h3><p>
-إنشاء حساب مستخدم جديد مع رقم حساب تلقائي واشتراك ورصيد ابتدائي.
-</p></div><!-- زيادة الرصيد --><div
-class="action-card"
-id="rechargeAccount"
-><div class="action-icon">
-＋
-</div><h3>
-زيادة الرصيد
-</h3><p>
-إضافة رصيد إلى حساب مستخدم موجود.
-</p></div><!-- إدارة الحسابات --><div
-class="action-card"
-id="manageAccounts"
-><div class="action-icon">
-👤
-</div><h3>
-إدارة الحسابات
-</h3><p>
-عرض الحسابات والبحث عنها وإدارة بيانات المستخدمين.
-</p></div><!-- التحويلات --><div
-class="action-card"
-id="transfers"
-><div class="action-icon">
-⇄
-</div><h3>
-التحويلات
-</h3><p>
-عرض ومتابعة عمليات التحويل بين الحسابات.
-</p></div><!-- حذف الحساب --><div
-class="action-card delete-card"
-id="deleteAccount"
-><div class="action-icon">
-🗑️
-</div><h3>
-حذف الحساب
-</h3><p>
-البحث عن حساب وحذفه نهائياً من النظام.
-</p></div></section><!-- FIREBASE STATUS --><div class="firebase-status"><span class="status-dot"></span>
+<body>
 
-<span id="firebaseStatus">
-متصل بـ Firebase
-</span></div></div><!-- FIREBASE --><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script><script>
+<div class="dashboard">
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            BOK
+        </div>
+
+        <div class="brand-text">
+
+            <h1>
+                BOK JACK
+            </h1>
+
+            <p>
+                لوحة تحكم الإدارة
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="logout-btn"
+        id="logoutBtn"
+        type="button">
+
+        تسجيل الخروج
+
+    </button>
+
+</header>
+
+
+<!-- =========================
+     WELCOME
+========================= -->
+
+<section class="welcome">
+
+    <h2>
+        مرحباً بالأدمن 👋
+    </h2>
+
+    <p>
+        إدارة الحسابات والرصيد والعمليات من مكان واحد
+    </p>
+
+</section>
+
+
+<!-- =========================
+     STATISTICS
+========================= -->
+
+<section class="stats">
+
+
+    <div class="stat-card">
+
+        <div class="stat-title">
+            إجمالي الحسابات
+        </div>
+
+        <div
+            class="stat-value"
+            id="accountsCount">
+
+            0
+
+        </div>
+
+        <div class="stat-small">
+            حساب مسجل
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-title">
+            إجمالي الأرصدة
+        </div>
+
+        <div
+            class="stat-value"
+            id="totalBalance">
+
+            0
+
+        </div>
+
+        <div class="stat-small">
+            SDG
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-title">
+            العمليات
+        </div>
+
+        <div
+            class="stat-value"
+            id="transactionsCount">
+
+            0
+
+        </div>
+
+        <div class="stat-small">
+            عملية مسجلة
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================
+     ACTIONS
+========================= -->
+
+<h2 class="section-title">
+    إدارة النظام
+</h2>
+
+
+<section class="actions">
+
+
+    <!-- إنشاء حساب -->
+
+    <div
+        class="action-card"
+        id="createAccount">
+
+        <div class="action-icon">
+            ＋
+        </div>
+
+        <h3>
+            إنشاء حساب
+        </h3>
+
+        <p>
+            إنشاء حساب مستخدم جديد مع رقم حساب تلقائي واشتراك ورصيد ابتدائي.
+        </p>
+
+    </div>
+
+
+    <!-- زيادة الرصيد -->
+
+    <div
+        class="action-card"
+        id="rechargeAccount">
+
+        <div class="action-icon">
+            ＋
+        </div>
+
+        <h3>
+            زيادة الرصيد
+        </h3>
+
+        <p>
+            إضافة رصيد إلى حساب مستخدم موجود.
+        </p>
+
+    </div>
+
+
+    <!-- إدارة الحسابات -->
+
+    <div
+        class="action-card"
+        id="manageAccounts">
+
+        <div class="action-icon">
+            👤
+        </div>
+
+        <h3>
+            إدارة الحسابات
+        </h3>
+
+        <p>
+            عرض الحسابات والبحث عنها وإدارة بيانات المستخدمين.
+        </p>
+
+    </div>
+
+
+    <!-- التحويلات -->
+
+    <div
+        class="action-card"
+        id="transfers">
+
+        <div class="action-icon">
+            ⇄
+        </div>
+
+        <h3>
+            التحويلات
+        </h3>
+
+        <p>
+            عرض ومتابعة عمليات التحويل بين الحسابات.
+        </p>
+
+    </div>
+
+
+    <!-- حذف الحساب -->
+
+    <div
+        class="action-card delete-card"
+        id="deleteAccount">
+
+        <div class="action-icon">
+            🗑️
+        </div>
+
+        <h3>
+            حذف الحساب
+        </h3>
+
+        <p>
+            البحث عن حساب وحذفه نهائياً من النظام.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================
+     FIREBASE STATUS
+========================= -->
+
+<div class="firebase-status">
+
+    <span class="status-dot"></span>
+
+    <span id="firebaseStatus">
+        متصل بـ Firebase
+    </span>
+
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+
+<script>
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
 const firebaseConfig = {
 
-apiKey:
-"AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+    apiKey:
+    "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
 
-authDomain:
-"bok-jack.firebaseapp.com",
+    authDomain:
+    "bok-jack.firebaseapp.com",
 
-databaseURL:
-"https://bok-jack-default-rtdb.firebaseio.com",
+    databaseURL:
+    "https://bok-jack-default-rtdb.firebaseio.com",
 
-projectId:
-"bok-jack",
+    projectId:
+    "bok-jack",
 
-storageBucket:
-"bok-jack.firebasestorage.app",
+    storageBucket:
+    "bok-jack.firebasestorage.app",
 
-messagingSenderId:
-"96539205463",
+    messagingSenderId:
+    "96539205463",
 
-appId:
-"1:96539205463:web:a2cb846d657aa873182812",
+    appId:
+    "1:96539205463:web:a2cb846d657aa873182812",
 
-measurementId:
-"G-069BL15X9J"
+    measurementId:
+    "G-069BL15X9J"
 
 };
 
 
+/* =========================
+   INITIALIZE
+========================= */
+
 firebase.initializeApp(
-firebaseConfig
+    firebaseConfig
 );
 
-
 const auth =
-firebase.auth();
+    firebase.auth();
 
 const database =
-firebase.database();
+    firebase.database();
 
 
 /* =========================
-   حماية الصفحة
+   AUTH
 ========================= */
 
 auth.onAuthStateChanged(
 function(user){
 
-if(!user){
+    if(!user){
 
-window.location.href =
-"index.html";
+        window.location.href =
+        "index.html";
 
-return;
+        return;
 
-}
+    }
 
-loadDashboard();
+    loadDashboard();
 
 });
 
 
 /* =========================
-   تحميل الإحصائيات
+   LOAD DASHBOARD
 ========================= */
 
 function loadDashboard(){
 
-database
-.ref("accounts")
-.once("value")
-.then(function(snapshot){
+    database
+    .ref("accounts")
+    .once("value")
 
-let count = 0;
+    .then(function(snapshot){
 
-let totalBalance = 0;
+        let count = 0;
 
-
-snapshot.forEach(
-function(child){
-
-count++;
+        let totalBalance = 0;
 
 
-const data =
-child.val();
+        snapshot.forEach(
+        function(child){
+
+            count++;
 
 
-const balance =
-Number(
-data.balance || 0
-);
+            const data =
+            child.val() || {};
 
 
-totalBalance +=
-balance;
-
-});
-
-
-document.getElementById(
-"accountsCount"
-).textContent =
-count;
+            const balance =
+            Number(
+                data.balance || 0
+            );
 
 
-document.getElementById(
-"totalBalance"
-).textContent =
-formatNumber(
-totalBalance
-);
+            totalBalance +=
+            balance;
 
-})
-.catch(function(error){
-
-console.error(error);
-
-});
+        });
 
 
-database
-.ref("transactions")
-.once("value")
-.then(function(snapshot){
+        document
+        .getElementById(
+            "accountsCount"
+        )
+        .textContent =
+        count;
 
-document.getElementById(
-"transactionsCount"
-).textContent =
-snapshot.size || 0;
 
-})
-.catch(function(error){
+        document
+        .getElementById(
+            "totalBalance"
+        )
+        .textContent =
+        formatNumber(
+            totalBalance
+        );
 
-console.error(error);
+    })
 
-});
+    .catch(function(error){
+
+        console.error(
+            "Accounts error:",
+            error
+        );
+
+    });
+
+
+    database
+    .ref("transactions")
+    .once("value")
+
+    .then(function(snapshot){
+
+        let count = 0;
+
+
+        snapshot.forEach(
+        function(){
+
+            count++;
+
+        });
+
+
+        document
+        .getElementById(
+            "transactionsCount"
+        )
+        .textContent =
+        count;
+
+    })
+
+    .catch(function(error){
+
+        console.error(
+            "Transactions error:",
+            error
+        );
+
+    });
 
 }
 
 
 /* =========================
-   تنسيق الأرقام
+   NUMBER FORMAT
 ========================= */
 
 function formatNumber(number){
 
-return Number(number)
-.toLocaleString("en-US");
+    return Number(number)
+    .toLocaleString("en-US");
 
 }
 
 
 /* =========================
-   تسجيل الخروج
+   LOGOUT
 ========================= */
 
 document
@@ -608,25 +927,27 @@ document
 "click",
 function(){
 
-auth
-.signOut()
-.then(function(){
+    auth
+    .signOut()
 
-window.location.href =
-"index.html";
+    .then(function(){
 
-})
-.catch(function(error){
+        window.location.href =
+        "index.html";
 
-console.error(error);
+    })
 
-});
+    .catch(function(error){
+
+        console.error(error);
+
+    });
 
 });
 
 
 /* =========================
-   إنشاء حساب
+   CREATE ACCOUNT
 ========================= */
 
 document
@@ -635,14 +956,14 @@ document
 "click",
 function(){
 
-window.location.href =
-"create-account.html";
+    window.location.href =
+    "create-account.html";
 
 });
 
 
 /* =========================
-   زيادة الرصيد
+   RECHARGE
 ========================= */
 
 document
@@ -651,14 +972,14 @@ document
 "click",
 function(){
 
-window.location.href =
-"recharge.html";
+    window.location.href =
+    "recharge.html";
 
 });
 
 
 /* =========================
-   إدارة الحسابات
+   MANAGE ACCOUNTS
 ========================= */
 
 document
@@ -667,14 +988,14 @@ document
 "click",
 function(){
 
-window.location.href =
-"accounts.html";
+    window.location.href =
+    "accounts.html";
 
 });
 
 
 /* =========================
-   التحويلات
+   TRANSFERS
 ========================= */
 
 document
@@ -683,14 +1004,14 @@ document
 "click",
 function(){
 
-window.location.href =
-"transfers.html";
+    window.location.href =
+    "transfers.html";
 
 });
 
 
 /* =========================
-   حذف الحساب
+   DELETE ACCOUNT
 ========================= */
 
 document
@@ -699,792 +1020,12 @@ document
 "click",
 function(){
 
-window.location.href =
-"delete.html";
+    window.location.href =
+    "delete.html";
 
 });
 
-</script></body></html>      padding: 12px 17px;
-
-      border-radius: 13px;
-
-      cursor: pointer;
-
-      font-size: 13px;
-      font-weight: 700;
-
-      transition: 0.2s;
-    }
-
-    .logout-btn:hover {
-      background: #b00020;
-      border-color: #b00020;
-    }
-
-
-    /* =========================
-       WELCOME
-    ========================= */
-
-    .welcome {
-      margin-bottom: 22px;
-    }
-
-    .welcome h2 {
-      margin: 0;
-
-      font-size: 27px;
-      font-weight: 850;
-    }
-
-    .welcome p {
-      margin: 7px 0 0;
-
-      color: #777;
-
-      font-size: 14px;
-    }
-
-
-    /* =========================
-       STATISTICS
-    ========================= */
-
-    .stats {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 15px;
-
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      padding: 22px;
-
-      background: #101010;
-
-      border: 1px solid rgba(255,255,255,0.07);
-
-      border-radius: 20px;
-
-      min-height: 130px;
-
-      box-shadow:
-        0 10px 35px rgba(0,0,0,0.25);
-    }
-
-    .stat-title {
-      color: #888;
-
-      font-size: 13px;
-
-      margin-bottom: 15px;
-    }
-
-    .stat-value {
-      font-size: 28px;
-
-      font-weight: 850;
-
-      letter-spacing: 0.3px;
-    }
-
-    .stat-small {
-      margin-top: 8px;
-
-      color: #666;
-
-      font-size: 12px;
-    }
-
-
-    /* =========================
-       ACTIONS
-    ========================= */
-
-    .section-title {
-      margin: 0 0 15px;
-
-      font-size: 19px;
-
-      font-weight: 800;
-    }
-
-    .actions {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 15px;
-    }
-
-    .action-card {
-      position: relative;
-
-      min-height: 145px;
-
-      padding: 22px;
-
-      background: #101010;
-
-      border: 1px solid rgba(255,255,255,0.07);
-
-      border-radius: 21px;
-
-      cursor: pointer;
-
-      transition:
-        transform 0.2s,
-        background 0.2s,
-        border-color 0.2s;
-
-      overflow: hidden;
-    }
-
-    .action-card::after {
-      content: "";
-
-      position: absolute;
-
-      width: 120px;
-      height: 120px;
-
-      left: -40px;
-      bottom: -55px;
-
-      border-radius: 50%;
-
-      background: rgba(176,0,32,0.10);
-
-      filter: blur(20px);
-    }
-
-    .action-card:hover {
-      transform: translateY(-3px);
-
-      background: #151515;
-
-      border-color:
-        rgba(176,0,32,0.35);
-    }
-
-    .action-icon {
-      width: 48px;
-      height: 48px;
-
-      border-radius: 15px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: rgba(176,0,32,0.14);
-
-      color: #ff3152;
-
-      font-size: 22px;
-
-      margin-bottom: 17px;
-    }
-
-    .action-card h3 {
-      margin: 0 0 6px;
-
-      font-size: 16px;
-
-      font-weight: 800;
-    }
-
-    .action-card p {
-      margin: 0;
-
-      color: #777;
-
-      font-size: 12px;
-
-      line-height: 1.6;
-    }
-
-
-    /* =========================
-       STATUS
-    ========================= */
-
-    .firebase-status {
-      display: flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      margin-top: 22px;
-
-      padding: 14px 17px;
-
-      background: #0e0e0e;
-
-      border: 1px solid rgba(255,255,255,0.06);
-
-      border-radius: 15px;
-
-      color: #777;
-
-      font-size: 12px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-
-      border-radius: 50%;
-
-      background: #32d74b;
-
-      box-shadow:
-        0 0 10px rgba(50,215,75,0.7);
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 700px) {
-
-      .dashboard {
-        padding: 14px;
-      }
-
-      .topbar {
-        padding: 16px;
-
-        border-radius: 20px;
-      }
-
-      .brand-logo {
-        width: 50px;
-        height: 50px;
-      }
-
-      .brand-text h1 {
-        font-size: 18px;
-      }
-
-      .welcome h2 {
-        font-size: 23px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .actions {
-        grid-template-columns: 1fr;
-      }
-
-    }
-
-  </style>
-
-</head>
-
-
-<body>
-
-  <div class="dashboard">
-
-
-    <!-- =========================
-         HEADER
-    ========================= -->
-
-    <header class="topbar">
-
-      <div class="brand">
-
-        <div class="brand-logo">
-          BOK
-        </div>
-
-        <div class="brand-text">
-
-          <h1>
-            BOK JACK
-          </h1>
-
-          <p>
-            لوحة تحكم الإدارة
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <button
-        class="logout-btn"
-        id="logoutBtn"
-      >
-        تسجيل الخروج
-      </button>
-
-    </header>
-
-
-    <!-- =========================
-         WELCOME
-    ========================= -->
-
-    <section class="welcome">
-
-      <h2>
-        مرحباً بالأدمن 👋
-      </h2>
-
-      <p>
-        إدارة الحسابات والرصيد والعمليات من مكان واحد
-      </p>
-
-    </section>
-
-
-    <!-- =========================
-         STATISTICS
-    ========================= -->
-
-    <section class="stats">
-
-
-      <div class="stat-card">
-
-        <div class="stat-title">
-          إجمالي الحسابات
-        </div>
-
-        <div
-          class="stat-value"
-          id="accountsCount"
-        >
-          0
-        </div>
-
-        <div class="stat-small">
-          حساب مسجل
-        </div>
-
-      </div>
-
-
-      <div class="stat-card">
-
-        <div class="stat-title">
-          إجمالي الأرصدة
-        </div>
-
-        <div
-          class="stat-value"
-          id="totalBalance"
-        >
-          0
-        </div>
-
-        <div class="stat-small">
-          SDG
-        </div>
-
-      </div>
-
-
-      <div class="stat-card">
-
-        <div class="stat-title">
-          العمليات
-        </div>
-
-        <div
-          class="stat-value"
-          id="transactionsCount"
-        >
-          0
-        </div>
-
-        <div class="stat-small">
-          عملية مسجلة
-        </div>
-
-      </div>
-
-
-    </section>
-
-
-    <!-- =========================
-         ACTIONS
-    ========================= -->
-
-    <h2 class="section-title">
-      إدارة النظام
-    </h2>
-
-
-    <section class="actions">
-
-
-      <!-- إنشاء حساب -->
-
-      <div
-        class="action-card"
-        id="createAccount"
-      >
-
-        <div class="action-icon">
-          ＋
-        </div>
-
-        <h3>
-          إنشاء حساب
-        </h3>
-
-        <p>
-          إنشاء حساب مستخدم جديد مع رقم حساب تلقائي واشتراك ورصيد ابتدائي.
-        </p>
-
-      </div>
-
-
-      <!-- زيادة الرصيد -->
-
-      <div
-        class="action-card"
-        id="rechargeAccount"
-      >
-
-        <div class="action-icon">
-          ＋
-        </div>
-
-        <h3>
-          زيادة الرصيد
-        </h3>
-
-        <p>
-          إضافة رصيد إلى حساب مستخدم موجود.
-        </p>
-
-      </div>
-
-
-      <!-- إدارة الحسابات -->
-
-      <div
-        class="action-card"
-        id="manageAccounts"
-      >
-
-        <div class="action-icon">
-          👤
-        </div>
-
-        <h3>
-          إدارة الحسابات
-        </h3>
-
-        <p>
-          عرض الحسابات والبحث عنها وإدارة بيانات المستخدمين.
-        </p>
-
-      </div>
-
-
-      <!-- التحويلات -->
-
-      <div
-        class="action-card"
-        id="transfers"
-      >
-
-        <div class="action-icon">
-          ⇄
-        </div>
-
-        <h3>
-          التحويلات
-        </h3>
-
-        <p>
-          عرض ومتابعة عمليات التحويل بين الحسابات.
-        </p>
-
-      </div>
-
-
-    </section>
-
-
-    <!-- =========================
-         FIREBASE STATUS
-    ========================= -->
-
-    <div class="firebase-status">
-
-      <span class="status-dot"></span>
-
-      <span id="firebaseStatus">
-        متصل بـ Firebase
-      </span>
-
-    </div>
-
-
-  </div>
-
-
-  <!-- =========================
-       FIREBASE
-  ========================= -->
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-
-
-  <script>
-
-    const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
-
-      authDomain:
-        "bok-jack.firebaseapp.com",
-
-      databaseURL:
-        "https://bok-jack-default-rtdb.firebaseio.com",
-
-      projectId:
-        "bok-jack",
-
-      storageBucket:
-        "bok-jack.firebasestorage.app",
-
-      messagingSenderId:
-        "96539205463",
-
-      appId:
-        "1:96539205463:web:a2cb846d657aa873182812",
-
-      measurementId:
-        "G-069BL15X9J"
-
-    };
-
-
-    firebase.initializeApp(firebaseConfig);
-
-
-    const auth =
-      firebase.auth();
-
-    const database =
-      firebase.database();
-
-
-    // =========================
-    // حماية الصفحة
-    // =========================
-
-    auth.onAuthStateChanged(function(user) {
-
-      if (!user) {
-
-        window.location.href =
-          "index.html";
-
-        return;
-
-      }
-
-      loadDashboard();
-
-    });
-
-
-    // =========================
-    // تحميل الإحصائيات
-    // =========================
-
-    function loadDashboard() {
-
-      database
-        .ref("accounts")
-        .once("value")
-        .then(function(snapshot) {
-
-          let count = 0;
-
-          let totalBalance = 0;
-
-
-          snapshot.forEach(function(child) {
-
-            count++;
-
-            const data =
-              child.val();
-
-
-            const balance =
-              Number(data.balance || 0);
-
-
-            totalBalance +=
-              balance;
-
-          });
-
-
-          document.getElementById(
-            "accountsCount"
-          ).textContent = count;
-
-
-          document.getElementById(
-            "totalBalance"
-          ).textContent =
-            formatNumber(totalBalance);
-
-        })
-        .catch(function(error) {
-
-          console.error(error);
-
-        });
-
-
-      database
-        .ref("transactions")
-        .once("value")
-        .then(function(snapshot) {
-
-          document.getElementById(
-            "transactionsCount"
-          ).textContent =
-            snapshot.size || 0;
-
-        })
-        .catch(function(error) {
-
-          console.error(error);
-
-        });
-
-    }
-
-
-    // =========================
-    // تنسيق الأرقام
-    // =========================
-
-    function formatNumber(number) {
-
-      return Number(number)
-        .toLocaleString("en-US");
-
-    }
-
-
-    // =========================
-    // تسجيل الخروج
-    // =========================
-
-    document
-      .getElementById("logoutBtn")
-      .addEventListener(
-        "click",
-        function() {
-
-          auth
-            .signOut()
-            .then(function() {
-
-              window.location.href =
-                "index.html";
-
-            })
-            .catch(function(error) {
-
-              console.error(error);
-
-            });
-
-        }
-      );
-
-
-    // =========================
-    // أزرار الإدارة
-    // =========================
-
-    document
-      .getElementById("createAccount")
-      .addEventListener(
-        "click",
-        function() {
-
-          window.location.href =
-            "create-account.html";
-
-        }
-      );
-
-
-    document
-      .getElementById("rechargeAccount")
-      .addEventListener(
-        "click",
-        function() {
-
-          window.location.href =
-            "recharge.html";
-
-        }
-      );
-
-
-    document
-      .getElementById("manageAccounts")
-      .addEventListener(
-        "click",
-        function() {
-
-          window.location.href =
-            "accounts.html";
-
-        }
-      );
-
-
-    document
-      .getElementById("transfers")
-      .addEventListener(
-        "click",
-        function() {
-
-          window.location.href =
-            "transfers.html";
-
-        }
-      );
-
-  </script>
-
+</script>
 
 </body>
-
-</html>
+            </html>
