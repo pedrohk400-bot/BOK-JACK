@@ -1,18 +1,16 @@
 {
-  "name": "bok-jack-functions",
-  "description": "BOK JACK Firebase Functions",
-  "main": "index.js",
-  "engines": {
-    "node": "22"
-  },
+  "name": "bok-jack-backend",
+  "version": "1.0.0",
+  "description": "BOK JACK Firebase Backend",
+  "main": "server.js",
   "scripts": {
-    "start": "firebase emulators:start --only functions",
-    "deploy": "firebase deploy --only functions"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "firebase-admin": "^13.5.0",
-    "firebase-functions": "^7.0.0"
-  },
-  "private": true
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.5.0"
+  }
 }
