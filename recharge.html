@@ -1,10 +1,21 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>BOK JACK - زيادة الرصيد</title><style>
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>BOK JACK - زيادة الرصيد</title>
+
+<style>
 
 *{
     box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,
+    "SF Pro Display","Segoe UI",Arial,sans-serif;
 }
 
 body{
@@ -212,118 +223,157 @@ button:disabled{
     margin-top:18px;
 }
 
-</style></head><body><div class="container"><div class="header">
-    <div class="logo">BOK</div>
-    <div class="subtitle">لوحة إدارة الحسابات</div>
-</div>
+</style>
 
-<a href="dashboard.html" class="back">
-    ← العودة إلى لوحة الإدارة
-</a>
+</head>
 
-<div class="card">
+<body>
 
-    <div class="title">
-        زيادة الرصيد
-    </div>
+<div class="container">
 
-    <div class="input-group">
+    <div class="header">
 
-        <label>
-            رقم الحساب
-        </label>
-
-        <input
-            type="text"
-            id="accountNumber"
-            placeholder="أدخل رقم الحساب"
-            inputmode="numeric"
-            autocomplete="off"
-        >
-
-    </div>
-
-    <button
-        id="searchBtn"
-        class="search-btn"
-    >
-        البحث عن الحساب
-    </button>
-
-    <div id="loading" class="loading">
-        جاري البحث...
-    </div>
-
-    <div id="accountInfo" class="account-info">
-
-        <div id="accountName" class="account-name">
-            —
+        <div class="logo">
+            BOK
         </div>
 
-        <div class="info-row">
+        <div class="subtitle">
+            لوحة إدارة الحسابات
+        </div>
 
-            <div class="info-label">
+    </div>
+
+
+    <a href="dashboard.html" class="back">
+        ← العودة إلى لوحة الإدارة
+    </a>
+
+
+    <div class="card">
+
+        <div class="title">
+            زيادة الرصيد
+        </div>
+
+
+        <div class="input-group">
+
+            <label>
                 رقم الحساب
-            </div>
+            </label>
 
-            <div id="showAccount" class="info-value">
+            <input
+                type="text"
+                id="accountNumber"
+                placeholder="أدخل رقم الحساب"
+                inputmode="numeric"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <button
+            id="searchBtn"
+            class="search-btn">
+
+            البحث عن الحساب
+
+        </button>
+
+
+        <div id="loading" class="loading">
+            جاري البحث...
+        </div>
+
+
+        <div id="accountInfo" class="account-info">
+
+            <div id="accountName" class="account-name">
                 —
             </div>
 
-        </div>
 
-        <div class="info-row">
+            <div class="info-row">
 
-            <div class="info-label">
-                الرصيد الحالي
+                <div class="info-label">
+                    رقم الحساب
+                </div>
+
+                <div id="showAccount" class="info-value">
+                    —
+                </div>
+
             </div>
 
-            <div
-                id="currentBalance"
-                class="info-value current-balance"
+
+            <div class="info-row">
+
+                <div class="info-label">
+                    الرصيد الحالي
+                </div>
+
+                <div
+                    id="currentBalance"
+                    class="info-value current-balance">
+
+                    0
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="rechargeArea" class="recharge-area">
+
+            <label>
+                مبلغ الزيادة
+            </label>
+
+
+            <input
+                type="number"
+                id="amount"
+                placeholder="أدخل المبلغ"
+                min="0.01"
+                step="0.01"
+                inputmode="decimal"
             >
-                0
-            </div>
+
+
+            <button
+                id="rechargeBtn"
+                class="recharge-btn">
+
+                زيادة الرصيد
+
+            </button>
 
         </div>
 
-    </div>
 
-    <div id="rechargeArea" class="recharge-area">
-
-        <label>
-            مبلغ الزيادة
-        </label>
-
-        <input
-            type="number"
-            id="amount"
-            placeholder="أدخل المبلغ"
-            min="0.01"
-            step="0.01"
-            inputmode="decimal"
-        >
-
-        <button
-            id="rechargeBtn"
-            class="recharge-btn"
-        >
-            زيادة الرصيد
-        </button>
+        <div id="message" class="message"></div>
 
     </div>
-
-    <div id="message" class="message"></div>
 
 </div>
 
-</div><script type="module">
+
+<script type="module">
+
+
+/* =========================
+   FIREBASE
+========================= */
 
 import {
     initializeApp
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 
 import {
     getDatabase,
@@ -333,6 +383,7 @@ import {
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
 
 import {
     getAuth,
@@ -379,16 +430,33 @@ const firebaseConfig = {
    INITIALIZE
 ========================= */
 
-const app = initializeApp(firebaseConfig);
+const app =
+    initializeApp(firebaseConfig);
 
-const db = getDatabase(app);
 
-const auth = getAuth(app);
+const db =
+    getDatabase(app);
+
+
+const auth =
+    getAuth(app);
 
 
 /* =========================
-   ADMIN UID
+   ADMIN ACCOUNT
 ========================= */
+
+/*
+   البريد:
+   admin@bokjack.com
+
+   UID:
+   rneRJQbNLNWUGyRbDs2ocI37R392
+*/
+
+const ADMIN_EMAIL =
+    "admin@bokjack.com";
+
 
 const ADMIN_UID =
     "rneRJQbNLNWUGyRbDs2ocI37R392";
@@ -400,7 +468,7 @@ let selectedAccount = null;
 
 
 /* =========================
-   AUTH
+   AUTH CHECK
 ========================= */
 
 onAuthStateChanged(
@@ -409,15 +477,42 @@ onAuthStateChanged(
 
         if(!user){
 
+            adminReady = false;
+
             window.location.href =
                 "index.html";
 
             return;
         }
 
+
+        /*
+         * التحقق من UID
+         */
+
         if(user.uid !== ADMIN_UID){
 
             adminReady = false;
+
+            console.error(
+                "ADMIN ERROR"
+            );
+
+            console.error(
+                "Current Email:",
+                user.email
+            );
+
+            console.error(
+                "Current UID:",
+                user.uid
+            );
+
+            console.error(
+                "Required UID:",
+                ADMIN_UID
+            );
+
 
             showError(
                 "هذا الحساب غير مصرح له بإدارة النظام"
@@ -426,7 +521,46 @@ onAuthStateChanged(
             return;
         }
 
+
+        /*
+         * التحقق من البريد أيضاً
+         */
+
+        if(
+            user.email &&
+            user.email.toLowerCase() !==
+            ADMIN_EMAIL.toLowerCase()
+        ){
+
+            adminReady = false;
+
+            showError(
+                "هذا البريد غير مصرح له بإدارة النظام"
+            );
+
+            return;
+        }
+
+
+        /*
+         * الأدمن صحيح
+         */
+
         adminReady = true;
+
+        console.log(
+            "ADMIN LOGIN OK"
+        );
+
+        console.log(
+            "Email:",
+            user.email
+        );
+
+        console.log(
+            "UID:",
+            user.uid
+        );
 
     }
 );
@@ -448,20 +582,21 @@ document
                 ""
             );
 
-        /*
-         * عند تغيير رقم الحساب
-         * نلغي الحساب المحدد القديم
-         */
 
         selectedAccount = null;
 
+
         document
         .getElementById("accountInfo")
-        .style.display = "none";
+        .style.display =
+            "none";
+
 
         document
         .getElementById("rechargeArea")
-        .style.display = "none";
+        .style.display =
+            "none";
+
 
         hideMessage();
 
@@ -470,7 +605,7 @@ document
 
 
 /* =========================
-   SEARCH BUTTON
+   SEARCH
 ========================= */
 
 document
@@ -482,7 +617,7 @@ document
 
 
 /* =========================
-   RECHARGE BUTTON
+   RECHARGE
 ========================= */
 
 document
@@ -531,15 +666,18 @@ async function searchAccount(){
             "searchBtn"
         );
 
+
     const loading =
         document.getElementById(
             "loading"
         );
 
+
     const accountInfo =
         document.getElementById(
             "accountInfo"
         );
+
 
     const rechargeArea =
         document.getElementById(
@@ -551,14 +689,18 @@ async function searchAccount(){
 
     hideMessage();
 
+
     accountInfo.style.display =
         "none";
+
 
     rechargeArea.style.display =
         "none";
 
+
     loading.style.display =
         "block";
+
 
     searchBtn.disabled =
         true;
@@ -569,7 +711,8 @@ async function searchAccount(){
         const accountRef =
             ref(
                 db,
-                "accounts/" + accountNumber
+                "accounts/" +
+                accountNumber
             );
 
 
@@ -591,14 +734,10 @@ async function searchAccount(){
             snapshot.val();
 
 
-        /*
-         * قراءة الرصيد مهما كان
-         * رقم أو نص
-         */
-
-        let balance = Number(
-            data.balance
-        );
+        let balance =
+            Number(
+                data.balance
+            );
 
 
         if(!Number.isFinite(balance)){
@@ -624,19 +763,25 @@ async function searchAccount(){
 
 
         document
-        .getElementById("accountName")
+        .getElementById(
+            "accountName"
+        )
         .textContent =
             selectedAccount.name;
 
 
         document
-        .getElementById("showAccount")
+        .getElementById(
+            "showAccount"
+        )
         .textContent =
             selectedAccount.accountNumber;
 
 
         document
-        .getElementById("currentBalance")
+        .getElementById(
+            "currentBalance"
+        )
         .textContent =
             formatNumber(
                 selectedAccount.balance
@@ -646,9 +791,9 @@ async function searchAccount(){
         accountInfo.style.display =
             "block";
 
+
         rechargeArea.style.display =
             "block";
-
 
     }
     catch(error){
@@ -657,6 +802,7 @@ async function searchAccount(){
             "SEARCH ERROR:",
             error
         );
+
 
         showError(
             "حدث خطأ أثناء البحث: " +
@@ -669,6 +815,7 @@ async function searchAccount(){
         loading.style.display =
             "none";
 
+
         searchBtn.disabled =
             false;
 
@@ -678,7 +825,7 @@ async function searchAccount(){
 
 
 /* =========================
-   RECHARGE
+   RECHARGE BALANCE
 ========================= */
 
 async function rechargeBalance(){
@@ -737,10 +884,13 @@ async function rechargeBalance(){
         );
 
 
-    btn.disabled = true;
+    btn.disabled =
+        true;
+
 
     btn.textContent =
         "جاري إضافة الرصيد...";
+
 
     hideMessage();
 
@@ -748,9 +898,7 @@ async function rechargeBalance(){
     try{
 
         /*
-         * نقرأ الحساب مرة أخرى
-         * قبل التحديث للتأكد أن الرصيد
-         * الحالي هو الرصيد الحقيقي
+         * قراءة الحساب مرة أخرى
          */
 
         const accountRef =
@@ -796,7 +944,7 @@ async function rechargeBalance(){
 
 
         /*
-         * تحديث balance فقط
+         * تحديث الرصيد
          */
 
         await update(
@@ -811,7 +959,7 @@ async function rechargeBalance(){
 
 
         /*
-         * تحديث البيانات المعروضة
+         * تحديث الشاشة
          */
 
         selectedAccount.balance =
@@ -828,13 +976,13 @@ async function rechargeBalance(){
             );
 
 
-        amountInput.value = "";
+        amountInput.value =
+            "";
 
 
         showSuccess(
             "تمت زيادة الرصيد بنجاح ✓"
         );
-
 
     }
     catch(error){
@@ -844,6 +992,7 @@ async function rechargeBalance(){
             error
         );
 
+
         showError(
             "حدث خطأ أثناء زيادة الرصيد: " +
             error.message
@@ -852,7 +1001,9 @@ async function rechargeBalance(){
     }
     finally{
 
-        btn.disabled = false;
+        btn.disabled =
+            false;
+
 
         btn.textContent =
             "زيادة الرصيد";
@@ -880,7 +1031,7 @@ function formatNumber(number){
 
 
 /* =========================
-   SUCCESS MESSAGE
+   SUCCESS
 ========================= */
 
 function showSuccess(text){
@@ -906,7 +1057,7 @@ function showSuccess(text){
 
 
 /* =========================
-   ERROR MESSAGE
+   ERROR
 ========================= */
 
 function showError(text){
@@ -948,5 +1099,7 @@ function hideMessage(){
 
 }
 
-</script></body>
+</script>
+
+</body>
 </html>
