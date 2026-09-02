@@ -1,243 +1,48 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>BOK JACK - Admin</title>  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "SF Pro Text",
-        Arial,
-        sans-serif;
-    }
+<!DOCTYPE html><html lang="ar" dir="rtl"><head>
+  <meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
 
-    body {
-      min-height: 100vh;
-      background: #050505;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+«»
 
-    .background {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
+<meta
+name="theme-color"
+content="#050505"
 
-    .glow {
-      position: absolute;
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      background: rgba(255, 0, 0, 0.10);
-      filter: blur(100px);
-    }
+«»
 
-    .glow.one {
-      top: -100px;
-      right: -80px;
-    }
+  <title>BOK JACK - Admin</title>  <!-- CSS -->  <link rel="stylesheet" href="style.css">
+</head><body>  <!-- الخلفية -->  <div class="background"><div class="glow one"></div>
+<div class="glow two"></div>
 
-    .glow.two {
-      bottom: -120px;
-      left: -100px;
-      background: rgba(120, 0, 255, 0.07);
-    }
-
-    .login-box {
-      position: relative;
-      width: 100%;
-      max-width: 410px;
-      padding: 34px 28px 30px;
-      background: rgba(18, 18, 18, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 26px;
-      box-shadow:
-        0 25px 80px rgba(0, 0, 0, 0.65),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-
-    .logo {
-      width: 76px;
-      height: 76px;
-      margin: 0 auto 18px;
-      border-radius: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #b00020;
-      color: #fff;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      box-shadow: 0 12px 35px rgba(176, 0, 32, 0.30);
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 27px;
-      font-weight: 800;
-      margin-bottom: 7px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #8e8e93;
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
-
-    .field {
-      margin-bottom: 17px;
-    }
-
-    .field label {
-      display: block;
-      color: #c7c7cc;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .input-box {
-      position: relative;
-    }
-
-    .input-box input {
-      width: 100%;
-      height: 54px;
-      padding: 0 16px;
-      border: 1px solid #292929;
-      outline: none;
-      border-radius: 15px;
-      background: #0d0d0d;
-      color: #fff;
-      font-size: 15px;
-      transition: 0.2s ease;
-    }
-
-    .input-box input::placeholder {
-      color: #555;
-    }
-
-    .input-box input:focus {
-      border-color: #b00020;
-      box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.12);
-    }
-
-    .password-input {
-      padding-left: 52px !important;
-    }
-
-    .show-password {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: transparent;
-      color: #777;
-      cursor: pointer;
-      font-size: 13px;
-      padding: 7px;
-    }
-
-    .show-password:hover {
-      color: #fff;
-    }
-
-    .login-btn {
-      width: 100%;
-      height: 55px;
-      margin-top: 8px;
-      border: none;
-      border-radius: 15px;
-      background: #b00020;
-      color: #fff;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s ease;
-      box-shadow: 0 12px 30px rgba(176, 0, 32, 0.20);
-    }
-
-    .login-btn:hover {
-      background: #c50025;
-      transform: translateY(-1px);
-    }
-
-    .login-btn:active {
-      transform: scale(0.98);
-    }
-
-    .error {
-      display: none;
-      margin-top: 15px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: rgba(255, 59, 48, 0.10);
-      border: 1px solid rgba(255, 59, 48, 0.20);
-      color: #ff6b63;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 25px;
-      color: #555;
-      font-size: 12px;
-    }
-
-    .footer span {
-      color: #888;
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 15px;
-      }
-
-      .login-box {
-        padding: 30px 20px 25px;
-        border-radius: 23px;
-      }
-
-      h1 {
-        font-size: 24px;
-      }
-    }
-  </style></head><body>  <div class="background">
-    <div class="glow one"></div>
-    <div class="glow two"></div>
-  </div>  <main class="login-box"><div class="logo">
+  </div>  <!-- تسجيل دخول الأدمن -->  <main class="login-box"><!-- الشعار -->
+<div class="logo">
   BOK
 </div>
 
-<h1>BOK JACK</h1>
+
+<!-- العنوان -->
+<h1>
+  BOK JACK
+</h1>
 
 <p class="subtitle">
   لوحة تحكم الإدارة
 </p>
 
+
+<!-- نموذج تسجيل الدخول -->
 <form id="loginForm">
 
+  <!-- اسم المستخدم -->
   <div class="field">
+
     <label for="adminUsername">
       اسم المستخدم
     </label>
 
     <div class="input-box">
+
       <input
         type="text"
         id="adminUsername"
@@ -245,15 +50,21 @@
         autocomplete="username"
         required
       >
+
     </div>
+
   </div>
 
+
+  <!-- كلمة المرور -->
   <div class="field">
+
     <label for="adminPassword">
       كلمة المرور
     </label>
 
     <div class="input-box">
+
       <input
         type="password"
         id="adminPassword"
@@ -270,9 +81,13 @@
       >
         إظهار
       </button>
+
     </div>
+
   </div>
 
+
+  <!-- تسجيل الدخول -->
   <button
     type="submit"
     class="login-btn"
@@ -280,548 +95,27 @@
     تسجيل الدخول
   </button>
 
+
+  <!-- رسالة الخطأ -->
   <div
     class="error"
     id="loginError"
   >
-    يرجى إدخال بيانات تسجيل الدخول.
+    أدخل بيانات تسجيل الدخول.
   </div>
 
 </form>
 
+
+<!-- أسفل الصفحة -->
 <div class="footer">
-  BOK JACK <span>• Admin Panel</span>
-</div>
 
-  </main>  <script>
-    const loginForm = document.getElementById("loginForm");
-    const adminUsername = document.getElementById("adminUsername");
-    const adminPassword = document.getElementById("adminPassword");
-    const showPassword = document.getElementById("showPassword");
-    const loginError = document.getElementById("loginError");
+  BOK JACK
 
-    showPassword.addEventListener("click", function () {
-
-      if (adminPassword.type === "password") {
-        adminPassword.type = "text";
-        showPassword.textContent = "إخفاء";
-      } else {
-        adminPassword.type = "password";
-        showPassword.textContent = "إظهار";
-      }
-
-    });
-
-    loginForm.addEventListener("submit", function (event) {
-
-      event.preventDefault();
-
-      const username = adminUsername.value.trim();
-      const password = adminPassword.value.trim();
-
-      if (!username || !password) {
-
-        loginError.textContent =
-          "أدخل اسم المستخدم وكلمة المرور.";
-
-        loginError.style.display = "block";
-
-        return;
-      }
-
-      /*
-        سيتم ربط تسجيل الدخول بـ Firebase
-        في الخطوة التالية.
-
-        لا توجد بيانات دخول ثابتة هنا
-        لأسباب أمنية.
-      */
-
-      loginError.textContent =
-        "تسجيل الدخول سيتم ربطه بـ Firebase.";
-
-      loginError.style.display = "block";
-
-    });
-  </script></body>
-</html>
-      pointer-events: none;
-    }
-
-
-    /* =========================
-       الشعار
-    ========================= */
-
-    .brand {
-
-      text-align: center;
-
-      position: relative;
-
-      z-index: 2;
-
-      margin-bottom: 45px;
-    }
-
-    .logo {
-
-      font-size: 58px;
-
-      font-weight: 800;
-
-      letter-spacing: 6px;
-
-      line-height: 1;
-
-      color: #fff;
-
-      text-shadow:
-        0 0 30px rgba(255,255,255,.12);
-    }
-
-    .brand-name {
-
-      margin-top: 13px;
-
-      font-size: 14px;
-
-      letter-spacing: 4px;
-
-      color: #8e8e93;
-
-      font-weight: 500;
-    }
-
-
-    /* =========================
-       البطاقة
-    ========================= */
-
-    .card {
-
-      position: relative;
-
-      z-index: 2;
-
-      width: 100%;
-
-      padding: 22px;
-
-      border-radius: 30px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.105),
-          rgba(255,255,255,.045)
-        );
-
-      border:
-        1px solid
-        rgba(255,255,255,.10);
-
-      box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.65),
-
-        inset 0 1px 0
-        rgba(255,255,255,.07);
-
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-    }
-
-
-    /* =========================
-       النص
-    ========================= */
-
-    .title {
-
-      text-align: center;
-
-      font-size: 22px;
-
-      font-weight: 700;
-
-      margin-bottom: 7px;
-    }
-
-    .description {
-
-      text-align: center;
-
-      font-size: 14px;
-
-      color: #8e8e93;
-
-      margin-bottom: 25px;
-    }
-
-
-    /* =========================
-       الأزرار
-    ========================= */
-
-    button {
-
-      width: 100%;
-
-      height: 58px;
-
-      border: none;
-
-      border-radius: 18px;
-
-      font-size: 16px;
-
-      font-weight: 600;
-
-      cursor: pointer;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      gap: 10px;
-
-      transition:
-        transform .15s ease,
-        opacity .15s ease;
-
-      -webkit-appearance: none;
-    }
-
-    button:active {
-
-      transform: scale(.97);
-
-      opacity: .75;
-    }
-
-
-    /* تسجيل الدخول */
-
-    .login {
-
-      background: #fff;
-
-      color: #000;
-
-      box-shadow:
-        0 8px 25px
-        rgba(255,255,255,.10);
-
-      margin-bottom: 12px;
-    }
-
-
-    /* فتح حساب */
-
-    .account {
-
-      background:
-        rgba(255,255,255,.07);
-
-      color: #fff;
-
-      border:
-        1px solid
-        rgba(255,255,255,.12);
-    }
-
-
-    /* =========================
-       الأيقونات
-    ========================= */
-
-    .icon {
-
-      width: 22px;
-      height: 22px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 19px;
-    }
-
-
-    /* =========================
-       أسفل الصفحة
-    ========================= */
-
-    .footer {
-
-      position: relative;
-
-      z-index: 2;
-
-      text-align: center;
-
-      margin-top: 28px;
-
-      color: #636366;
-
-      font-size: 12px;
-
-      letter-spacing: .5px;
-    }
-
-
-    /* =========================
-       تأثير iOS
-    ========================= */
-
-    @media (max-height: 650px) {
-
-      .page {
-        padding-top: 25px;
-        padding-bottom: 20px;
-      }
-
-      .brand {
-        margin-bottom: 25px;
-      }
-
-      .logo {
-        font-size: 48px;
-      }
-
-    }
-
-  </style>
-
-</head>
-
-
-<body>
-
-
-  <div class="page">
-
-
-    <div class="glow"></div>
-
-
-    <!-- BRAND -->
-
-    <div class="brand">
-
-      <div class="logo">
-        JACK
-      </div>
-
-      <div class="brand-name">
-        BOK JACK
-      </div>
-
-    </div>
-
-
-    <!-- CARD -->
-
-    <div class="card">
-
-      <div class="title">
-        أهلاً بك
-      </div>
-
-      <div class="description">
-        اختر الخدمة التي تريد استخدامها
-      </div>
-
-
-      <!-- LOGIN -->
-
-      <button
-        class="login"
-        onclick="login()"
-      >
-
-        <span class="icon">
-          ⇥
-        </span>
-
-        تسجيل الدخول
-
-      </button>
-
-
-      <!-- ACCOUNT -->
-
-      <button
-        class="account"
-        onclick="openAccount()"
-      >
-
-        <span class="icon">
-          ＋
-        </span>
-
-        فتح حساب جديد
-
-      </button>
-
-    </div>
-
-
-    <div class="footer">
-
-      BOK JACK · 2026
-
-    </div>
-
-
-  </div>
-
-
-  <script>
-
-    function login() {
-
-      window.location.href =
-        "login.html";
-
-    }
-
-
-    function openAccount() {
-
-      window.location.href =
-        "account.html";
-
-    }
-
-  </script>
-
-
-</body>
-
-</html>
-    transition:.2s;
-
-}
-
-
-.btn:hover{
-
-    transform:translateY(-2px);
-
-    background:#1c232d;
-
-}
-
-
-.btn-login{
-
-    background:#b00020;
-
-    border-color:#b00020;
-
-}
-
-
-.btn-login:hover{
-
-    background:#c40025;
-
-}
-
-
-.btn-account{
-
-    background:#151b23;
-
-}
-
-
-.btn-recharge{
-
-    background:#151b23;
-
-}
-
-
-.footer{
-
-    margin-top:30px;
-
-    color:#666;
-
-    font-size:13px;
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="container">
-
-
-    <div class="logo">
-        JACK
-    </div>
-
-
-    <div class="subtitle">
-        مرحباً بك في BOK JACK
-    </div>
-
-
-    <div class="buttons">
-
-
-        <!-- تسجيل الدخول -->
-
-        <a
-            class="btn btn-login"
-            href="login.html"
-        >
-            تسجيل الدخول
-        </a>
-
-
-        <!-- فتح حساب -->
-
-        <a
-            class="btn btn-account"
-            href="account.html"
-        >
-            فتح حساب
-        </a>
-
-
-        <!-- شحن الرصيد -->
-
-        <a
-            class="btn btn-recharge"
-            href="recharge.html"
-        >
-            شحن الرصيد
-        </a>
-
-
-    </div>
-
-
-    <div class="footer">
-        BOK JACK
-    </div>
-
+  <span>
+    • Admin Panel
+  </span>
 
 </div>
 
-
-</body>
-
-</html>
+  </main>  <!-- JavaScript -->  <script src="app.js"></script></body></html>
