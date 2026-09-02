@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOK JACK - تحويل</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f5f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box {
+      width: 92%;
+      max-width: 430px;
+      background: white;
+      padding: 25px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 5px;
+    }
+
+    .title {
+      text-align: center;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .balance {
+      background: #111;
+      color: white;
+      padding: 20px;
+      border-radius: 18px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .balance small {
+      opacity: .7;
+    }
+
+    .balance strong {
+      display: block;
+      font-size: 28px;
+      margin-top: 8px;
+      direction: ltr;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #111;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 15px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .send {
+      background: #111;
+      color: white;
+    }
+
+    .back {
+      background: #eee;
+      color: #111;
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 13px;
+      border-radius: 12px;
+      text-align: center;
+      display: none;
+    }
+
+    .success {
+      background: #e8f7e8;
+      color: #187329;
+    }
+
+    .error {
+      background: #ffe8e8;
+      color: #c00000;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <div class="logo">JACK</div>
+
+  <div class="title">
+    تحويل أموال
+  </div>
+
+  <div class="balance">
+    <small>رصيدك الحالي</small>
+    <strong id="balance">...</strong>
+  </div>
+
+  <input
+    id="recipient"
+    type="text"
+    inputmode="numeric"
+    maxlength="7"
+    placeholder="رقم حساب المستلم">
+
+  <input
+    id="amount"
+    type="number"
+    min="1"
+    placeholder="المبلغ">
+
+  <button class="send" id="sendBtn">
+    تحويل
+  </button>
+
+  <button class="back" onclick="goBack()">
+    رجوع
+  </button>
+
+  <div id="message" class="message"></div>
+
+</div>
+
+
+<script type="module">
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+  import {
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  import {
+    getDatabase,
+    ref,
+    get,
+    push,
+    set
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+  const firebaseConfig = {
+
+    apiKey: "AIzaSyAuWY3OwK9jnn8vBhz2-yittn7dDntZBw",
+
+    authDomain: "bok-jack.firebaseapp.com",
+
+    databaseURL:
+      "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId: "bok-jack",
+
+    storageBucket:
+      "bok-jack.firebasestorage.app",
+
+    messagingSenderId:
+      "96539205463",
+
+    appId:
+      "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId:
+      "G-069BL15X9J"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  const db = getDatabase(app);
+
+
+  let currentUser = null;
+  let currentData = null;
+
+
+  const balanceElement =
+    document.getElementById("balance");
+
+  const messageElement =
+    document.getElementById("message");
+
+  const sendButton =
+    document.getElementById("sendBtn");
+
+
+  function showMessage(text, type) {
+
+    messageElement.textContent = text;
+
+    messageElement.className =
+      "message " + type;
+
+    messageElement.style.display =
+      "block";
+  }
+
+
+  function formatMoney(value) {
+
+    return Number(value).toLocaleString("en-US");
+
+  }
+
+
+  // ==============================
+  // التحقق من تسجيل الدخول
+  // ==============================
+
+  onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    currentUser = user;
+
+
+    try {
+
+      const snapshot =
+        await get(
+          ref(db, "users/" + user.uid)
+        );
+
+
+      if (!snapshot.exists()) {
+
+        showMessage(
+          "بيانات الحساب غير موجودة",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      currentData =
+        snapshot.val();
+
+
+      if (currentData.balanceUnlimited === true) {
+
+        balanceElement.textContent =
+          "∞";
+
+      } else {
+
+        balanceElement.textContent =
+          formatMoney(
+            currentData.balance || 0
+          );
+
+      }
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        "تعذر تحميل الرصيد",
+        "error"
+      );
+
+    }
+
+  });
+
+
+  // ==============================
+  // تنفيذ التحويل التجريبي
+  // ==============================
+
+  sendButton.addEventListener(
+    "click",
+    async () => {
+
+      messageElement.style.display =
+        "none";
+
+
+      if (!currentUser || !currentData) {
+
+        showMessage(
+          "انتظر حتى يتم تحميل الحساب",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const recipient =
+        document
+          .getElementById("recipient")
+          .value
+          .trim();
+
+
+      const amount =
+        Number(
+          document
+            .getElementById("amount")
+            .value
+        );
+
+
+      // التحقق من رقم الحساب
+
+      if (!/^[0-9]{7}$/.test(recipient)) {
+
+        showMessage(
+          "رقم الحساب يجب أن يكون 7 أرقام",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      // التحقق من المبلغ
+
+      if (!Number.isFinite(amount) || amount <= 0) {
+
+        showMessage(
+          "أدخل مبلغًا صحيحًا",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      // منع التحويل للنفس
+
+      if (
+        recipient ===
+        String(currentData.accountNumber)
+      ) {
+
+        showMessage(
+          "لا يمكنك التحويل إلى حسابك",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        // البحث عن المستلم
+
+        const accountSnapshot =
+          await get(
+            ref(
+              db,
+              "accountNumbers/" + recipient
+            )
+          );
+
+
+        if (!accountSnapshot.exists()) {
+
+          showMessage(
+            "حساب المستلم غير موجود",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const recipientData =
+          accountSnapshot.val();
+
+
+        // ============================
+        // ملاحظة الأمان
+        // ============================
+
+        /*
+          لا نقوم هنا بتعديل رصيد المستلم
+          مباشرة من جهاز المستخدم.
+
+          يتم فقط تسجيل طلب التحويل
+          في transfers.
+
+          هذا يمنع المستخدم من إعطاء
+          نفسه رصيدًا أو تعديل حساب شخص آخر.
+        */
+
+
+        if (
+          currentData.balanceUnlimited !== true
+        ) {
+
+          const currentBalance =
+            Number(
+              currentData.balance || 0
+            );
+
+
+          if (amount > currentBalance) {
+
+            showMessage(
+              "الرصيد غير كافٍ",
+              "error"
+            );
+
+            return;
+
+          }
+
+        }
+
+
+        const transferRef =
+          push(ref(db, "transfers"));
+
+
+        await set(
+          transferRef,
+          {
+
+            fromUid:
+              currentUser.uid,
+
+            fromAccount:
+              currentData.accountNumber,
+
+            toUid:
+              recipientData.uid,
+
+            toAccount:
+              recipient,
+
+            amount:
+              amount,
+
+            status:
+              "pending",
+
+            createdAt:
+              Date.now()
+
+          }
+        );
+
+
+        showMessage(
+          "تم تسجيل طلب التحويل بنجاح",
+          "success"
+        );
+
+
+        document
+          .getElementById("recipient")
+          .value = "";
+
+
+        document
+          .getElementById("amount")
+          .value = "";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          "تعذر تنفيذ التحويل",
+          "error"
+        );
+
+      }
+
+    }
+  );
+
+
+  window.goBack = function() {
+
+    window.location.href =
+      "home.html";
+
+  };
+
+
+</script>
+
+</body>
+</html>
