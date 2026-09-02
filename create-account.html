@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>BOK JACK - إنشاء حساب</title>
 
 <style>
+
 *{
     box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,
-    "SF Pro Display","Segoe UI",Arial,sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        Arial,
+        sans-serif;
 }
 
 body{
@@ -49,7 +61,8 @@ body{
     border:1px solid #292929;
     border-radius:22px;
     padding:22px;
-    box-shadow:0 10px 35px rgba(0,0,0,.45);
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.45);
 }
 
 .title{
@@ -169,116 +182,237 @@ button:disabled{
 .back:hover{
     color:#fff;
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
+
+    <!-- HEADER -->
+
     <div class="header">
-        <div class="logo">BOK JACK</div>
-        <div class="subtitle">لوحة إدارة الحسابات</div>
+
+        <div class="logo">
+            BOK
+        </div>
+
+        <div class="subtitle">
+            لوحة إدارة الحسابات
+        </div>
+
     </div>
 
+
+    <!-- CARD -->
+
     <div class="card">
+
 
         <div class="title">
             إنشاء حساب جديد
         </div>
 
+
+        <!-- NAME -->
+
         <div class="input-group">
-            <label>اسم المستخدم</label>
+
+            <label>
+                اسم المستخدم
+            </label>
 
             <input
                 type="text"
                 id="name"
                 placeholder="أدخل اسم المستخدم"
-                autocomplete="off">
+                autocomplete="off"
+            >
+
         </div>
 
+
+        <!-- ACCOUNT NUMBER -->
+
         <div class="input-group">
-            <label>رقم الحساب</label>
+
+            <label>
+                رقم الحساب
+            </label>
 
             <input
                 type="text"
                 id="account"
                 value="سيتم إنشاء الرقم تلقائياً"
-                readonly>
+                readonly
+            >
+
         </div>
 
+
+        <!-- PASSWORD -->
+
         <div class="input-group">
-            <label>كلمة المرور</label>
+
+            <label>
+                كلمة المرور
+            </label>
 
             <input
                 type="password"
                 id="password"
                 placeholder="4 أرقام أو أكثر"
                 inputmode="numeric"
-                autocomplete="new-password">
+                autocomplete="new-password"
+            >
+
         </div>
 
+
+        <!-- BALANCE -->
+
         <div class="input-group">
-            <label>الرصيد الابتدائي</label>
+
+            <label>
+                الرصيد الابتدائي
+            </label>
 
             <input
                 type="number"
                 id="balance"
                 placeholder="0"
                 min="0"
-                value="0">
+                value="0"
+            >
+
         </div>
 
-        <button id="createBtn" onclick="createAccount()">
+
+        <!-- BUTTON -->
+
+        <button
+            id="createBtn"
+            onclick="createAccount()"
+        >
             إنشاء الحساب
         </button>
 
-        <div id="message" class="message"></div>
 
-        <div id="accountBox" class="account-box">
+        <!-- MESSAGE -->
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <!-- RESULT -->
+
+        <div
+            id="accountBox"
+            class="account-box"
+        >
 
             <div>
+
                 اسم المستخدم:
-                <span id="showName" class="account-value"></span>
+
+                <span
+                    id="showName"
+                    class="account-value"
+                ></span>
+
             </div>
 
+
             <div>
+
                 رقم الحساب:
-                <span id="showAccount" class="account-value"></span>
+
+                <span
+                    id="showAccount"
+                    class="account-value"
+                ></span>
+
             </div>
 
+
             <div>
+
                 الرصيد:
-                <span id="showBalance" class="account-value"></span>
+
+                <span
+                    id="showBalance"
+                    class="account-value"
+                ></span>
+
             </div>
 
         </div>
 
+
     </div>
 
-    <a href="admin.html" class="back">
+
+    <!-- BACK -->
+
+    <a
+        href="dashboard.html"
+        class="back"
+    >
         ← العودة إلى لوحة الإدارة
     </a>
+
 
 </div>
 
 
+
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+/* =========================
+   FIREBASE APP
+========================= */
+
+import {
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+/* =========================
+   FIREBASE DATABASE
+========================= */
 
 import {
     getDatabase,
     ref,
     get,
     set
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
 /* =========================
-   FIREBASE
+   FIREBASE AUTH
+========================= */
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+
+/* =========================
+   FIREBASE CONFIG
 ========================= */
 
 const firebaseConfig = {
@@ -306,21 +440,89 @@ const firebaseConfig = {
 
     measurementId:
     "G-069BL15X9J"
+
 };
 
-const app = initializeApp(firebaseConfig);
-
-const db = getDatabase(app);
 
 
 /* =========================
-   توليد رقم حساب 7 أرقام
+   INITIALIZE
+========================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const db =
+    getDatabase(app);
+
+
+const auth =
+    getAuth(app);
+
+
+
+/* =========================
+   ADMIN UID
+========================= */
+
+const ADMIN_UID =
+    "qlaCFjAGCPPrg53Z7nCl5NDbAw62";
+
+
+let adminReady =
+    false;
+
+
+
+/* =========================
+   CHECK ADMIN LOGIN
+========================= */
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(!user){
+
+            window.location.href =
+                "index.html";
+
+            return;
+        }
+
+
+        if(user.uid !== ADMIN_UID){
+
+            showError(
+                "هذا الحساب غير مصرح له بإدارة النظام"
+            );
+
+            adminReady =
+                false;
+
+            return;
+        }
+
+
+        adminReady =
+            true;
+
+    }
+);
+
+
+
+/* =========================
+   GENERATE ACCOUNT NUMBER
 ========================= */
 
 async function generateAccountNumber(){
 
     let accountNumber;
+
     let exists = true;
+
 
     while(exists){
 
@@ -330,67 +532,131 @@ async function generateAccountNumber(){
                 Math.random() * 9000000
             ).toString();
 
+
         const accountRef =
             ref(
                 db,
                 "accounts/" + accountNumber
             );
 
+
         const snapshot =
             await get(accountRef);
 
-        exists = snapshot.exists();
+
+        exists =
+            snapshot.exists();
+
     }
 
+
     return accountNumber;
+
 }
 
 
+
 /* =========================
-   إنشاء الحساب
+   CREATE ACCOUNT
 ========================= */
 
-window.createAccount = async function(){
-
-    const name =
-        document.getElementById("name")
-        .value.trim();
-
-    const password =
-        document.getElementById("password")
-        .value.trim();
-
-    const balanceValue =
-        document.getElementById("balance")
-        .value.trim();
-
-    const btn =
-        document.getElementById("createBtn");
-
-    const message =
-        document.getElementById("message");
-
-    const accountBox =
-        document.getElementById("accountBox");
-
-
-    message.className = "message";
-    message.style.display = "none";
-
-    accountBox.style.display = "none";
+window.createAccount =
+async function(){
 
 
     /* =========================
-       التحقق
+       CHECK ADMIN
+    ========================= */
+
+    if(!adminReady){
+
+        showError(
+            "يرجى تسجيل الدخول كأدمن أولاً"
+        );
+
+        return;
+
+    }
+
+
+
+    /* =========================
+       GET VALUES
+    ========================= */
+
+    const name =
+        document
+        .getElementById("name")
+        .value
+        .trim();
+
+
+    const password =
+        document
+        .getElementById("password")
+        .value
+        .trim();
+
+
+    const balanceValue =
+        document
+        .getElementById("balance")
+        .value
+        .trim();
+
+
+
+    const btn =
+        document
+        .getElementById("createBtn");
+
+
+    const message =
+        document
+        .getElementById("message");
+
+
+    const accountBox =
+        document
+        .getElementById("accountBox");
+
+
+
+    /* =========================
+       RESET MESSAGE
+    ========================= */
+
+    message.className =
+        "message";
+
+    message.style.display =
+        "none";
+
+
+    accountBox.style.display =
+        "none";
+
+
+
+    /* =========================
+       VALIDATE NAME
     ========================= */
 
     if(name === ""){
 
-        showError("أدخل اسم المستخدم");
+        showError(
+            "أدخل اسم المستخدم"
+        );
 
         return;
+
     }
 
+
+
+    /* =========================
+       VALIDATE PASSWORD
+    ========================= */
 
     if(password.length < 4){
 
@@ -399,6 +665,7 @@ window.createAccount = async function(){
         );
 
         return;
+
     }
 
 
@@ -409,45 +676,74 @@ window.createAccount = async function(){
         );
 
         return;
+
     }
 
+
+
+    /* =========================
+       VALIDATE BALANCE
+    ========================= */
 
     const balance =
-        Number(balanceValue || 0);
+        Number(
+            balanceValue || 0
+        );
 
 
-    if(!Number.isFinite(balance) || balance < 0){
+    if(
+        !Number.isFinite(balance) ||
+        balance < 0
+    ){
 
-        showError("الرصيد غير صحيح");
+        showError(
+            "الرصيد غير صحيح"
+        );
 
         return;
+
     }
 
 
-    btn.disabled = true;
+
+    /* =========================
+       BUTTON LOADING
+    ========================= */
+
+    btn.disabled =
+        true;
+
 
     btn.textContent =
         "جاري إنشاء الحساب...";
 
 
+
     try{
 
+
         /* =========================
-           إنشاء رقم الحساب تلقائياً
+           GENERATE ACCOUNT
         ========================= */
 
         const account =
             await generateAccountNumber();
 
 
-        /* عرض الرقم */
 
-        document.getElementById("account")
-            .value = account;
+        /* =========================
+           SHOW ACCOUNT NUMBER
+        ========================= */
+
+        document
+        .getElementById("account")
+        .value =
+            account;
+
 
 
         /* =========================
-           مرجع الحساب
+           ACCOUNT REF
         ========================= */
 
         const accountRef =
@@ -457,29 +753,37 @@ window.createAccount = async function(){
             );
 
 
+
         /* =========================
-           بيانات الحساب
+           ACCOUNT DATA
         ========================= */
 
         const accountData = {
 
-            name: name,
+            name:
+                name,
 
-            account: account,
+            account:
+                account,
 
-            password: password,
+            password:
+                password,
 
-            balance: balance,
+            balance:
+                balance,
 
-            active: true,
+            active:
+                true,
 
-            createdAt: Date.now()
+            createdAt:
+                Date.now()
 
         };
 
 
+
         /* =========================
-           الحفظ
+           SAVE
         ========================= */
 
         await set(
@@ -488,28 +792,35 @@ window.createAccount = async function(){
         );
 
 
+
         /* =========================
-           النتيجة
+           SHOW RESULT
         ========================= */
 
-        document.getElementById(
-            "showName"
-        ).textContent = name;
+        document
+        .getElementById("showName")
+        .textContent =
+            name;
 
 
-        document.getElementById(
-            "showAccount"
-        ).textContent = account;
+        document
+        .getElementById("showAccount")
+        .textContent =
+            account;
 
 
-        document.getElementById(
-            "showBalance"
-        ).textContent =
-            balance.toLocaleString();
+        document
+        .getElementById("showBalance")
+        .textContent =
+            balance.toLocaleString(
+                "en-US"
+            );
+
 
 
         accountBox.style.display =
             "block";
+
 
 
         message.textContent =
@@ -524,29 +835,39 @@ window.createAccount = async function(){
             "block";
 
 
-        /* تنظيف الاسم وكلمة المرور */
 
-        document.getElementById(
-            "name"
-        ).value = "";
+        /* =========================
+           CLEAR FIELDS
+        ========================= */
 
-
-        document.getElementById(
-            "password"
-        ).value = "";
-
-
-        document.getElementById(
-            "balance"
-        ).value = "0";
+        document
+        .getElementById("name")
+        .value =
+            "";
 
 
-    }catch(error){
+        document
+        .getElementById("password")
+        .value =
+            "";
+
+
+        document
+        .getElementById("balance")
+        .value =
+            "0";
+
+
+
+    }
+    catch(error){
+
 
         console.error(
             "Firebase Error:",
             error
         );
+
 
         console.error(
             "Firebase Error Code:",
@@ -556,13 +877,19 @@ window.createAccount = async function(){
 
         showError(
             "حدث خطأ: " +
-            (error.message || "تعذر إنشاء الحساب")
+            (
+                error.message ||
+                "تعذر إنشاء الحساب"
+            )
         );
 
     }
 
 
-    btn.disabled = false;
+
+    btn.disabled =
+        false;
+
 
     btn.textContent =
         "إنشاء الحساب";
@@ -570,42 +897,56 @@ window.createAccount = async function(){
 };
 
 
+
 /* =========================
-   رسالة الخطأ
+   ERROR MESSAGE
 ========================= */
 
 function showError(text){
 
     const message =
-        document.getElementById("message");
+        document
+        .getElementById("message");
+
 
     message.textContent =
         text;
 
+
     message.className =
         "message error";
 
+
     message.style.display =
         "block";
+
 }
 
 
+
 /* =========================
-   أرقام فقط لكلمة المرور
+   PASSWORD NUMBERS ONLY
 ========================= */
 
-document.getElementById("password")
-.addEventListener("input", function(){
+document
+.getElementById("password")
+.addEventListener(
+    "input",
+    function(){
 
-    this.value =
-        this.value.replace(
-            /[^0-9]/g,
-            ""
-        );
+        this.value =
+            this.value.replace(
+                /[^0-9]/g,
+                ""
+            );
 
-});
+    }
+);
+
 
 </script>
 
+
 </body>
+
 </html>
