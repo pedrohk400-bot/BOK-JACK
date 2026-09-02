@@ -2,9 +2,7 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>BOK JACK - إدارة الحسابات</title>
@@ -14,12 +12,12 @@
 *{
     box-sizing:border-box;
     font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "Segoe UI",
-        Arial,
-        sans-serif;
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "Segoe UI",
+    Arial,
+    sans-serif;
 }
 
 body{
@@ -36,8 +34,6 @@ body{
     padding:25px 16px 40px;
 }
 
-/* HEADER */
-
 .header{
     text-align:center;
     margin-bottom:25px;
@@ -46,7 +42,6 @@ body{
 .logo{
     font-size:30px;
     font-weight:800;
-    letter-spacing:1px;
 }
 
 .subtitle{
@@ -54,8 +49,6 @@ body{
     margin-top:6px;
     font-size:14px;
 }
-
-/* TOP BAR */
 
 .topbar{
     display:flex;
@@ -75,14 +68,33 @@ body{
     font-size:14px;
 }
 
-.back:hover{
-    color:#fff;
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
 }
 
-/* SEARCH */
+.stat{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:17px;
+    padding:17px;
+}
+
+.stat-label{
+    color:#888;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.stat-value{
+    font-size:22px;
+    font-weight:700;
+}
 
 .search-box{
-    margin-bottom:18px;
+    margin-bottom:15px;
 }
 
 .search-box input{
@@ -105,8 +117,753 @@ body{
     color:#666;
 }
 
-/* STATS */
+.create-btn{
+    display:block;
+    width:100%;
+    height:52px;
+    line-height:52px;
+    text-align:center;
+    text-decoration:none;
+    background:#fff;
+    color:#000;
+    border-radius:15px;
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:18px;
+}
 
+.refresh{
+    width:100%;
+    height:48px;
+    border:1px solid #303030;
+    background:#151515;
+    color:#fff;
+    border-radius:14px;
+    font-size:14px;
+    cursor:pointer;
+    margin-bottom:18px;
+}
+
+.account-card{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:13px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.account-card:active{
+    transform:scale(.98);
+}
+
+.account-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+}
+
+.account-name{
+    font-size:18px;
+    font-weight:700;
+}
+
+.status{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.status.active{
+    background:#102315;
+    color:#5cff82;
+    border:1px solid #1e5c30;
+}
+
+.status.inactive{
+    background:#261010;
+    color:#ff6868;
+    border:1px solid #5c2222;
+}
+
+.info{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #222;
+}
+
+.info:last-child{
+    border-bottom:0;
+}
+
+.info-label{
+    color:#888;
+    font-size:14px;
+}
+
+.info-value{
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+}
+
+.balance{
+    font-size:20px;
+    font-weight:700;
+}
+
+.loading{
+    text-align:center;
+    color:#888;
+    padding:35px 10px;
+}
+
+.empty{
+    display:none;
+    text-align:center;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:18px;
+    padding:35px 15px;
+    color:#888;
+}
+
+.error{
+    display:none;
+    background:#261010;
+    border:1px solid #5c2222;
+    color:#ff6868;
+    padding:14px;
+    border-radius:14px;
+    text-align:center;
+    margin-bottom:18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="logo">
+            BOK
+        </div>
+
+        <div class="subtitle">
+            لوحة إدارة الحسابات
+        </div>
+
+    </div>
+
+
+    <div class="topbar">
+
+        <div class="page-title">
+            الحسابات
+        </div>
+
+        <a
+            href="dashboard.html"
+            class="back"
+        >
+            ← لوحة الإدارة
+        </a>
+
+    </div>
+
+
+    <a
+        href="create-account.html"
+        class="create-btn"
+    >
+        + إنشاء حساب جديد
+    </a>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                إجمالي الحسابات
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalAccounts"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                الحسابات النشطة
+            </div>
+
+            <div
+                class="stat-value"
+                id="activeAccounts"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="بحث بالاسم أو رقم الحساب..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <button
+        class="refresh"
+        onclick="loadAccounts()"
+    >
+        ↻ تحديث الحسابات
+    </button>
+
+
+    <div
+        id="error"
+        class="error"
+    ></div>
+
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        جاري تحميل الحسابات...
+    </div>
+
+
+    <div id="accountsList"></div>
+
+
+    <div
+        id="empty"
+        class="empty"
+    >
+        لا توجد حسابات حالياً
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getDatabase,
+    ref,
+    get
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+
+    authDomain:
+    "bok-jack.firebaseapp.com",
+
+    databaseURL:
+    "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId:
+    "bok-jack",
+
+    storageBucket:
+    "bok-jack.firebasestorage.app",
+
+    messagingSenderId:
+    "96539205463",
+
+    appId:
+    "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId:
+    "G-069BL15X9J"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const db =
+    getDatabase(app);
+
+
+const auth =
+    getAuth(app);
+
+
+const ADMIN_UID =
+    "qlaCFjAGCPPrg53Z7nCl5NDbAw62";
+
+
+let allAccounts = [];
+
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(!user){
+
+            window.location.href =
+                "index.html";
+
+            return;
+
+        }
+
+
+        if(user.uid !== ADMIN_UID){
+
+            showError(
+                "هذا الحساب غير مصرح له بإدارة الحسابات"
+            );
+
+            return;
+
+        }
+
+
+        loadAccounts();
+
+    }
+);
+
+
+window.loadAccounts =
+async function(){
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+    const list =
+        document.getElementById(
+            "accountsList"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+    loading.style.display =
+        "block";
+
+    list.innerHTML =
+        "";
+
+    empty.style.display =
+        "none";
+
+
+    try{
+
+        const snapshot =
+            await get(
+                ref(
+                    db,
+                    "accounts"
+                )
+            );
+
+
+        allAccounts = [];
+
+
+        if(snapshot.exists()){
+
+            const data =
+                snapshot.val();
+
+
+            Object.keys(data).forEach(
+                function(key){
+
+                    const account =
+                        data[key];
+
+
+                    allAccounts.push({
+
+                        id:key,
+
+                        name:
+                            account.name || "",
+
+                        account:
+                            account.account || key,
+
+                        balance:
+                            Number(
+                                account.balance || 0
+                            ),
+
+                        active:
+                            account.active !== false,
+
+                        createdAt:
+                            account.createdAt || 0
+
+                    });
+
+                }
+            );
+
+        }
+
+
+        allAccounts.sort(
+            function(a,b){
+
+                return b.createdAt -
+                       a.createdAt;
+
+            }
+        );
+
+
+        updateStats();
+
+        renderAccounts(
+            allAccounts
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showError(
+            "حدث خطأ أثناء تحميل الحسابات: " +
+            error.message
+        );
+
+    }
+
+
+    loading.style.display =
+        "none";
+
+};
+
+
+function updateStats(){
+
+    document
+    .getElementById(
+        "totalAccounts"
+    )
+    .textContent =
+        allAccounts.length;
+
+
+    const active =
+        allAccounts.filter(
+            function(account){
+
+                return account.active;
+
+            }
+        ).length;
+
+
+    document
+    .getElementById(
+        "activeAccounts"
+    )
+    .textContent =
+        active;
+
+}
+
+
+function renderAccounts(accounts){
+
+    const list =
+        document.getElementById(
+            "accountsList"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+
+    list.innerHTML =
+        "";
+
+
+    if(accounts.length === 0){
+
+        empty.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    accounts.forEach(
+        function(account){
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "account-card";
+
+
+            card.onclick =
+                function(){
+
+                    window.location.href =
+                        "account-details.html?account=" +
+                        encodeURIComponent(
+                            account.account
+                        );
+
+                };
+
+
+            const statusClass =
+                account.active
+                ? "active"
+                : "inactive";
+
+
+            const statusText =
+                account.active
+                ? "نشط"
+                : "متوقف";
+
+
+            const balance =
+                account.balance.toLocaleString(
+                    "en-US"
+                );
+
+
+            let createdDate =
+                "غير معروف";
+
+
+            if(account.createdAt){
+
+                createdDate =
+                    new Date(
+                        account.createdAt
+                    ).toLocaleString(
+                        "ar"
+                    );
+
+            }
+
+
+            card.innerHTML = `
+
+                <div class="account-header">
+
+                    <div class="account-name">
+                        ${escapeHtml(account.name)}
+                    </div>
+
+                    <div class="status ${statusClass}">
+                        ${statusText}
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <div class="info-label">
+                        رقم الحساب
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(account.account)}
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <div class="info-label">
+                        الرصيد
+                    </div>
+
+                    <div class="info-value balance">
+                        ${balance}
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <div class="info-label">
+                        تاريخ الإنشاء
+                    </div>
+
+                    <div class="info-value">
+                        ${createdDate}
+                    </div>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(card);
+
+        }
+    );
+
+}
+
+
+document
+.getElementById("search")
+.addEventListener(
+    "input",
+    function(){
+
+        const value =
+            this.value
+            .trim()
+            .toLowerCase();
+
+
+        if(value === ""){
+
+            renderAccounts(
+                allAccounts
+            );
+
+            return;
+
+        }
+
+
+        const filtered =
+            allAccounts.filter(
+                function(account){
+
+                    return (
+
+                        account.name
+                        .toLowerCase()
+                        .includes(value)
+
+                        ||
+
+                        account.account
+                        .includes(value)
+
+                    );
+
+                }
+            );
+
+
+        renderAccounts(
+            filtered
+        );
+
+    }
+);
+
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        String(text);
+
+    return div.innerHTML;
+
+}
+
+
+function showError(text){
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+    error.textContent =
+        text;
+
+    error.style.display =
+        "block";
+
+}
+
+</script>
+
+</body>
+</html>
 .stats{
     display:grid;
     grid-template-columns:1fr 1fr;
