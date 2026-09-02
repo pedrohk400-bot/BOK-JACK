@@ -2,8 +2,11 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>BOK JACK - إدارة الحسابات</title>
 
@@ -42,6 +45,7 @@ body{
 .logo{
     font-size:30px;
     font-weight:800;
+    letter-spacing:1px;
 }
 
 .subtitle{
@@ -66,6 +70,10 @@ body{
     color:#aaa;
     text-decoration:none;
     font-size:14px;
+}
+
+.back:active{
+    color:#fff;
 }
 
 .stats{
@@ -107,6 +115,1071 @@ body{
     padding:0 16px;
     font-size:15px;
     outline:none;
+}
+
+.search-box input:focus{
+    border-color:#777;
+}
+
+.search-box input::placeholder{
+    color:#666;
+}
+
+.create-btn{
+    display:block;
+    width:100%;
+    height:52px;
+    line-height:52px;
+    text-align:center;
+    text-decoration:none;
+    background:#fff;
+    color:#000;
+    border-radius:15px;
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.create-btn:active{
+    transform:scale(.98);
+}
+
+.refresh{
+    width:100%;
+    height:48px;
+    border:1px solid #303030;
+    background:#151515;
+    color:#fff;
+    border-radius:14px;
+    font-size:14px;
+    cursor:pointer;
+    margin-bottom:18px;
+}
+
+.refresh:active{
+    transform:scale(.98);
+}
+
+.account-card{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:13px;
+    transition:.2s;
+}
+
+.account-card:active{
+    transform:scale(.99);
+}
+
+.account-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:16px;
+}
+
+.account-name{
+    font-size:18px;
+    font-weight:700;
+    word-break:break-word;
+}
+
+.status{
+    flex-shrink:0;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.status.active{
+    background:#102315;
+    color:#5cff82;
+    border:1px solid #1e5c30;
+}
+
+.status.inactive{
+    background:#261010;
+    color:#ff6868;
+    border:1px solid #5c2222;
+}
+
+.info{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:10px 0;
+    border-bottom:1px solid #222;
+}
+
+.info:last-of-type{
+    border-bottom:0;
+}
+
+.info-label{
+    color:#888;
+    font-size:14px;
+}
+
+.info-value{
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    text-align:left;
+    word-break:break-word;
+}
+
+.balance{
+    font-size:20px;
+    font-weight:700;
+}
+
+.delete-btn{
+    width:100%;
+    height:44px;
+    margin-top:15px;
+    border:1px solid #5c2222;
+    background:#261010;
+    color:#ff6868;
+    border-radius:13px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.delete-btn:active{
+    transform:scale(.98);
+    background:#351414;
+}
+
+.loading{
+    text-align:center;
+    color:#888;
+    padding:35px 10px;
+}
+
+.empty{
+    display:none;
+    text-align:center;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:18px;
+    padding:35px 15px;
+    color:#888;
+}
+
+.error{
+    display:none;
+    background:#261010;
+    border:1px solid #5c2222;
+    color:#ff6868;
+    padding:14px;
+    border-radius:14px;
+    text-align:center;
+    margin-bottom:18px;
+}
+
+@media(max-width:400px){
+
+    .container{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .account-name{
+        font-size:17px;
+    }
+
+    .info-label,
+    .info-value{
+        font-size:13px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+            BOK
+        </div>
+
+        <div class="subtitle">
+            لوحة إدارة الحسابات
+        </div>
+
+    </div>
+
+
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+        <div class="page-title">
+            الحسابات
+        </div>
+
+        <a
+            href="dashboard.html"
+            class="back"
+        >
+            ← لوحة الإدارة
+        </a>
+
+    </div>
+
+
+    <!-- CREATE ACCOUNT -->
+
+    <a
+        href="create-account.html"
+        class="create-btn"
+    >
+        + إنشاء حساب جديد
+    </a>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                إجمالي الحسابات
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalAccounts"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                الحسابات النشطة
+            </div>
+
+            <div
+                class="stat-value"
+                id="activeAccounts"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="بحث بالاسم أو رقم الحساب..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- REFRESH -->
+
+    <button
+        class="refresh"
+        id="refreshBtn"
+        type="button"
+    >
+        ↻ تحديث الحسابات
+    </button>
+
+
+    <!-- ERROR -->
+
+    <div
+        id="error"
+        class="error"
+    ></div>
+
+
+    <!-- LOADING -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        جاري تحميل الحسابات...
+    </div>
+
+
+    <!-- ACCOUNTS -->
+
+    <div id="accountsList"></div>
+
+
+    <!-- EMPTY -->
+
+    <div
+        id="empty"
+        class="empty"
+    >
+        لا توجد حسابات حالياً
+    </div>
+
+
+</div>
+
+
+<script type="module">
+
+
+/* =========================================
+   FIREBASE
+========================================= */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getDatabase,
+    ref,
+    get,
+    remove
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyAuWY3OwE9Kjnn8vBhz2-yittn7dDntZBw",
+
+    authDomain:
+    "bok-jack.firebaseapp.com",
+
+    databaseURL:
+    "https://bok-jack-default-rtdb.firebaseio.com",
+
+    projectId:
+    "bok-jack",
+
+    storageBucket:
+    "bok-jack.firebasestorage.app",
+
+    messagingSenderId:
+    "96539205463",
+
+    appId:
+    "1:96539205463:web:a2cb846d657aa873182812",
+
+    measurementId:
+    "G-069BL15X9J"
+
+};
+
+
+/* =========================================
+   INITIALIZE FIREBASE
+========================================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getDatabase(app);
+
+const auth =
+    getAuth(app);
+
+
+/* =========================================
+   ADMIN UID
+========================================= */
+
+const ADMIN_UID =
+    "qlaCFjAGCPPrg53Z7nCl5NDbAw62";
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let allAccounts = [];
+
+
+/* =========================================
+   AUTH CHECK
+========================================= */
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(!user){
+
+            window.location.href =
+                "index.html";
+
+            return;
+
+        }
+
+
+        if(user.uid !== ADMIN_UID){
+
+            showError(
+                "هذا الحساب غير مصرح له بإدارة الحسابات"
+            );
+
+            document
+            .getElementById("loading")
+            .style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        loadAccounts();
+
+    }
+);
+
+
+/* =========================================
+   LOAD ACCOUNTS
+========================================= */
+
+async function loadAccounts(){
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+    const list =
+        document.getElementById(
+            "accountsList"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    loading.style.display =
+        "block";
+
+    list.innerHTML =
+        "";
+
+    empty.style.display =
+        "none";
+
+    error.style.display =
+        "none";
+
+
+    try{
+
+        const accountsRef =
+            ref(
+                db,
+                "accounts"
+            );
+
+
+        const snapshot =
+            await get(
+                accountsRef
+            );
+
+
+        allAccounts = [];
+
+
+        if(snapshot.exists()){
+
+            const data =
+                snapshot.val();
+
+
+            Object.keys(data).forEach(
+                function(key){
+
+                    const account =
+                        data[key] || {};
+
+
+                    let accountNumber =
+                        account.account ||
+                        account.accountNumber ||
+                        key;
+
+
+                    let balance =
+                        Number(
+                            account.balance || 0
+                        );
+
+
+                    let active =
+                        account.active !== false &&
+                        account.active !== "false";
+
+
+                    allAccounts.push({
+
+                        id:key,
+
+                        name:
+                            String(
+                                account.name || ""
+                            ),
+
+                        account:
+                            String(
+                                accountNumber
+                            ),
+
+                        balance:
+                            isNaN(balance)
+                            ? 0
+                            : balance,
+
+                        active:
+                            active,
+
+                        createdAt:
+                            Number(
+                                account.createdAt || 0
+                            )
+
+                    });
+
+                }
+            );
+
+        }
+
+
+        allAccounts.sort(
+            function(a,b){
+
+                return (
+                    b.createdAt -
+                    a.createdAt
+                );
+
+            }
+        );
+
+
+        updateStats();
+
+
+        renderAccounts(
+            allAccounts
+        );
+
+    }
+    catch(err){
+
+        console.error(
+            "Firebase Error:",
+            err
+        );
+
+        showError(
+            "حدث خطأ أثناء تحميل الحسابات: " +
+            (
+                err.message ||
+                "غير معروف"
+            )
+        );
+
+    }
+
+
+    loading.style.display =
+        "none";
+
+}
+
+
+/* =========================================
+   MAKE GLOBAL REFRESH FUNCTION
+========================================= */
+
+window.loadAccounts =
+loadAccounts;
+
+
+/* =========================================
+   UPDATE STATS
+========================================= */
+
+function updateStats(){
+
+    document
+    .getElementById(
+        "totalAccounts"
+    )
+    .textContent =
+        allAccounts.length;
+
+
+    const active =
+        allAccounts.filter(
+            function(account){
+
+                return account.active;
+
+            }
+        ).length;
+
+
+    document
+    .getElementById(
+        "activeAccounts"
+    )
+    .textContent =
+        active;
+
+}
+
+
+/* =========================================
+   RENDER ACCOUNTS
+========================================= */
+
+function renderAccounts(accounts){
+
+    const list =
+        document.getElementById(
+            "accountsList"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+
+    list.innerHTML =
+        "";
+
+
+    if(accounts.length === 0){
+
+        empty.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    accounts.forEach(
+        function(account){
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "account-card";
+
+
+            const statusClass =
+                account.active
+                ? "active"
+                : "inactive";
+
+
+            const statusText =
+                account.active
+                ? "نشط"
+                : "متوقف";
+
+
+            const balance =
+                account.balance.toLocaleString(
+                    "en-US"
+                );
+
+
+            let createdDate =
+                "غير معروف";
+
+
+            if(account.createdAt){
+
+                const date =
+                    new Date(
+                        account.createdAt
+                    );
+
+
+                if(!isNaN(date.getTime())){
+
+                    createdDate =
+                        date.toLocaleString(
+                            "ar-SD"
+                        );
+
+                }
+
+            }
+
+
+            card.innerHTML = `
+
+                <div class="account-header">
+
+                    <div class="account-name">
+
+                        ${escapeHtml(
+                            account.name ||
+                            "بدون اسم"
+                        )}
+
+                    </div>
+
+
+                    <div class="status ${statusClass}">
+
+                        ${statusText}
+
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <div class="info-label">
+                        رقم الحساب
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            account.account
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <div class="info-label">
+                        الرصيد
+                    </div>
+
+                    <div class="info-value balance">
+                        ${balance}
+                    </div>
+
+                </div>
+
+
+                <div class="info">
+
+                    <div class="info-label">
+                        تاريخ الإنشاء
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            createdDate
+                        )}
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="delete-btn"
+                    type="button"
+                    data-id="${escapeHtml(account.id)}"
+                >
+                    حذف الحساب
+                </button>
+
+            `;
+
+
+            const deleteButton =
+                card.querySelector(
+                    ".delete-btn"
+                );
+
+
+            deleteButton.addEventListener(
+                "click",
+                async function(event){
+
+                    event.stopPropagation();
+
+
+                    await deleteAccount(
+                        account.id,
+                        account.account,
+                        account.name
+                    );
+
+                }
+            );
+
+
+            list.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   DELETE ACCOUNT
+========================================= */
+
+async function deleteAccount(
+    id,
+    accountNumber,
+    accountName
+){
+
+    const confirmed =
+        confirm(
+            "هل أنت متأكد من حذف الحساب؟\n\n" +
+            "الاسم: " +
+            accountName +
+            "\n" +
+            "رقم الحساب: " +
+            accountNumber
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        await remove(
+            ref(
+                db,
+                "accounts/" + id
+            )
+        );
+
+
+        alert(
+            "تم حذف الحساب بنجاح"
+        );
+
+
+        await loadAccounts();
+
+    }
+    catch(err){
+
+        console.error(err);
+
+        showError(
+            "حدث خطأ أثناء حذف الحساب: " +
+            (
+                err.message ||
+                "غير معروف"
+            )
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+document
+.getElementById("search")
+.addEventListener(
+    "input",
+    function(){
+
+        const value =
+            this.value
+            .trim()
+            .toLowerCase();
+
+
+        if(value === ""){
+
+            renderAccounts(
+                allAccounts
+            );
+
+            return;
+
+        }
+
+
+        const filtered =
+            allAccounts.filter(
+                function(account){
+
+                    const name =
+                        account.name
+                        .toLowerCase();
+
+
+                    const number =
+                        account.account
+                        .toLowerCase();
+
+
+                    return (
+                        name.includes(value) ||
+                        number.includes(value)
+                    );
+
+                }
+            );
+
+
+        renderAccounts(
+            filtered
+        );
+
+    }
+);
+
+
+/* =========================================
+   REFRESH BUTTON
+========================================= */
+
+document
+.getElementById("refreshBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        loadAccounts();
+
+    }
+);
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        String(text);
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+function showError(text){
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    error.textContent =
+        text;
+
+
+    error.style.display =
+        "block";
+
+}
+
+</script>
+
+</body>
+
+</html>    outline:none;
 }
 
 .search-box input:focus{
