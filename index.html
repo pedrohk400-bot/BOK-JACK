@@ -2,113 +2,229 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>JACK</title>
+<meta charset="UTF-8">
 
-    <style>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<title>BOK JACK</title>
 
-        body {
-            min-height: 100vh;
-            background: #080b12;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
 
-        .container {
-            min-height: 100vh;
+<style>
 
-            display: flex;
-            flex-direction: column;
+*{
+    box-sizing:border-box;
+}
 
-            align-items: center;
 
-            padding-top: 80px;
-        }
+body{
 
-        .logo {
-            font-size: 60px;
-            font-weight: 900;
+    margin:0;
 
-            letter-spacing: 6px;
+    min-height:100vh;
 
-            margin-bottom: 60px;
-        }
+    background:#0d1117;
 
-        .buttons {
-            width: 90%;
-            max-width: 380px;
+    color:white;
 
-            display: flex;
-            flex-direction: column;
+    font-family:Arial,sans-serif;
 
-            gap: 18px;
-        }
+    display:flex;
 
-        .button {
-            width: 100%;
+    justify-content:center;
 
-            padding: 18px;
+    align-items:center;
 
-            border-radius: 15px;
+}
 
-            border: 1px solid #303746;
 
-            background: #151a24;
+.container{
 
-            color: white;
+    width:92%;
 
-            text-decoration: none;
+    max-width:420px;
 
-            text-align: center;
+    text-align:center;
 
-            font-size: 18px;
-            font-weight: bold;
+}
 
-            transition: 0.2s;
-        }
 
-        .button:hover {
-            background: #202735;
-            transform: translateY(-2px);
-        }
+.logo{
 
-        .button:active {
-            transform: scale(0.98);
-        }
+    font-size:58px;
 
-    </style>
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    margin-bottom:8px;
+
+}
+
+
+.subtitle{
+
+    color:#8b949e;
+
+    font-size:16px;
+
+    margin-bottom:35px;
+
+}
+
+
+.buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+
+.btn{
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:15px;
+
+    border:1px solid #30363d;
+
+    background:#151b23;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    transition:.2s;
+
+}
+
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+    background:#1c232d;
+
+}
+
+
+.btn-login{
+
+    background:#b00020;
+
+    border-color:#b00020;
+
+}
+
+
+.btn-login:hover{
+
+    background:#c40025;
+
+}
+
+
+.btn-account{
+
+    background:#151b23;
+
+}
+
+
+.btn-recharge{
+
+    background:#151b23;
+
+}
+
+
+.footer{
+
+    margin-top:30px;
+
+    color:#666;
+
+    font-size:13px;
+
+}
+
+</style>
 
 </head>
 
+
 <body>
 
-    <div class="container">
 
-        <div class="logo">
-            JACK
-        </div>
+<div class="container">
 
-        <div class="buttons">
 
-            <a href="recharge.html" class="button">
-                شحن الرصيد
-            </a>
+    <div class="logo">
+        JACK
+    </div>
 
-            <a href="account.html" class="button">
-                فتح حساب
-            </a>
 
-        </div>
+    <div class="subtitle">
+        مرحباً بك في BOK JACK
+    </div>
+
+
+    <div class="buttons">
+
+
+        <!-- تسجيل الدخول -->
+
+        <a
+            class="btn btn-login"
+            href="login.html"
+        >
+            تسجيل الدخول
+        </a>
+
+
+        <!-- فتح حساب -->
+
+        <a
+            class="btn btn-account"
+            href="account.html"
+        >
+            فتح حساب
+        </a>
+
+
+        <!-- شحن الرصيد -->
+
+        <a
+            class="btn btn-recharge"
+            href="recharge.html"
+        >
+            شحن الرصيد
+        </a>
+
 
     </div>
+
+
+    <div class="footer">
+        BOK JACK
+    </div>
+
+
+</div>
+
 
 </body>
 
